@@ -199,7 +199,26 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
   // Keyboard controls
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Never trigger canvas shortcuts if editing or if any modal/dialog is open
       if (!selectedLayer || editingTextId) return;
+
+      // Check if user is typing in an input, textarea, dialog or modal
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable ||
+          target.closest("[role='dialog']") ||
+          target.closest("input, textarea"))
+      ) {
+        return;
+      }
+
+      // Check if any Radix or system dialog/modal is open in the DOM
+      if (typeof document !== "undefined" && document.querySelector("[role='dialog']")) {
+        return;
+      }
 
       if (e.key === "Delete" || e.key === "Backspace") {
         onDeleteLayer(selectedLayer.id);
