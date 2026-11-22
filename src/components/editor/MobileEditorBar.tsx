@@ -469,7 +469,7 @@ export const MobileEditorBar: React.FC<MobileEditorBarProps> = ({
                     <div className="w-full h-28 relative overflow-hidden bg-secondary">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={tpl.backgroundImage}
+                        src={tpl.thumbnail || tpl.backgroundImage}
                         alt={tpl.title}
                         className="w-full h-full object-cover transition-transform group-hover:scale-105"
                       />
