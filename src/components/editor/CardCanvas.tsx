@@ -61,14 +61,15 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
 
   // Compute scale multiplier so card fills available viewport without squishing
   const isMobile = containerSize.width < 640;
-  const paddingH = isMobile ? 24 : 48;
-  const paddingV = isMobile ? 24 : 48;
-  const availableWidth = Math.max(containerSize.width - paddingH, 240);
-  const availableHeight = Math.max(containerSize.height - paddingV, 340);
+  // Sleek minimal margins so card expands to maximum possible readable size
+  const paddingH = isMobile ? 12 : 32;
+  const paddingV = isMobile ? 12 : 32;
+  const availableWidth = Math.max(containerSize.width - paddingH, 200);
+  const availableHeight = Math.max(containerSize.height - paddingV, 280);
 
   // Calculate clean fit scale
   const rawFitScale = Math.min(availableWidth / template.width, availableHeight / template.height);
-  const fitScale = rawFitScale > 0 ? rawFitScale : 0.45;
+  const fitScale = rawFitScale > 0 ? rawFitScale : 0.48;
   const effectiveScale = fitScale * zoom;
 
   // Exact display dimensions to lock aspect ratio and prevent flexbox squishing
@@ -224,7 +225,9 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full flex items-center justify-center overflow-auto select-none touch-none p-3 md:p-6 bg-neutral-900/40 dark:bg-neutral-950/70"
+      className={`relative w-full h-full flex items-center justify-center select-none touch-none p-1 sm:p-3 md:p-6 bg-neutral-900/40 dark:bg-neutral-950/70 ${
+        zoom > 1.05 ? "overflow-auto" : "overflow-hidden"
+      }`}
       onPointerDown={(e) => {
         if (e.target === containerRef.current) {
           onSelectLayer(null);

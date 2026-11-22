@@ -360,29 +360,31 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({ initialTemplateI
   const selectedLayer = layers.find((l) => l.id === selectedLayerId) || null;
 
   return (
-    <div className="flex flex-col w-screen h-screen overflow-hidden bg-background text-foreground font-sans transition-colors duration-200">
+    <div className="fixed inset-0 flex flex-col w-full h-[100dvh] max-h-[100dvh] overflow-hidden bg-background text-foreground font-sans select-none transition-colors duration-200">
       {/* Top Toolbar */}
-      <EditorToolbar
-        selectedLayer={selectedLayer}
-        onUpdateLayer={handleUpdateLayer}
-        onDeleteLayer={handleDeleteLayer}
-        onDuplicateLayer={handleDuplicateLayer}
-        onCenterLayer={handleCenterLayer}
-        onBringForward={handleBringForward}
-        onSendBackward={handleSendBackward}
-        canUndo={historyIndex > 0}
-        canRedo={historyIndex < history.length - 1}
-        onUndo={handleUndo}
-        onRedo={handleRedo}
-        zoom={zoom}
-        onZoomChange={setZoom}
-        onOpenDownload={() => setIsDownloadOpen(true)}
-        onOpenEditText={() => handleOpenEditText()}
-        templateTitle={template.title}
-      />
+      <div className="shrink-0 z-30 w-full">
+        <EditorToolbar
+          selectedLayer={selectedLayer}
+          onUpdateLayer={handleUpdateLayer}
+          onDeleteLayer={handleDeleteLayer}
+          onDuplicateLayer={handleDuplicateLayer}
+          onCenterLayer={handleCenterLayer}
+          onBringForward={handleBringForward}
+          onSendBackward={handleSendBackward}
+          canUndo={historyIndex > 0}
+          canRedo={historyIndex < history.length - 1}
+          onUndo={handleUndo}
+          onRedo={handleRedo}
+          zoom={zoom}
+          onZoomChange={setZoom}
+          onOpenDownload={() => setIsDownloadOpen(true)}
+          onOpenEditText={() => handleOpenEditText()}
+          templateTitle={template.title}
+        />
+      </div>
 
       {/* Main Interactive Canvas Area */}
-      <main className="flex-1 relative overflow-hidden flex items-center justify-center min-w-0 min-h-0">
+      <main className="flex-1 relative overflow-hidden flex items-center justify-center min-w-0 min-h-0 w-full h-full">
         <CardCanvas
           template={template}
           layers={layers}
@@ -397,23 +399,25 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({ initialTemplateI
       </main>
 
       {/* Bottom Tool Bar */}
-      <MobileEditorBar
-        onAddText={handleAddText}
-        onAddSticker={handleAddSticker}
-        onAddQR={handleAddQR}
-        onAddImage={handleAddImage}
-        layers={layers}
-        selectedLayerId={selectedLayerId}
-        onSelectLayer={setSelectedLayerId}
-        onDeleteLayer={handleDeleteLayer}
-        onToggleLock={(id) => {
-          const l = layers.find((x) => x.id === id);
-          if (l) handleUpdateLayer({ ...l, isLocked: !l.isLocked });
-        }}
-        templates={SAMPLE_TEMPLATES}
-        onSelectTemplate={handleSelectTemplate}
-        onOpenEditText={() => handleOpenEditText()}
-      />
+      <div className="shrink-0 z-30 w-full">
+        <MobileEditorBar
+          onAddText={handleAddText}
+          onAddSticker={handleAddSticker}
+          onAddQR={handleAddQR}
+          onAddImage={handleAddImage}
+          layers={layers}
+          selectedLayerId={selectedLayerId}
+          onSelectLayer={setSelectedLayerId}
+          onDeleteLayer={handleDeleteLayer}
+          onToggleLock={(id) => {
+            const l = layers.find((x) => x.id === id);
+            if (l) handleUpdateLayer({ ...l, isLocked: !l.isLocked });
+          }}
+          templates={SAMPLE_TEMPLATES}
+          onSelectTemplate={handleSelectTemplate}
+          onOpenEditText={() => handleOpenEditText()}
+        />
+      </div>
 
       {/* Download / Export Modal */}
       <DownloadModal

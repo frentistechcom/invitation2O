@@ -84,29 +84,29 @@ export const MobileEditorBar: React.FC<MobileEditorBarProps> = ({
   return (
     <>
       {/* Bottom Floating Bar */}
-      <nav className="w-full bg-card/95 backdrop-blur-md border-t border-border px-2 sm:px-4 py-2 flex items-center justify-around z-30 select-none shadow-2xl transition-colors">
+      <nav className="w-full bg-card/95 backdrop-blur-md border-t border-border px-1 sm:px-4 pt-1.5 pb-2.5 sm:py-2 flex items-center justify-around z-30 select-none shadow-2xl transition-colors shrink-0">
         {/* Contextual Action: Edit Text if selected, else Add Text */}
         {isTextSelected ? (
           <button
             type="button"
             onClick={() => onOpenEditText?.()}
-            className="flex flex-col items-center gap-1 text-amber-500 active:scale-95 transition-all p-1"
+            className="flex flex-col items-center justify-center gap-0.5 text-amber-500 active:scale-95 transition-all p-1 min-w-[44px]"
           >
-            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-500 via-orange-500 to-amber-600 text-white flex items-center justify-center shadow-lg shadow-orange-500/30 ring-2 ring-amber-400 animate-pulse">
-              <Pencil className="w-4 h-4" />
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-amber-500 via-orange-500 to-amber-600 text-white flex items-center justify-center shadow-lg shadow-orange-500/30 ring-2 ring-amber-400 animate-pulse">
+              <Pencil className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
-            <span className="text-[10px] font-bold tracking-tight">Edit Text</span>
+            <span className="text-[10px] font-bold tracking-tight text-center leading-none">Edit Text</span>
           </button>
         ) : (
           <button
             type="button"
             onClick={() => setActiveModal("text")}
-            className="flex flex-col items-center gap-1 text-foreground hover:text-amber-500 active:scale-95 transition-all p-1"
+            className="flex flex-col items-center justify-center gap-0.5 text-foreground hover:text-amber-500 active:scale-95 transition-all p-1 min-w-[44px]"
           >
-            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-500 via-orange-500 to-amber-600 text-white flex items-center justify-center shadow-lg shadow-orange-500/20">
-              <Plus className="w-4 h-4" />
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-amber-500 via-orange-500 to-amber-600 text-white flex items-center justify-center shadow-md shadow-orange-500/20">
+              <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
-            <span className="text-[10px] font-semibold tracking-tight">Add Text</span>
+            <span className="text-[10px] font-semibold tracking-tight text-center leading-none">Add Text</span>
           </button>
         )}
 
@@ -115,12 +115,12 @@ export const MobileEditorBar: React.FC<MobileEditorBarProps> = ({
           <button
             type="button"
             onClick={() => setActiveModal("text")}
-            className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground active:scale-95 transition-all p-1"
+            className="flex flex-col items-center justify-center gap-0.5 text-muted-foreground hover:text-foreground active:scale-95 transition-all p-1 min-w-[44px]"
           >
-            <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-foreground border border-border">
-              <Plus className="w-4 h-4" />
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-secondary flex items-center justify-center text-foreground border border-border">
+              <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
-            <span className="text-[10px]">+ Text</span>
+            <span className="text-[10px] text-center leading-none">+ Text</span>
           </button>
         )}
 
@@ -128,60 +128,60 @@ export const MobileEditorBar: React.FC<MobileEditorBarProps> = ({
         <button
           type="button"
           onClick={() => setActiveModal("photo")}
-          className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground active:scale-95 transition-all p-1"
+          className="flex flex-col items-center justify-center gap-0.5 text-muted-foreground hover:text-foreground active:scale-95 transition-all p-1 min-w-[44px]"
         >
-          <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-foreground border border-border">
-            <ImageIcon className="w-4 h-4" />
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-secondary flex items-center justify-center text-foreground border border-border">
+            <ImageIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </div>
-          <span className="text-[10px]">Photo</span>
+          <span className="text-[10px] text-center leading-none">Photo</span>
         </button>
 
         {/* Sticker / Motifs */}
         <button
           type="button"
           onClick={() => setActiveModal("sticker")}
-          className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground active:scale-95 transition-all p-1"
+          className="flex flex-col items-center justify-center gap-0.5 text-muted-foreground hover:text-foreground active:scale-95 transition-all p-1 min-w-[44px]"
         >
-          <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-foreground border border-border">
-            <Smile className="w-4 h-4" />
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-secondary flex items-center justify-center text-foreground border border-border">
+            <Smile className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </div>
-          <span className="text-[10px]">Motifs</span>
+          <span className="text-[10px] text-center leading-none">Motifs</span>
         </button>
 
         {/* QR Map */}
         <button
           type="button"
           onClick={() => setActiveModal("qr")}
-          className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground active:scale-95 transition-all p-1"
+          className="flex flex-col items-center justify-center gap-0.5 text-muted-foreground hover:text-foreground active:scale-95 transition-all p-1 min-w-[44px]"
         >
-          <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-foreground border border-border">
-            <QrCode className="w-4 h-4" />
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-secondary flex items-center justify-center text-foreground border border-border">
+            <QrCode className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </div>
-          <span className="text-[10px]">Venue QR</span>
+          <span className="text-[10px] text-center leading-none">Venue QR</span>
         </button>
 
         {/* Layers */}
         <button
           type="button"
           onClick={() => setActiveModal("layers")}
-          className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground active:scale-95 transition-all p-1"
+          className="flex flex-col items-center justify-center gap-0.5 text-muted-foreground hover:text-foreground active:scale-95 transition-all p-1 min-w-[44px]"
         >
-          <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-foreground border border-border">
-            <Layers className="w-4 h-4" />
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-secondary flex items-center justify-center text-foreground border border-border">
+            <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </div>
-          <span className="text-[10px]">Layers ({layers.length})</span>
+          <span className="text-[10px] text-center leading-none">Layers ({layers.length})</span>
         </button>
 
         {/* Templates */}
         <button
           type="button"
           onClick={() => setActiveModal("templates")}
-          className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground active:scale-95 transition-all p-1"
+          className="flex flex-col items-center justify-center gap-0.5 text-muted-foreground hover:text-foreground active:scale-95 transition-all p-1 min-w-[44px]"
         >
-          <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-foreground border border-border">
-            <LayoutGrid className="w-4 h-4" />
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-secondary flex items-center justify-center text-foreground border border-border">
+            <LayoutGrid className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </div>
-          <span className="text-[10px]">Templates</span>
+          <span className="text-[10px] text-center leading-none">Templates</span>
         </button>
       </nav>
 
