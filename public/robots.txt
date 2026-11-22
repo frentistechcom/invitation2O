@@ -1,0 +1,7 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Allow: /templates/previews/
+Disallow: /templates/backgrounds/
+
+Sitemap: https://invitationcardmaker.in/sitemap.xml
