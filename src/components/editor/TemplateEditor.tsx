@@ -156,6 +156,14 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({ initialTemplateI
   const handleOpenEditText = (layerId?: string) => {
     if (layerId) {
       setSelectedLayerId(layerId);
+    } else {
+      const current = layers.find((l) => l.id === selectedLayerId);
+      if (!current || current.type !== "text") {
+        const firstText = layers.find((l) => l.type === "text");
+        if (firstText) {
+          setSelectedLayerId(firstText.id);
+        }
+      }
     }
     setIsTextModalOpen(true);
   };

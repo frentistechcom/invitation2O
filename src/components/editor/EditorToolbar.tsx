@@ -8,6 +8,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import {
   Bold,
   Italic,
+  Underline,
   AlignLeft,
   AlignCenter,
   AlignRight,
@@ -29,6 +30,7 @@ import {
   Pencil,
   Search,
   Check,
+  Flame,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -250,29 +252,34 @@ export const EditorToolbar: React.FC<EditorToolbarProps> = ({
 
                     {/* Font List */}
                     <div className="max-h-52 overflow-y-auto space-y-1 pr-1">
-                      {filteredFonts.map((font) => (
-                        <button
-                          key={font.name}
-                          type="button"
-                          onClick={() => {
-                            onUpdateLayer({ ...textLayer, fontFamily: font.family });
-                            setIsFontOpen(false);
-                          }}
-                          className={`w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-secondary flex items-center justify-between transition-all ${
-                            textLayer.fontFamily.includes(font.name) ? "bg-amber-500/15 text-amber-500 font-semibold" : "text-foreground"
-                          }`}
-                        >
-                          <div className="flex flex-col min-w-0">
-                            <span className="text-[11px] text-muted-foreground">{font.name}</span>
-                            <span className="text-sm truncate" style={{ fontFamily: font.family }}>
-                              {font.sample}
-                            </span>
-                          </div>
-                          {textLayer.fontFamily.includes(font.name) && (
-                            <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                          )}
-                        </button>
-                      ))}
+                      {filteredFonts.map((font) => {
+                        const previewText = textLayer.text.trim()
+                          ? textLayer.text.split("\n")[0].slice(0, 26)
+                          : font.sample;
+                        return (
+                          <button
+                            key={font.name}
+                            type="button"
+                            onClick={() => {
+                              onUpdateLayer({ ...textLayer, fontFamily: font.family });
+                              setIsFontOpen(false);
+                            }}
+                            className={`w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-secondary flex items-center justify-between transition-all ${
+                              textLayer.fontFamily.includes(font.name) ? "bg-amber-500/15 text-amber-500 font-semibold" : "text-foreground"
+                            }`}
+                          >
+                            <div className="flex flex-col min-w-0 pr-2">
+                              <span className="text-[10px] text-muted-foreground">{font.name}</span>
+                              <span className="text-sm truncate" style={{ fontFamily: font.family }}>
+                                {previewText}
+                              </span>
+                            </div>
+                            {textLayer.fontFamily.includes(font.name) && (
+                              <Check className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                            )}
+                          </button>
+                        );
+                      })}
                     </div>
                   </Popover.Content>
                 </Popover.Portal>
@@ -306,8 +313,10 @@ export const EditorToolbar: React.FC<EditorToolbarProps> = ({
                     title="Text Color"
                   >
                     <div
-                      className="w-4 h-4 rounded-full border border-border shadow-inner"
-                      style={{ backgroundColor: textLayer.color }}
+                      className={`w-4 h-4 rounded-full border border-border shadow-inner ${
+                        textLayer.isGoldFoil ? "bg-gradient-to-tr from-amber-300 via-amber-500 to-amber-700" : ""
+                      }`}
+                      style={{ backgroundColor: textLayer.isGoldFoil ? undefined : textLayer.color }}
                     />
                     <ChevronDown className="w-3 h-3 text-muted-foreground" />
                   </button>
@@ -317,8 +326,48 @@ export const EditorToolbar: React.FC<EditorToolbarProps> = ({
                     side="bottom"
                     align="start"
                     sideOffset={6}
-                    className="z-50 w-60 bg-card border border-border rounded-2xl shadow-2xl p-3 text-card-foreground animate-in fade-in zoom-in-95 duration-150"
+                    className="z-50 w-64 bg-card border border-border rounded-2xl shadow-2xl p-3 text-card-foreground animate-in fade-in zoom-in-95 duration-150"
                   >
+                    {/* Gold Foil Shortcut */}
+                    <div className="mb-3 pb-2.5 border-b border-border">
+                      <span className="text-[10px] font-bold text-amber-500 uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+                        <Flame className="w-3 h-3 text-amber-500" />
+                        Luxury Foil
+                      </span>
+                      <div className="grid grid-cols-3 gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onUpdateLayer({ ...textLayer, isGoldFoil: true, foilStyle: "gold" });
+                            setIsColorOpen(false);
+                          }}
+                          className="px-2 py-1 text-[11px] font-bold rounded-lg bg-gradient-to-r from-[#FFE599] via-[#D4AF37] to-[#996515] text-neutral-900 border border-amber-300"
+                        >
+                          Gold Foil
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onUpdateLayer({ ...textLayer, isGoldFoil: true, foilStyle: "rose-gold" });
+                            setIsColorOpen(false);
+                          }}
+                          className="px-2 py-1 text-[11px] font-bold rounded-lg bg-gradient-to-r from-[#FADBD8] via-[#B76E79] to-[#944855] text-neutral-900 border border-rose-300"
+                        >
+                          Rose Gold
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onUpdateLayer({ ...textLayer, isGoldFoil: false });
+                            setIsColorOpen(false);
+                          }}
+                          className="px-2 py-1 text-[11px] font-medium rounded-lg bg-secondary text-foreground border border-border"
+                        >
+                          Flat Color
+                        </button>
+                      </div>
+                    </div>
+
                     <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-2">
                       Luxury Color Palette
                     </span>
@@ -328,18 +377,18 @@ export const EditorToolbar: React.FC<EditorToolbarProps> = ({
                           key={c.hex}
                           type="button"
                           onClick={() => {
-                            onUpdateLayer({ ...textLayer, color: c.hex });
+                            onUpdateLayer({ ...textLayer, color: c.hex, isGoldFoil: false });
                             setIsColorOpen(false);
                           }}
                           title={c.name}
                           className={`w-7 h-7 rounded-full border flex items-center justify-center transition-transform ${
-                            textLayer.color.toLowerCase() === c.hex.toLowerCase()
+                            !textLayer.isGoldFoil && textLayer.color.toLowerCase() === c.hex.toLowerCase()
                               ? "scale-110 ring-2 ring-amber-500 ring-offset-2 ring-offset-card"
                               : "border-border hover:scale-110"
                           }`}
                           style={{ backgroundColor: c.hex }}
                         >
-                          {textLayer.color.toLowerCase() === c.hex.toLowerCase() && (
+                          {!textLayer.isGoldFoil && textLayer.color.toLowerCase() === c.hex.toLowerCase() && (
                             <Check className={`w-3 h-3 ${c.hex === "#FFFFFF" ? "text-black" : "text-white"}`} />
                           )}
                         </button>
@@ -350,13 +399,13 @@ export const EditorToolbar: React.FC<EditorToolbarProps> = ({
                       <input
                         type="color"
                         value={textLayer.color}
-                        onChange={(e) => onUpdateLayer({ ...textLayer, color: e.target.value })}
+                        onChange={(e) => onUpdateLayer({ ...textLayer, color: e.target.value, isGoldFoil: false })}
                         className="w-7 h-7 rounded-lg border border-border bg-transparent cursor-pointer"
                       />
                       <input
                         type="text"
                         value={textLayer.color}
-                        onChange={(e) => onUpdateLayer({ ...textLayer, color: e.target.value })}
+                        onChange={(e) => onUpdateLayer({ ...textLayer, color: e.target.value, isGoldFoil: false })}
                         className="w-20 px-1.5 py-1 text-[11px] bg-secondary border border-border rounded text-foreground font-mono"
                       />
                     </div>
@@ -364,7 +413,7 @@ export const EditorToolbar: React.FC<EditorToolbarProps> = ({
                 </Popover.Portal>
               </Popover.Root>
 
-              {/* Bold & Italic */}
+              {/* Bold, Italic & Underline */}
               <div className="flex items-center bg-secondary border border-border rounded-lg overflow-hidden shadow-inner shrink-0">
                 <button
                   type="button"
@@ -396,7 +445,43 @@ export const EditorToolbar: React.FC<EditorToolbarProps> = ({
                 >
                   <Italic className="w-3.5 h-3.5" />
                 </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    onUpdateLayer({
+                      ...textLayer,
+                      isUnderline: !textLayer.isUnderline,
+                    })
+                  }
+                  className={`p-1.5 hover:bg-card transition-colors ${
+                    textLayer.isUnderline ? "bg-amber-500/20 text-amber-500" : "text-muted-foreground"
+                  }`}
+                  title="Underline"
+                >
+                  <Underline className="w-3.5 h-3.5" />
+                </button>
               </div>
+
+              {/* Gold Foil Quick Button */}
+              <button
+                type="button"
+                onClick={() =>
+                  onUpdateLayer({
+                    ...textLayer,
+                    isGoldFoil: !textLayer.isGoldFoil,
+                    foilStyle: textLayer.foilStyle || "gold",
+                  })
+                }
+                title="Toggle Luxury Gold Foil"
+                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg border font-semibold text-xs transition-all shrink-0 ${
+                  textLayer.isGoldFoil
+                    ? "bg-amber-500 text-white border-amber-400 shadow-sm"
+                    : "bg-secondary hover:bg-card border-border text-muted-foreground hover:text-amber-500"
+                }`}
+              >
+                <Flame className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Gold Foil</span>
+              </button>
 
               {/* Alignment */}
               <div className="flex items-center bg-secondary border border-border rounded-lg overflow-hidden shadow-inner shrink-0">

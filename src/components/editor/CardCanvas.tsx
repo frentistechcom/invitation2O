@@ -339,14 +339,28 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
                             fontWeight: layer.fontWeight,
                             fontStyle: layer.fontStyle,
                             textAlign: layer.textAlign,
-                            color: layer.color,
+                            color: layer.isGoldFoil ? undefined : layer.color,
+                            backgroundImage: layer.isGoldFoil
+                              ? layer.foilStyle === "rose-gold"
+                                ? "linear-gradient(135deg, #FADBD8 0%, #B76E79 40%, #944855 75%, #F7D6D0 100%)"
+                                : layer.foilStyle === "silver"
+                                ? "linear-gradient(135deg, #FFFFFF 0%, #C0C0C0 40%, #8A8A8A 75%, #E8E8E8 100%)"
+                                : "linear-gradient(135deg, #FFE599 0%, #D4AF37 35%, #996515 70%, #F9DF88 100%)"
+                              : undefined,
+                            WebkitBackgroundClip: layer.isGoldFoil ? "text" : undefined,
+                            WebkitTextFillColor: layer.isGoldFoil ? "transparent" : undefined,
                             letterSpacing: `${layer.letterSpacing || 0}px`,
                             lineHeight: layer.lineHeight || 1.3,
                             textTransform: layer.textTransform || "none",
                             textShadow:
-                              layer.shadowColor && layer.shadowBlur
-                                ? `0 2px ${layer.shadowBlur}px ${layer.shadowColor}`
+                              !layer.isGoldFoil && layer.shadowColor && layer.shadowBlur
+                                ? `${layer.shadowOffsetX ?? 0}px ${layer.shadowOffsetY ?? 2}px ${layer.shadowBlur}px ${layer.shadowColor}`
                                 : "none",
+                            textDecoration: layer.isUnderline ? "underline" : "none",
+                            WebkitTextStroke:
+                              layer.strokeWidth && layer.strokeWidth > 0 && layer.strokeColor
+                                ? `${layer.strokeWidth}px ${layer.strokeColor}`
+                                : undefined,
                           }}
                         >
                           {layer.text}
@@ -426,7 +440,7 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
                                 if (onEditText) onEditText(layer.id);
                               }}
                               title="Edit Text"
-                              className="flex items-center gap-1 px-2 py-0.5 bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 rounded-lg text-xs font-semibold transition-colors"
+                              className="flex items-center gap-1.5 px-3 py-1 bg-amber-500 text-white hover:bg-amber-600 rounded-lg text-xs font-bold transition-all shadow-md active:scale-95"
                             >
                               <Pencil className="w-3.5 h-3.5" />
                               <span>Edit</span>

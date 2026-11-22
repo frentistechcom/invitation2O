@@ -130,15 +130,44 @@ function drawTextLayer(
   const fontStyle = layer.fontStyle === "italic" ? "italic" : "normal";
   const fontWeight = layer.fontWeight || "normal";
   ctx.font = `${fontStyle} ${fontWeight} ${scaledFontSize}px ${layer.fontFamily}`;
-  ctx.fillStyle = layer.color;
   ctx.textAlign = layer.textAlign;
   ctx.textBaseline = "middle";
+
+  // Gold foil gradient or flat color
+  if (layer.isGoldFoil) {
+    const foil = ctx.createLinearGradient(x, y, x + width, y + height);
+    if (layer.foilStyle === "rose-gold") {
+      foil.addColorStop(0, "#FADBD8");
+      foil.addColorStop(0.35, "#B76E79");
+      foil.addColorStop(0.7, "#944855");
+      foil.addColorStop(1, "#F7D6D0");
+    } else if (layer.foilStyle === "silver") {
+      foil.addColorStop(0, "#FFFFFF");
+      foil.addColorStop(0.4, "#C0C0C0");
+      foil.addColorStop(0.7, "#8A8A8A");
+      foil.addColorStop(1, "#E8E8E8");
+    } else {
+      // Imperial Gold
+      foil.addColorStop(0, "#FFE599");
+      foil.addColorStop(0.35, "#D4AF37");
+      foil.addColorStop(0.7, "#996515");
+      foil.addColorStop(1, "#F9DF88");
+    }
+    ctx.fillStyle = foil;
+  } else {
+    ctx.fillStyle = layer.color;
+  }
 
   if (layer.shadowColor && layer.shadowBlur) {
     ctx.shadowColor = layer.shadowColor;
     ctx.shadowBlur = layer.shadowBlur * scale;
+    ctx.shadowOffsetX = (layer.shadowOffsetX ?? 0) * scale;
+    ctx.shadowOffsetY = (layer.shadowOffsetY ?? 2) * scale;
+  } else {
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
     ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 2 * scale;
+    ctx.shadowOffsetY = 0;
   }
 
   let displayText = layer.text;
@@ -164,7 +193,35 @@ function drawTextLayer(
       (ctx as unknown as { letterSpacing: string }).letterSpacing = `${layer.letterSpacing * scale}px`;
     }
 
+    // Optional stroke outline
+    if (layer.strokeWidth && layer.strokeWidth > 0 && layer.strokeColor) {
+      ctx.save();
+      ctx.strokeStyle = layer.strokeColor;
+      ctx.lineWidth = layer.strokeWidth * scale;
+      ctx.strokeText(line, drawX, startY + index * lineHeightPx);
+      ctx.restore();
+    }
+
     ctx.fillText(line, drawX, startY + index * lineHeightPx);
+
+    // Optional Underline
+    if (layer.isUnderline) {
+      const textMetrics = ctx.measureText(line);
+      const textWidth = textMetrics.width;
+      let lineStartX = drawX;
+      if (layer.textAlign === "center") lineStartX = drawX - textWidth / 2;
+      else if (layer.textAlign === "right") lineStartX = drawX - textWidth;
+
+      ctx.save();
+      ctx.strokeStyle = layer.isGoldFoil ? "#D4AF37" : layer.color;
+      ctx.lineWidth = Math.max(1, Math.round(1.5 * scale));
+      ctx.beginPath();
+      const underlineY = startY + index * lineHeightPx + scaledFontSize * 0.45;
+      ctx.moveTo(lineStartX, underlineY);
+      ctx.lineTo(lineStartX + textWidth, underlineY);
+      ctx.stroke();
+      ctx.restore();
+    }
   });
 }
 

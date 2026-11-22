@@ -27,8 +27,15 @@ export interface TextLayer extends BaseLayer {
   textTransform: "none" | "uppercase" | "capitalize" | "lowercase";
   shadowColor?: string;
   shadowBlur?: number;
+  shadowOffsetX?: number;
+  shadowOffsetY?: number;
   isCurved?: boolean;
   curveRadius?: number;
+  isGoldFoil?: boolean;
+  foilStyle?: "gold" | "rose-gold" | "silver";
+  isUnderline?: boolean;
+  strokeColor?: string;
+  strokeWidth?: number;
 }
 
 export interface ImageLayer extends BaseLayer {
