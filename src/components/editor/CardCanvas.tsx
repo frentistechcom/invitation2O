@@ -75,6 +75,9 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
   const displayWidth = Math.round(template.width * effectiveScale);
   const displayHeight = Math.round(template.height * effectiveScale);
 
+  // Inverse scale factor so floating buttons and handles remain large and comfortable on mobile
+  const invScale = Math.min(Math.max(1 / effectiveScale, 1.0), 2.8);
+
   const selectedLayer = layers.find((l) => l.id === selectedLayerId);
 
   // Pointer drag start
@@ -424,29 +427,39 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
                   {/* Active Selection Bounds & Handles */}
                   {isSelected && !layer.isLocked && (
                     <>
-                      {/* Move Handle Icon */}
-                      <div className="absolute -top-3.5 -left-3.5 w-7 h-7 bg-amber-500 rounded-full flex items-center justify-center text-white shadow-lg cursor-grab active:cursor-grabbing hover:scale-110 transition-transform">
+                      {/* Move Handle Icon (Counter-scaled for touch comfort) */}
+                      <div
+                        style={{
+                          transform: `scale(${invScale})`,
+                          transformOrigin: "center center",
+                        }}
+                        className="absolute -top-3.5 -left-3.5 w-7 h-7 bg-amber-500 rounded-full flex items-center justify-center text-white shadow-lg cursor-grab active:cursor-grabbing hover:scale-110 transition-transform"
+                      >
                         <Move className="w-3.5 h-3.5" />
                       </div>
 
-                      {/* Quick Action Floating Bar with Prominent Edit Button */}
-                      <div className="absolute -top-11 right-0 flex items-center gap-1.5 bg-neutral-900 border border-neutral-700 text-white rounded-xl shadow-xl px-2 py-1 z-50">
+                      {/* Quick Action Floating Bar with Big, Touch-Friendly Buttons */}
+                      <div
+                        className="absolute left-1/2 flex items-center gap-1.5 bg-neutral-950/95 dark:bg-neutral-900/95 backdrop-blur-md border border-neutral-700/80 text-white rounded-2xl shadow-2xl p-1.5 z-50 pointer-events-auto select-none ring-1 ring-black/40"
+                        style={{
+                          top: layer.y < 85 ? "calc(100% + 14px)" : "-16px",
+                          transform: `translate(-50%, ${layer.y < 85 ? "0%" : "-100%"}) rotate(${-(layer.rotation || 0)}deg) scale(${invScale})`,
+                          transformOrigin: layer.y < 85 ? "top center" : "bottom center",
+                        }}
+                      >
                         {layer.type === "text" && (
-                          <>
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                if (onEditText) onEditText(layer.id);
-                              }}
-                              title="Edit Text"
-                              className="flex items-center gap-1.5 px-3 py-1 bg-amber-500 text-white hover:bg-amber-600 rounded-lg text-xs font-bold transition-all shadow-md active:scale-95"
-                            >
-                              <Pencil className="w-3.5 h-3.5" />
-                              <span>Edit</span>
-                            </button>
-                            <div className="w-[1px] h-3.5 bg-neutral-700" />
-                          </>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (onEditText) onEditText(layer.id);
+                            }}
+                            title="Edit Text Content"
+                            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl text-xs font-bold transition-all shadow-md active:scale-95 shrink-0"
+                          >
+                            <Pencil className="w-3.5 h-3.5" />
+                            <span>Edit</span>
+                          </button>
                         )}
                         <button
                           type="button"
@@ -455,11 +468,11 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
                             onDuplicateLayer(layer.id);
                           }}
                           title="Duplicate Layer"
-                          className="p-1 hover:text-amber-400 transition-colors"
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 hover:text-white rounded-xl text-xs font-semibold transition-all active:scale-95 shrink-0"
                         >
-                          <Copy className="w-3.5 h-3.5" />
+                          <Copy className="w-3.5 h-3.5 text-neutral-300" />
+                          <span>Copy</span>
                         </button>
-                        <div className="w-[1px] h-3 bg-neutral-700" />
                         <button
                           type="button"
                           onClick={(e) => {
@@ -467,9 +480,10 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
                             onDeleteLayer(layer.id);
                           }}
                           title="Delete Layer"
-                          className="p-1 hover:text-red-400 transition-colors"
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-neutral-800 hover:bg-red-500/25 text-neutral-300 hover:text-red-400 rounded-xl text-xs font-semibold transition-all active:scale-95 shrink-0"
                         >
-                          <Trash2 className="w-3.5 h-3.5" />
+                          <Trash2 className="w-3.5 h-3.5 text-red-400" />
+                          <span>Delete</span>
                         </button>
                       </div>
 
@@ -479,12 +493,16 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
                           e.stopPropagation();
                           setIsRotating(true);
                         }}
-                        className="absolute -top-8 left-1/2 -translate-x-1/2 w-6 h-6 bg-white dark:bg-neutral-900 border-2 border-amber-500 rounded-full flex items-center justify-center cursor-alias shadow-lg hover:scale-110 transition-transform"
+                        style={{
+                          top: layer.y < 85 ? "-26px" : "calc(100% + 14px)",
+                          transform: `translateX(-50%) scale(${invScale})`,
+                          transformOrigin: "center center",
+                        }}
+                        className="absolute left-1/2 w-6 h-6 bg-white dark:bg-neutral-900 border-2 border-amber-500 rounded-full flex items-center justify-center cursor-alias shadow-lg hover:scale-110 active:scale-95 transition-transform"
                         title="Drag to rotate"
                       >
                         <RotateCw className="w-3 h-3 text-amber-500" />
                       </div>
-                      <div className="absolute -top-3 left-1/2 w-0.5 h-4 bg-amber-500 -translate-x-1/2 pointer-events-none" />
 
                       {/* 4 Corner Resize Handles */}
                       {["tl", "tr", "bl", "br"].map((corner) => {
@@ -504,6 +522,10 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
                               e.stopPropagation();
                               setIsResizing(corner);
                               setDragStart({ x: e.clientX, y: e.clientY });
+                            }}
+                            style={{
+                              transform: `scale(${invScale})`,
+                              transformOrigin: "center center",
                             }}
                             className={`absolute w-4 h-4 bg-white dark:bg-neutral-900 border-2 border-amber-500 rounded-md shadow-md hover:scale-125 transition-transform ${posClass}`}
                           />
