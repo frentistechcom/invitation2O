@@ -14,11 +14,12 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template }) => {
     <div className="group relative flex flex-col bg-card border border-border/80 hover:border-amber-500/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300">
       {/* Thumbnail Aspect Ratio 2:3 */}
       <div className="relative w-full aspect-[2/3] bg-secondary overflow-hidden">
-        {/* Render Background */}
+        {/* Render Thumbnail (Demo with text for Google Images & Users, fallback to background) */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={template.backgroundImage}
-          alt={template.title}
+          src={template.thumbnail || template.backgroundImage}
+          alt={`${template.title} - Free Customizable Indian Invitation Card Template`}
+          loading="lazy"
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
