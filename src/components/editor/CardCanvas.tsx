@@ -247,11 +247,10 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
       className={`relative w-full h-full flex items-center justify-center select-none touch-none p-1 sm:p-3 md:p-6 bg-neutral-900/40 dark:bg-neutral-950/70 ${
         zoom > 1.05 ? "overflow-auto" : "overflow-hidden"
       }`}
-      onPointerDown={(e) => {
-        if (e.target === containerRef.current) {
-          onSelectLayer(null);
-          setEditingTextId(null);
-        }
+      onPointerDown={() => {
+        // Deselect layer when clicking on background or outside any element
+        onSelectLayer(null);
+        setEditingTextId(null);
       }}
     >
       {/* Aspect-Ratio Locked Outer Bounding Box (Never squished by flexbox!) */}
@@ -262,6 +261,11 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
           height: `${displayHeight}px`,
           boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(212, 175, 55, 0.15)",
         }}
+        onPointerDown={() => {
+          // Deselect when clicking on non-text/empty areas of the card
+          onSelectLayer(null);
+          setEditingTextId(null);
+        }}
       >
         {/* Scaled Canonical 800x1200 Canvas */}
         <div
@@ -270,6 +274,11 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
             width: `${template.width}px`,
             height: `${template.height}px`,
             transform: `scale(${effectiveScale})`,
+          }}
+          onPointerDown={() => {
+            // Deselect when clicking on the canvas background
+            onSelectLayer(null);
+            setEditingTextId(null);
           }}
         >
           {/* Background Image / SVG */}

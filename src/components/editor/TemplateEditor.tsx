@@ -384,7 +384,10 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({ initialTemplateI
       </div>
 
       {/* Main Interactive Canvas Area */}
-      <main className="flex-1 relative overflow-hidden flex items-center justify-center min-w-0 min-h-0 w-full h-full">
+      <main
+        className="flex-1 relative overflow-hidden flex items-center justify-center min-w-0 min-h-0 w-full h-full"
+        onPointerDown={() => setSelectedLayerId(null)}
+      >
         <CardCanvas
           template={template}
           layers={layers}
