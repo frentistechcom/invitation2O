@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "optimize:images": "node scripts/optimize-templates.mjs",
     "start": "next start",
     "lint": "next lint"
   },

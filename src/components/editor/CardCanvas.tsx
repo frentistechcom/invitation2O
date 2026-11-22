@@ -281,13 +281,29 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
             setEditingTextId(null);
           }}
         >
-          {/* Background Image / SVG */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={template.backgroundImage}
-            alt="Card Background"
-            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-          />
+          {/* Background Image / SVG with High-Perf WebP & Smooth Fallback */}
+          {template.backgroundImage.startsWith("data:") ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={template.backgroundImage}
+              alt="Card Background"
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            />
+          ) : (
+            <picture className="absolute inset-0 w-full h-full pointer-events-none">
+              <source
+                srcSet={template.backgroundImage.replace(/\.(jpg|jpeg|png)$/i, ".webp")}
+                type="image/webp"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={template.backgroundImage}
+                alt="Card Background"
+                decoding="async"
+                className="w-full h-full object-cover pointer-events-none"
+              />
+            </picture>
+          )}
 
           {/* Center Snapping Guide Line */}
           {snapX !== null && (

@@ -467,12 +467,22 @@ export const MobileEditorBar: React.FC<MobileEditorBarProps> = ({
                     className="group border border-border hover:border-amber-500 rounded-2xl overflow-hidden bg-card text-left transition-all shadow-sm"
                   >
                     <div className="w-full h-28 relative overflow-hidden bg-secondary">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={tpl.thumbnail || tpl.backgroundImage}
-                        alt={tpl.title}
-                        className="w-full h-full object-cover transition-transform group-hover:scale-105"
-                      />
+                      <picture className="w-full h-full">
+                        {(tpl.thumbnail || tpl.backgroundImage).match(/\.(jpg|jpeg|png)$/i) && (
+                          <source
+                            srcSet={(tpl.thumbnail || tpl.backgroundImage).replace(/\.(jpg|jpeg|png)$/i, ".webp")}
+                            type="image/webp"
+                          />
+                        )}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={tpl.thumbnail || tpl.backgroundImage}
+                          alt={tpl.title}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                        />
+                      </picture>
                     </div>
                     <div className="p-2.5">
                       <span className="text-xs font-semibold text-foreground line-clamp-1 group-hover:text-amber-500 transition-colors">

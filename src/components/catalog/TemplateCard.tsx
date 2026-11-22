@@ -15,13 +15,22 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template }) => {
       {/* Thumbnail Aspect Ratio 2:3 */}
       <div className="relative w-full aspect-[2/3] bg-secondary overflow-hidden">
         {/* Render Thumbnail (Demo with text for Google Images & Users, fallback to background) */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={template.thumbnail || template.backgroundImage}
-          alt={`${template.title} - Free Customizable Indian Invitation Card Template`}
-          loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+        <picture className="absolute inset-0 w-full h-full">
+          {(template.thumbnail || template.backgroundImage).match(/\.(jpg|jpeg|png)$/i) && (
+            <source
+              srcSet={(template.thumbnail || template.backgroundImage).replace(/\.(jpg|jpeg|png)$/i, ".webp")}
+              type="image/webp"
+            />
+          )}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={template.thumbnail || template.backgroundImage}
+            alt={`${template.title} - Free Customizable Indian Invitation Card Template`}
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </picture>
 
         {/* Category Pill */}
         <div className="absolute top-3.5 left-3.5 z-10">
