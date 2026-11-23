@@ -45,6 +45,24 @@
     "category": "wedding"
   },
   {
+    "id": "pichwai-sacred-cows-lotus-wedding",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/pichwai-sacred-cows-lotus-wedding-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/pichwai-sacred-cows-lotus-wedding-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Pichwai Sacred Cow & Lotus Pond Wedding",
+    "category": "wedding"
+  },
+  {
+    "id": "botanical-blush-rose-gold-wedding",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/botanical-blush-rose-gold-wedding-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/botanical-blush-rose-gold-wedding-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Botanical Blush Rose & Gold Hexagon Wedding & Reception",
+    "category": "wedding"
+  },
+  {
     "id": "indian-mom-baby-shower",
     "type": "deployed",
     "masterBackground": "assets/raw-masters/backgrounds/indian-mom-baby-shower-bg.jpg",
