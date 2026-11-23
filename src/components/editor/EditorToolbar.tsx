@@ -51,6 +51,7 @@ interface EditorToolbarProps {
   onOpenDownload: () => void;
   onOpenEditText?: () => void;
   templateTitle: string;
+  templateCategory?: string;
 }
 
 const LUXURY_PALETTE = [
@@ -82,11 +83,38 @@ export const EditorToolbar: React.FC<EditorToolbarProps> = ({
   onOpenDownload,
   onOpenEditText,
   templateTitle,
+  templateCategory,
 }) => {
   const [fontSearch, setFontSearch] = useState("");
   const [fontCategory, setFontCategory] = useState<string>("all");
   const [isFontOpen, setIsFontOpen] = useState(false);
   const [isColorOpen, setIsColorOpen] = useState(false);
+
+  const backHref = templateCategory ? `/templates/${templateCategory}` : "/templates";
+
+  const handleBackClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (typeof window !== "undefined" && window.history.length > 1 && document.referrer) {
+      try {
+        const refUrl = new URL(document.referrer);
+        if (refUrl.origin === window.location.origin) {
+          // If the referrer is a template directory or category/regional page, use history.back() to keep scroll position
+          if (
+            refUrl.pathname.includes("/templates") ||
+            (templateCategory && refUrl.pathname.includes(templateCategory)) ||
+            refUrl.pathname.includes("/marathi") ||
+            refUrl.pathname.includes("/hindi") ||
+            refUrl.pathname.includes("/english")
+          ) {
+            e.preventDefault();
+            window.history.back();
+            return;
+          }
+        }
+      } catch {
+        // Fall back to direct link navigation
+      }
+    }
+  };
 
   const textLayer = selectedLayer?.type === "text" ? (selectedLayer as TextLayer) : null;
   const stickerLayer = selectedLayer?.type === "sticker" ? (selectedLayer as StickerLayer) : null;
@@ -104,9 +132,10 @@ export const EditorToolbar: React.FC<EditorToolbarProps> = ({
         {/* Left: Back & Title */}
         <div className="flex items-center gap-2.5 min-w-0">
           <Link
-            href="/templates"
+            href={backHref}
+            onClick={handleBackClick}
             className="flex items-center justify-center w-8 h-8 rounded-xl border border-border bg-card/80 hover:bg-accent/20 text-foreground transition-all active:scale-95 shrink-0"
-            title="Back to Catalog"
+            title={`Back to ${templateCategory ? `${templateCategory} templates` : "catalog"}`}
           >
             <ChevronLeft className="w-4 h-4" />
           </Link>

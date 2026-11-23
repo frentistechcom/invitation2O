@@ -380,6 +380,7 @@ export const TemplateEditor: React.FC<TemplateEditorProps> = ({ initialTemplateI
           onOpenDownload={() => setIsDownloadOpen(true)}
           onOpenEditText={() => handleOpenEditText()}
           templateTitle={template.title}
+          templateCategory={template.category}
         />
       </div>
 
