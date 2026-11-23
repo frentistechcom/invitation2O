@@ -71,6 +71,15 @@
     "category": "housewarming"
   },
   {
+    "id": "rustic-cottage-kites-griha-pravesh",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/rustic-cottage-kites-griha-pravesh-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/rustic-cottage-kites-griha-pravesh-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Rustic Stilt Cottage & Kites Griha Pravesh",
+    "category": "housewarming"
+  },
+  {
     "id": "baby-shower-05",
     "type": "archived-vault",
     "originalBgFile": "media_1795390808689_2a2a5d0d.jpg",
