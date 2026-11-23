@@ -62,6 +62,15 @@
     "category": "housewarming"
   },
   {
+    "id": "modern-twilight-cottage-housewarming",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/modern-twilight-cottage-housewarming-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/modern-twilight-cottage-housewarming-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Modern Twilight Cottage Housewarming",
+    "category": "housewarming"
+  },
+  {
     "id": "baby-shower-05",
     "type": "archived-vault",
     "originalBgFile": "media_1795390808689_2a2a5d0d.jpg",
