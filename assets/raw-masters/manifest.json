@@ -125,6 +125,15 @@
     "category": "naming-ceremony"
   },
   {
+    "id": "golden-stars-cradle-swing-naming-ceremony",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/golden-stars-cradle-swing-naming-ceremony-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/golden-stars-cradle-swing-naming-ceremony-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Golden Glitter Stars & Cradle Swing Naming Ceremony",
+    "category": "naming-ceremony"
+  },
+  {
     "id": "baby-shower-05",
     "type": "archived-vault",
     "originalBgFile": "media_1795390808689_2a2a5d0d.jpg",
