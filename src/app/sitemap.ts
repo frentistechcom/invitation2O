@@ -1,6 +1,5 @@
 import { MetadataRoute } from "next";
 import { CATEGORIES, SAMPLE_TEMPLATES } from "@/data/templates";
-import { getAllSeoRoutes } from "@/data/seo-content";
 import { MULTILINGUAL_SEO_PAGES } from "@/data/multilingual-seo-pages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
