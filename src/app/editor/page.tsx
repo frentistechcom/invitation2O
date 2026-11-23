@@ -16,7 +16,7 @@ export default function UniversalEditorPage() {
   return (
     <Suspense
       fallback={
-        <div className="w-screen h-screen flex flex-col items-center justify-center bg-neutral-950 text-white gap-3">
+        <div className="w-screen h-screen flex flex-col items-center justify-center bg-background text-foreground gap-3">
           <Loader2 className="w-8 h-8 animate-spin text-amber-500" />
           <p className="text-sm text-neutral-400">Loading High-DPI Invitation Studio...</p>
         </div>

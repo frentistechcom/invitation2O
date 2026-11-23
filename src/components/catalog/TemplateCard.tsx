@@ -7,9 +7,70 @@ import { Edit3, Sparkles } from "lucide-react";
 
 interface TemplateCardProps {
   template: CardTemplate;
+  compact?: boolean;
 }
 
-export const TemplateCard: React.FC<TemplateCardProps> = ({ template }) => {
+export const TemplateCard: React.FC<TemplateCardProps> = ({ template, compact = false }) => {
+  if (compact) {
+    return (
+      <div className="group relative flex flex-col bg-card border border-border/80 hover:border-amber-500/70 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-200">
+        {/* Compact Thumbnail Aspect Ratio 2:3 */}
+        <div className="relative w-full aspect-[2/3] bg-secondary overflow-hidden">
+          <picture className="absolute inset-0 w-full h-full">
+            {(template.thumbnail || template.backgroundImage).match(/\.(jpg|jpeg|png)$/i) && (
+              <source
+                srcSet={(template.thumbnail || template.backgroundImage).replace(/\.(jpg|jpeg|png)$/i, ".webp")}
+                type="image/webp"
+              />
+            )}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={template.thumbnail || template.backgroundImage}
+              alt={`${template.title} - Customizable Indian Invitation Card`}
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          </picture>
+
+          {/* Quick Edit Overlay */}
+          <Link
+            href={`/editor?template=${template.id}`}
+            className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center justify-center p-2"
+          >
+            <span className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-semibold text-xs flex items-center gap-1.5 shadow-lg shadow-black/40 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+              <Edit3 className="w-3.5 h-3.5" />
+              <span>Customize</span>
+            </span>
+          </Link>
+
+          {/* Mini 300 DPI Badge */}
+          <div className="absolute top-2 right-2 pointer-events-none">
+            <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-black/70 backdrop-blur-md text-amber-300 border border-amber-500/30">
+              300 DPI
+            </span>
+          </div>
+        </div>
+
+        {/* Compact Bottom Caption */}
+        <div className="p-2.5 flex flex-col gap-1 justify-between bg-card">
+          <h3 className="font-semibold text-xs text-foreground group-hover:text-amber-500 transition-colors truncate font-sans">
+            {template.title}
+          </h3>
+          <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+            <span className="truncate">{template.categoryName}</span>
+            <Link
+              href={`/editor?template=${template.id}`}
+              className="font-medium text-amber-500 hover:text-amber-600 shrink-0"
+            >
+              Edit &rarr;
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="group relative flex flex-col bg-card border border-border/80 hover:border-amber-500/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300">
       {/* Thumbnail Aspect Ratio 2:3 */}

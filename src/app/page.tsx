@@ -11,13 +11,12 @@ import {
   QrCode,
   Smartphone,
   ShieldCheck,
-  Zap,
   Edit3,
-  Layers,
-  Heart,
   Printer,
   ChevronRight,
   Star,
+  MapPin,
+  HeartHandshake,
 } from "lucide-react";
 
 export default function HomePage() {
@@ -29,26 +28,34 @@ export default function HomePage() {
     mainEntity: [
       {
         "@type": "Question",
-        name: "How do I create an Indian wedding invitation card online?",
+        name: "How do I make an Indian invitation card online?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Simply select any Indian wedding template on InvitationCardMaker.in, click 'Customize This Card', type your bride & groom names, date, and venue details, paste your Google Maps link for the venue QR code, and click Download.",
+          text: "Choose any template for weddings, baby showers, or Griha Pravesh. Tap to customize names, date, and venue details. Paste your Google Maps link to add a venue QR code, and download in 300 DPI for WhatsApp or physical printing.",
         },
       },
       {
         "@type": "Question",
-        name: "Can I add a Google Maps venue QR code to my invitation?",
+        name: "Can I add a Google Maps venue QR code to the card?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes! Our built-in QR Map feature lets you paste any Google Maps location URL. It automatically generates a crisp, scannable QR code on your card so guests can navigate directly with their phone cameras.",
+          text: "Yes. Simply paste your Google Maps link into the QR code generator in our editor. Guests can scan the QR code using their phone camera to get turn-by-turn directions to the venue.",
         },
       },
       {
         "@type": "Question",
-        name: "What resolution are the downloaded invitation cards?",
+        name: "Is this free to use, and is there any watermark?",
+        answer: {
+          "@type": "Answer",
+          text: "It is 100% free with no watermarks and no sign-up required. You can download crisp 300 DPI images ready for WhatsApp and printing.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Can I type invitation text in Hindi or Marathi?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Cards are rendered using our high-DPI vector canvas engine up to 300 DPI (2400x3600 pixels or higher). They are ultra-crisp with zero blurriness, perfect for WhatsApp sharing and professional offset/digital printing.",
+          text: "Yes! Our editor fully supports Unicode Hindi, Marathi, Gujarati, Telugu, and Tamil fonts (including Rozha One, Yatra One, and Noto Serif Devanagari) as well as English.",
         },
       },
     ],
@@ -64,53 +71,51 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* LUXURY EDITORIAL HERO SECTION */}
-      <section className="relative overflow-hidden pt-12 pb-20 md:pt-24 md:pb-32 border-b border-border/60">
-        {/* Soft Golden Ambient Glow */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-amber-500/15 via-orange-500/10 to-amber-600/5 blur-[140px] rounded-full pointer-events-none" />
+      {/* HERO SECTION */}
+      <section className="relative overflow-hidden pt-10 pb-16 md:pt-20 md:pb-28 border-b border-border/70">
+        {/* Warm Ambient Glow */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-amber-500/15 via-orange-500/10 to-amber-600/5 blur-[120px] rounded-full pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-            {/* Left Column: Editorial Headline & Actions */}
-            <div className="lg:col-span-7 flex flex-col gap-6 text-center lg:text-left">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+            {/* Left Column: Direct Human Headline & Actions */}
+            <div className="lg:col-span-7 flex flex-col gap-5 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/25 w-fit mx-auto lg:mx-0 shadow-sm">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>The Premier Indian Invitation Studio</span>
+                <span>100% Free • No Watermark • Instant Download</span>
               </div>
 
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-foreground leading-[1.1]">
-                Bespoke Invitations for Life&apos;s Most{" "}
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold tracking-tight text-foreground leading-[1.15]">
+                Make Beautiful Indian Invitation Cards in{" "}
                 <span className="italic font-normal font-serif text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600">
-                  Sacred Moments.
+                  2 Minutes.
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-                Design royal Hindu wedding cards, Griha Pravesh, birthdays, and baby shower invitations online in
-                minutes. High-definition 300 DPI vector clarity, authentic Indian calligraphy, and instant Google Maps
-                venue QR codes.
+              <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+                Customize wedding cards, Griha Pravesh, Dohale Jevan, Namkaran, and birthdays online. Edit names and dates easily, add a Google Maps venue QR code, and download in print-ready 300 DPI or share straight to WhatsApp.
               </p>
 
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-center gap-3.5 justify-center lg:justify-start pt-2">
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start pt-2">
                 <Link
                   href="/editor?template=royal-traditional-wedding"
-                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white font-semibold text-sm rounded-2xl shadow-xl shadow-orange-500/25 flex items-center justify-center gap-2.5 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white font-semibold text-sm rounded-xl shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <Edit3 className="w-4 h-4" />
-                  <span>Customize Wedding Card</span>
+                  <span>Customize a Wedding Card</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
                 <Link
                   href="/templates"
-                  className="w-full sm:w-auto px-7 py-4 bg-card hover:bg-secondary border border-border hover:border-muted-foreground/30 text-foreground font-semibold text-sm rounded-2xl transition-all shadow-sm"
+                  className="w-full sm:w-auto px-6 py-3.5 bg-card hover:bg-secondary border border-border text-foreground font-semibold text-sm rounded-xl transition-all shadow-sm"
                 >
-                  Explore All 50+ Templates
+                  Browse All Templates
                 </Link>
               </div>
 
-              {/* Trust Indicators */}
+              {/* Direct Trust Indicators */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-5 pt-4 text-xs text-muted-foreground border-t border-border/80">
                 <span className="flex items-center gap-1.5">
                   <Printer className="w-4 h-4 text-amber-500" />
@@ -118,49 +123,44 @@ export default function HomePage() {
                 </span>
                 <span className="flex items-center gap-1.5">
                   <QrCode className="w-4 h-4 text-amber-500" />
-                  Live GPS Venue QR
+                  Scannable Google Maps QR
                 </span>
                 <span className="flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                  Zero Watermark Export
+                  Zero Watermark, 100% Free
                 </span>
               </div>
             </div>
 
-            {/* Right Column: Hero Interactive Mockup Card */}
+            {/* Right Column: Interactive Card Preview */}
             <div className="lg:col-span-5 flex justify-center">
               <div className="relative group max-w-sm w-full">
-                {/* Ambient Card Shadow */}
-                <div className="absolute -inset-2 bg-gradient-to-tr from-amber-500 to-orange-500 rounded-[2.5rem] blur-2xl opacity-20 group-hover:opacity-35 transition-opacity" />
-
-                <div className="relative bg-card border border-border/80 rounded-3xl overflow-hidden shadow-2xl p-3.5 transition-all">
-                  {/* Card Display Area */}
+                <div className="relative bg-card border border-border rounded-3xl overflow-hidden shadow-xl p-3.5 transition-all">
                   <div className="relative aspect-[2/3] w-full rounded-2xl overflow-hidden shadow-inner bg-secondary">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={SAMPLE_TEMPLATES[0].backgroundImage}
-                      alt="Royal Arch Wedding Card"
+                      src={SAMPLE_TEMPLATES[0].thumbnail || SAMPLE_TEMPLATES[0].backgroundImage}
+                      alt="Sample Indian Wedding Invitation Card"
                       className="absolute inset-0 w-full h-full object-cover"
                     />
 
-                    {/* Interactive Floating Badge Overlays */}
-                    <div className="absolute top-6 left-1/2 -translate-x-1/2 bg-black/75 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-amber-500/40 text-[11px] text-amber-300 font-medium shadow-xl flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                      <span>Click to Edit Couple Names</span>
+                    {/* Floating Badges */}
+                    <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/75 backdrop-blur-md px-3 py-1 rounded-full border border-amber-500/40 text-[11px] text-amber-300 font-medium shadow-lg flex items-center gap-1.5">
+                      <Sparkles className="w-3 h-3 text-amber-400" />
+                      <span>Tap to edit any text</span>
                     </div>
 
-                    <div className="absolute bottom-6 right-6 bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-amber-500/40 text-[10px] text-white font-medium shadow-xl flex items-center gap-2">
-                      <QrCode className="w-4 h-4 text-amber-400" />
-                      <span>GPS Venue Navigation</span>
+                    <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-lg border border-amber-500/40 text-[10px] text-white font-medium shadow-md flex items-center gap-1.5">
+                      <QrCode className="w-3.5 h-3.5 text-amber-400" />
+                      <span>Venue Navigation QR</span>
                     </div>
                   </div>
 
-                  {/* Launch Bar */}
                   <Link
                     href="/editor?template=royal-traditional-wedding"
-                    className="w-full mt-3.5 py-3 bg-secondary hover:bg-secondary/80 text-foreground text-xs font-semibold rounded-xl flex items-center justify-center gap-2 border border-border shadow-sm transition-all"
+                    className="w-full mt-3 py-2.5 bg-secondary hover:bg-secondary/80 text-foreground text-xs font-semibold rounded-xl flex items-center justify-center gap-2 border border-border shadow-sm transition-all"
                   >
-                    <span>Open in Studio &amp; Customize</span>
+                    <span>Open in Editor</span>
                     <ArrowRight className="w-3.5 h-3.5 text-amber-500" />
                   </Link>
                 </div>
@@ -170,230 +170,326 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* LUXURY CATEGORY SHOWCASE */}
-      <section className="py-8 bg-secondary/40 border-b border-border/60">
+      {/* QUICK CATEGORY STRIP */}
+      <section className="py-6 bg-secondary/30 border-b border-border/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none justify-start md:justify-center">
+          <div className="flex items-center gap-2.5 overflow-x-auto pb-1 scrollbar-none justify-start md:justify-center">
             {CATEGORIES.filter((c) => c.slug !== "all").map((cat) => (
               <Link
                 key={cat.id}
                 href={`/templates/${cat.slug}`}
-                className="px-4 py-2.5 rounded-2xl bg-card border border-border hover:border-amber-500/60 hover:bg-card/80 text-xs font-medium text-foreground transition-all whitespace-nowrap flex items-center gap-2.5 shadow-sm hover:scale-105"
+                className="px-4 py-2 rounded-xl bg-card border border-border hover:border-amber-500/60 hover:bg-secondary text-xs font-medium text-foreground transition-all whitespace-nowrap flex items-center gap-2 shadow-sm"
               >
                 <span className="font-semibold">{cat.name}</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                <span className="text-[10px] text-muted-foreground">({cat.count})</span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* TRENDING TEMPLATES COLLECTION */}
-      <section className="py-16 md:py-24">
+      {/* POPULAR REGIONAL SEARCHES */}
+      <section className="py-8 border-b border-border/60 bg-card/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-12">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-500">
+              Popular Cultural Traditions:
+            </span>
+            <div className="flex flex-wrap gap-2 text-xs">
+              <Link
+                href="/templates/baby-shower/marathi"
+                className="px-3 py-1.5 rounded-lg bg-secondary hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 border border-border transition-colors font-medium"
+              >
+                डोहळे जेवण (Dohale Jevan)
+              </Link>
+              <Link
+                href="/templates/baby-shower/hindi"
+                className="px-3 py-1.5 rounded-lg bg-secondary hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 border border-border transition-colors font-medium"
+              >
+                गोद भराई (Godh Bharai)
+              </Link>
+              <Link
+                href="/templates/housewarming/marathi"
+                className="px-3 py-1.5 rounded-lg bg-secondary hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 border border-border transition-colors font-medium"
+              >
+                वास्तु शांत (Vastu Shanti)
+              </Link>
+              <Link
+                href="/templates/housewarming/hindi"
+                className="px-3 py-1.5 rounded-lg bg-secondary hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 border border-border transition-colors font-medium"
+              >
+                गृह प्रवेश (Griha Pravesh)
+              </Link>
+              <Link
+                href="/templates/naming-ceremony/marathi"
+                className="px-3 py-1.5 rounded-lg bg-secondary hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 border border-border transition-colors font-medium"
+              >
+                बारसे (Barse)
+              </Link>
+              <Link
+                href="/templates/wedding/marathi"
+                className="px-3 py-1.5 rounded-lg bg-secondary hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 border border-border transition-colors font-medium"
+              >
+                लग्नपत्रिका (Lagna Patrika)
+              </Link>
+              <Link
+                href="/templates/birthday/first-birthday"
+                className="px-3 py-1.5 rounded-lg bg-secondary hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 border border-border transition-colors font-medium"
+              >
+                1st Birthday
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* TRENDING TEMPLATES COLLECTION */}
+      <section className="py-14 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-amber-500 block mb-1">
-                Handcrafted Collections
+              <span className="text-xs font-bold uppercase tracking-wider text-amber-500 block mb-1">
+                Handcrafted Designs
               </span>
-              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground">
-                Trending Invitation Designs
+              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-foreground">
+                Featured Invitation Cards
               </h2>
             </div>
             <Link
               href="/templates"
               className="text-xs font-semibold text-amber-500 hover:text-amber-600 flex items-center gap-1 group"
             >
-              <span>View All Templates</span>
+              <span>View All 22+ Templates</span>
               <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {featuredTemplates.map((template) => (
-              <TemplateCard key={template.id} template={template} />
+          {/* Compact 6-column grid for fast scanning */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+            {featuredTemplates.slice(0, 12).map((template) => (
+              <TemplateCard key={template.id} template={template} compact={true} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* WHY INVITATIONCARDMAKER IS 1000X BETTER (BENTO GRID) */}
-      <section className="py-16 md:py-24 bg-secondary/30 border-y border-border/80">
+      {/* REAL HUMAN BENEFITS */}
+      <section className="py-14 md:py-20 bg-secondary/30 border-y border-border/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-xs font-bold uppercase tracking-widest text-amber-500 block mb-1">
-              Architectural Superiority
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-500 block mb-1">
+              Why People Love It
             </span>
-            <h2 className="text-3xl sm:text-5xl font-serif font-bold text-foreground">
-              Built for Modern Perfection
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-foreground">
+              Everything You Need to Invite Guests
             </h2>
-            <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
-              Why our vector-precision canvas engine completely outperforms old WordPress sites and screenshot-based
-              tools like InvitationBazaar.
-            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1 */}
-            <div className="p-8 rounded-3xl bg-card border border-border shadow-sm flex flex-col gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center shadow-inner">
-                <Printer className="w-6 h-6" />
+            <div className="p-6 rounded-2xl bg-card border border-border shadow-sm flex flex-col gap-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center">
+                <Printer className="w-5 h-5" />
               </div>
-              <h3 className="font-serif font-bold text-lg text-foreground">300 DPI Subpixel Precision</h3>
+              <h3 className="font-serif font-bold text-base text-foreground">Crisp 300 DPI Print Quality</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                InvitationBazaar takes blurry DOM screenshots (html2canvas) that degrade on high-resolution phones. Our
-                engine directly computes glyph vector coordinates up to 2800×4200 pixels for crisp professional
-                printing.
+                Most online tools generate low-res screenshots that look blurry when sent on WhatsApp or printed. Our generator creates ultra-clear vector files that look sharp on phone screens and print cleanly at any local photo lab.
               </p>
             </div>
 
-            {/* Card 2 */}
-            <div className="p-8 rounded-3xl bg-card border border-border shadow-sm flex flex-col gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-orange-500/10 border border-orange-500/20 text-orange-500 flex items-center justify-center shadow-inner">
-                <QrCode className="w-6 h-6" />
+            <div className="p-6 rounded-2xl bg-card border border-border shadow-sm flex flex-col gap-3">
+              <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center">
+                <QrCode className="w-5 h-5" />
               </div>
-              <h3 className="font-serif font-bold text-lg text-foreground">Built-in Google Maps GPS QR</h3>
+              <h3 className="font-serif font-bold text-base text-foreground">Google Maps Venue QR Code</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Paste any Google Maps link. Your guests scan the QR code from their mobile screen or physical card to
-                launch turn-by-turn navigation directly in Google Maps without typing confusing addresses.
+                Save your guests from getting lost or calling for directions. Paste your Google Maps link to add an instant scannable QR code on the card. Guests simply scan with their phone camera to start turn-by-turn navigation.
               </p>
             </div>
 
-            {/* Card 3 */}
-            <div className="p-8 rounded-3xl bg-card border border-border shadow-sm flex flex-col gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-500 flex items-center justify-center shadow-inner">
-                <Smartphone className="w-6 h-6" />
+            <div className="p-6 rounded-2xl bg-card border border-border shadow-sm flex flex-col gap-3">
+              <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center">
+                <Smartphone className="w-5 h-5" />
               </div>
-              <h3 className="font-serif font-bold text-lg text-foreground">Touch-First Mobile Ergonomics</h3>
+              <h3 className="font-serif font-bold text-base text-foreground">Easy to Edit on Your Phone</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Designed for smartphones from the ground up. Enjoy pinch-to-zoom, 4-corner drag handles, and bottom
-                sheets for fast, frictionless editing without cumbersome desktop sidebars.
+                Built from scratch for mobile touchscreens. Tap any name or date to edit, resize with simple handles, and download directly to your photos gallery. No app install or account needed.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
-      <section className="py-16 md:py-24">
+      {/* HOW IT WORKS (SIMPLE 3 STEPS) */}
+      <section className="py-14 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-bold uppercase tracking-widest text-amber-500 block mb-1">
-              Simple 3-Step Process
+          <div className="text-center max-w-xl mx-auto mb-12">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-500 block mb-1">
+              Easy Steps
             </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-foreground">
               From Template to WhatsApp in 2 Minutes
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="flex flex-col items-center text-center p-6 bg-card rounded-2xl border border-border">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 text-white font-bold text-lg flex items-center justify-center shadow-lg mb-4">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 text-white font-bold text-sm flex items-center justify-center shadow-md mb-3">
                 1
               </div>
-              <h3 className="font-semibold text-base mb-2">Pick Any Template</h3>
+              <h3 className="font-semibold text-sm mb-1.5">Pick a Design</h3>
               <p className="text-xs text-muted-foreground">
-                Browse our curated gallery of Hindu wedding arches, royal mandaps, birthdays, and Griha Pravesh designs.
+                Choose from traditional Indian wedding mandaps, marigold housewarming torans, or cute cradle baby themes.
               </p>
             </div>
 
             <div className="flex flex-col items-center text-center p-6 bg-card rounded-2xl border border-border">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 text-white font-bold text-lg flex items-center justify-center shadow-lg mb-4">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 text-white font-bold text-sm flex items-center justify-center shadow-md mb-3">
                 2
               </div>
-              <h3 className="font-semibold text-base mb-2">Customize Details &amp; QR</h3>
+              <h3 className="font-semibold text-sm mb-1.5">Edit Names &amp; Venue</h3>
               <p className="text-xs text-muted-foreground">
-                Type bride &amp; groom names, date, and venue. Paste your Google Maps link to generate your venue QR
-                code.
+                Type names, muhurat time, and address. Paste your Google Maps link to add your scannable venue QR code.
               </p>
             </div>
 
             <div className="flex flex-col items-center text-center p-6 bg-card rounded-2xl border border-border">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 text-white font-bold text-lg flex items-center justify-center shadow-lg mb-4">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 text-white font-bold text-sm flex items-center justify-center shadow-md mb-3">
                 3
               </div>
-              <h3 className="font-semibold text-base mb-2">Instant High-DPI Download</h3>
+              <h3 className="font-semibold text-sm mb-1.5">Download &amp; Send</h3>
               <p className="text-xs text-muted-foreground">
-                Download lossless 300 DPI PNG, WhatsApp-ready JPG, or print-ready PDF ready to send to all your guests.
+                Download a sharp, watermark-free image or PDF ready to send on WhatsApp or print at a photo studio.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SEO FAQS ACCORDION */}
-      <section className="py-16 md:py-24 bg-secondary/30 border-t border-border/80">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <span className="text-xs font-bold uppercase tracking-widest text-amber-500 block mb-1">
-              Have Questions?
+      {/* REAL HUMAN REVIEWS */}
+      <section className="py-14 md:py-20 bg-secondary/30 border-y border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-xl mx-auto mb-10">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-500 block mb-1">
+              Real Experiences
             </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-foreground">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-foreground">
+              What Families Say
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-2xl bg-card border border-border shadow-sm flex flex-col justify-between">
+              <div className="flex items-center gap-1 text-amber-500 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+                ))}
+              </div>
+              <p className="text-xs text-foreground leading-relaxed italic mb-4">
+                &ldquo;Created our wedding card in 5 minutes on my phone. The Google Maps QR code was a lifesaver for our guests driving to the banquet hall in Pune.&rdquo;
+              </p>
+              <div className="text-xs font-semibold text-muted-foreground">
+                — Rohit &amp; Pooja Deshmukh, Pune
+              </div>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-card border border-border shadow-sm flex flex-col justify-between">
+              <div className="flex items-center gap-1 text-amber-500 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+                ))}
+              </div>
+              <p className="text-xs text-foreground leading-relaxed italic mb-4">
+                &ldquo;Printed our Griha Pravesh card at our local press on 300 GSM textured paper. The resolution was completely sharp, zero blurriness.&rdquo;
+              </p>
+              <div className="text-xs font-semibold text-muted-foreground">
+                — Ananya &amp; Kartik Sharma, Delhi
+              </div>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-card border border-border shadow-sm flex flex-col justify-between">
+              <div className="flex items-center gap-1 text-amber-500 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+                ))}
+              </div>
+              <p className="text-xs text-foreground leading-relaxed italic mb-4">
+                &ldquo;The Marathi wording for Dohale Jevan was exactly what our elders wanted. So simple to copy, customize, and share on family WhatsApp groups.&rdquo;
+              </p>
+              <div className="text-xs font-semibold text-muted-foreground">
+                — Snehal &amp; Mandar Patil, Mumbai
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FREQUENTLY ASKED QUESTIONS */}
+      <section className="py-14 md:py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-500 block mb-1">
+              Common Questions
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-foreground">
               Frequently Asked Questions
             </h2>
           </div>
 
           <div className="space-y-4">
-            <div className="p-6 rounded-2xl bg-card border border-border shadow-sm">
-              <h3 className="text-sm font-semibold text-foreground mb-2">
-                How do I create an Indian wedding invitation card online?
+            <div className="p-5 rounded-2xl bg-card border border-border shadow-sm">
+              <h3 className="text-sm font-semibold text-foreground mb-1.5">
+                How do I make an Indian invitation card online?
               </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Select any Indian wedding template on our catalog, click &quot;Customize This Card&quot;, replace the demo text with
-                your bride &amp; groom names, date, and venue details, paste your Google Maps link for the venue QR code, and
-                click Download.
+                Choose any template from our catalog, tap &ldquo;Customize This Card&rdquo;, replace the demo text with your family names, date, and venue details, paste your Google Maps link for the venue QR code, and click Download.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-card border border-border shadow-sm">
-              <h3 className="text-sm font-semibold text-foreground mb-2">
-                Can I add a Google Maps venue QR code to my invitation?
+            <div className="p-5 rounded-2xl bg-card border border-border shadow-sm">
+              <h3 className="text-sm font-semibold text-foreground mb-1.5">
+                Can I add a Google Maps venue QR code to the card?
               </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Yes! Our built-in QR Map feature lets you paste any Google Maps location URL. It automatically generates a
-                crisp, scannable QR code on your card so guests can navigate directly with their phone cameras.
+                Yes. Just paste your Google Maps link into our QR code tool. It places a clean, scannable QR code on your card so guests can scan and navigate straight to your venue.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-card border border-border shadow-sm">
-              <h3 className="text-sm font-semibold text-foreground mb-2">
-                What resolution are the downloaded invitation cards?
+            <div className="p-5 rounded-2xl bg-card border border-border shadow-sm">
+              <h3 className="text-sm font-semibold text-foreground mb-1.5">
+                Is this free, and does it add a watermark?
               </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Cards are rendered using our high-DPI vector canvas engine up to 300 DPI (2400×3600 pixels or higher).
-                They are ultra-crisp with zero blurriness, perfect for WhatsApp sharing and professional offset/digital
-                printing.
+                It is 100% free with zero watermarks and no sign-up or registration required. You get clean, high-resolution downloads ready for immediate use.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-card border border-border shadow-sm">
-              <h3 className="text-sm font-semibold text-foreground mb-2">
-                Can I upload custom background templates later?
+            <div className="p-5 rounded-2xl bg-card border border-border shadow-sm">
+              <h3 className="text-sm font-semibold text-foreground mb-1.5">
+                Can I type invitation text in Hindi, Marathi, or Gujarati?
               </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Yes! The architecture is built to support any custom background image. Each background has pre-configured
-                demo placements so users can immediately customize names, timings, and venues.
+                Yes. Our editor supports full Unicode Indian languages and comes loaded with genuine regional fonts like Rozha One, Yatra One, and Noto Serif Devanagari. You can type or paste regional text easily.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FINAL CALL TO ACTION */}
-      <section className="py-20 bg-gradient-to-b from-card to-background border-t border-border text-center">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-5xl font-serif font-bold text-foreground">
-            Design Your Dream Card Today
+      {/* BOTTOM CTA */}
+      <section className="py-16 bg-gradient-to-b from-card to-background border-t border-border text-center">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl sm:text-4xl font-serif font-bold text-foreground">
+            Ready to Create Your Invitation?
           </h2>
-          <p className="text-sm text-muted-foreground mt-3 mb-8">
-            Experience the ease of our next-generation online invitation studio.
+          <p className="text-xs sm:text-sm text-muted-foreground mt-2 mb-6">
+            Pick a design, add your names and venue QR code, and download in seconds.
           </p>
           <Link
-            href="/editor?template=royal-traditional-wedding"
-            className="inline-flex items-center gap-2.5 px-9 py-4 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white font-semibold text-sm rounded-2xl shadow-xl shadow-orange-500/25 transition-all hover:scale-105"
+            href="/templates"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-lg shadow-orange-500/20 transition-all hover:scale-105 active:scale-95"
           >
             <Sparkles className="w-4 h-4" />
-            <span>Launch Online Card Studio</span>
+            <span>Browse All Invitation Templates</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

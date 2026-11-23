@@ -244,7 +244,7 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-full flex items-center justify-center select-none touch-none p-1 sm:p-3 md:p-6 bg-neutral-900/40 dark:bg-neutral-950/70 ${
+      className={`relative w-full h-full flex items-center justify-center select-none touch-none p-1 sm:p-3 md:p-6 bg-neutral-100/90 dark:bg-neutral-950/80 ${
         zoom > 1.05 ? "overflow-auto" : "overflow-hidden"
       }`}
       onPointerDown={() => {
