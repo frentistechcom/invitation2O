@@ -98,6 +98,15 @@
     "category": "naming-ceremony"
   },
   {
+    "id": "night-safari-naming-ceremony",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/night-safari-naming-ceremony-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/night-safari-naming-ceremony-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Night Safari & Moonlit Cradle Naming Ceremony",
+    "category": "naming-ceremony"
+  },
+  {
     "id": "baby-shower-05",
     "type": "archived-vault",
     "originalBgFile": "media_1795390808689_2a2a5d0d.jpg",
