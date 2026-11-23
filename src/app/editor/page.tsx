@@ -7,7 +7,7 @@ import { Loader2 } from "lucide-react";
 
 function EditorContent() {
   const searchParams = useSearchParams();
-  const templateId = searchParams.get("template") || "royal-rajasthani-arch-wedding";
+  const templateId = searchParams.get("template") || "charming-dulha-dulhan-wedding";
 
   return <TemplateEditor initialTemplateId={templateId} />;
 }

@@ -1,47 +1,47 @@
 [
   {
-    "id": "royal-rajasthani-arch-wedding",
+    "id": "charming-dulha-dulhan-wedding",
     "type": "deployed",
-    "masterBackground": "assets/raw-masters/backgrounds/royal-rajasthani-arch-wedding-bg.jpg",
-    "masterPreview": "assets/raw-masters/previews/royal-rajasthani-arch-wedding-card.jpg",
+    "masterBackground": "assets/raw-masters/backgrounds/charming-dulha-dulhan-wedding-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/charming-dulha-dulhan-wedding-card.jpg",
     "dimensions": "731x1024",
-    "title": "Royal Rajasthani Arch & Jasmine Wedding",
+    "title": "Charming Royal Dulha & Dulhan Wedding",
     "category": "wedding"
   },
   {
-    "id": "traditional-gold-ganesha-wedding",
+    "id": "sacred-ganesha-kalash-wedding",
     "type": "deployed",
-    "masterBackground": "assets/raw-masters/backgrounds/traditional-gold-ganesha-wedding-bg.jpg",
-    "masterPreview": "assets/raw-masters/previews/traditional-gold-ganesha-wedding-card.jpg",
+    "masterBackground": "assets/raw-masters/backgrounds/sacred-ganesha-kalash-wedding-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/sacred-ganesha-kalash-wedding-card.jpg",
     "dimensions": "731x1024",
-    "title": "Sacred Golden Ganesha & Temple Bells Wedding",
+    "title": "Auspicious Ganesha & Lotus Urli Wedding",
     "category": "wedding"
   },
   {
-    "id": "regal-peacock-palace-wedding",
+    "id": "royal-elephant-procession-wedding",
     "type": "deployed",
-    "masterBackground": "assets/raw-masters/backgrounds/regal-peacock-palace-wedding-bg.jpg",
-    "masterPreview": "assets/raw-masters/previews/regal-peacock-palace-wedding-card.jpg",
+    "masterBackground": "assets/raw-masters/backgrounds/royal-elephant-procession-wedding-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/royal-elephant-procession-wedding-card.jpg",
     "dimensions": "731x1024",
-    "title": "Regal Peacock Palace & Emerald Archway Wedding",
+    "title": "Royal Baraat Elephant & Lotus Arch Wedding",
     "category": "wedding"
   },
   {
-    "id": "blush-floral-geometry-wedding",
+    "id": "traditional-wedding-doli-palki",
     "type": "deployed",
-    "masterBackground": "assets/raw-masters/backgrounds/blush-floral-geometry-wedding-bg.jpg",
-    "masterPreview": "assets/raw-masters/previews/blush-floral-geometry-wedding-card.jpg",
+    "masterBackground": "assets/raw-masters/backgrounds/traditional-wedding-doli-palki-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/traditional-wedding-doli-palki-card.jpg",
     "dimensions": "731x1024",
-    "title": "Modern Blush Pink & Gold Geometric Arch Wedding",
+    "title": "Traditional Royal Doli & Fairylight Wedding",
     "category": "wedding"
   },
   {
-    "id": "grand-marble-mandap-wedding",
+    "id": "peacock-lotus-mandap-wedding",
     "type": "deployed",
-    "masterBackground": "assets/raw-masters/backgrounds/grand-marble-mandap-wedding-bg.jpg",
-    "masterPreview": "assets/raw-masters/previews/grand-marble-mandap-wedding-card.jpg",
+    "masterBackground": "assets/raw-masters/backgrounds/peacock-lotus-mandap-wedding-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/peacock-lotus-mandap-wedding-card.jpg",
     "dimensions": "731x1024",
-    "title": "Grand Carved Marble Mandap & Sunset Silk Wedding",
+    "title": "Twin Royal Peacocks & Golden Arch Wedding",
     "category": "wedding"
   },
   {

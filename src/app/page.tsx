@@ -99,7 +99,7 @@ export default function HomePage() {
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start pt-2">
                 <Link
-                  href="/editor?template=royal-rajasthani-arch-wedding"
+                  href="/editor?template=charming-dulha-dulhan-wedding"
                   className="w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white font-semibold text-sm rounded-xl shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <Edit3 className="w-4 h-4" />
@@ -157,7 +157,7 @@ export default function HomePage() {
                   </div>
 
                   <Link
-                    href="/editor?template=royal-rajasthani-arch-wedding"
+                    href="/editor?template=charming-dulha-dulhan-wedding"
                     className="w-full mt-3 py-2.5 bg-secondary hover:bg-secondary/80 text-foreground text-xs font-semibold rounded-xl flex items-center justify-center gap-2 border border-border shadow-sm transition-all"
                   >
                     <span>Open in Editor</span>
