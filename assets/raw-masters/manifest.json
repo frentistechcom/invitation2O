@@ -53,6 +53,15 @@
     "category": "housewarming"
   },
   {
+    "id": "gau-pooja-couple-housewarming",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/gau-pooja-couple-housewarming-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/gau-pooja-couple-housewarming-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Sacred Gau Pooja & Couple Griha Pravesh",
+    "category": "housewarming"
+  },
+  {
     "id": "baby-shower-05",
     "type": "archived-vault",
     "originalBgFile": "media_1795390808689_2a2a5d0d.jpg",
