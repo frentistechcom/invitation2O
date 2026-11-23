@@ -1710,7 +1710,7 @@ export const SAMPLE_TEMPLATES: CardTemplate[] = [
       {
         id: "bs-venue",
         type: "text",
-        text: "Ajinkya bunglow, Netaji\nChowk, Hyderabaad, 002",
+        text: "Ajinkya Bungalow, Netaji Chowk,\nBanjara Hills, Hyderabad - 500034",
         fontFamily: "'Poppins', sans-serif",
         fontSize: 18,
         fontWeight: "500",
@@ -2725,7 +2725,7 @@ export const SAMPLE_TEMPLATES: CardTemplate[] = [
       {
         id: "gp-date-time",
         type: "text",
-        text: "20 April 2025  11 AM Onwards",
+        text: "20 April 2025 • 11:00 AM Onwards",
         fontFamily: "'Outfit', sans-serif",
         fontSize: 18,
         fontWeight: "bold",
@@ -2747,7 +2747,7 @@ export const SAMPLE_TEMPLATES: CardTemplate[] = [
       {
         id: "gp-venue",
         type: "text",
-        text: "Flat 1005, Life Republic, hinjewadi Phase 1,\nWakad Pune, 411057",
+        text: "Flat 1005, Life Republic, Hinjewadi Phase 1,\nWakad, Pune - 411057",
         fontFamily: "'Outfit', sans-serif",
         fontSize: 16,
         fontWeight: "600",
@@ -2917,7 +2917,7 @@ export const SAMPLE_TEMPLATES: CardTemplate[] = [
       {
         id: "gh-venue",
         type: "text",
-        text: "Flat 1005, Life Republic,\nhinjewadi Phase 1,\nWakad Pune, 411057",
+        text: "Flat 1005, Life Republic,\nHinjewadi Phase 1,\nWakad, Pune - 411057",
         fontFamily: "'Outfit', sans-serif",
         fontSize: 16,
         fontWeight: "600",
@@ -3148,7 +3148,7 @@ export const SAMPLE_TEMPLATES: CardTemplate[] = [
       {
         id: "gsc-date",
         type: "text",
-        text: "15 AUgust 2025 | 3.45 PM",
+        text: "15 August 2025 | 3:45 PM",
         fontFamily: "'Outfit', sans-serif",
         fontSize: 19,
         fontWeight: "bold",
@@ -3170,7 +3170,7 @@ export const SAMPLE_TEMPLATES: CardTemplate[] = [
       {
         id: "gsc-venue",
         type: "text",
-        text: "Ragini Hall, Canaught Place, Bangalore",
+        text: "Ragini Hall, Indiranagar, Bengaluru",
         fontFamily: "'Outfit', sans-serif",
         fontSize: 17,
         fontWeight: "bold",
@@ -3296,7 +3296,7 @@ export const SAMPLE_TEMPLATES: CardTemplate[] = [
       {
         id: "md-date",
         type: "text",
-        text: "15 AUgust 2025 | 3.45 PM",
+        text: "15 August 2025 | 3:45 PM",
         fontFamily: "'Outfit', sans-serif",
         fontSize: 18,
         fontWeight: "bold",
@@ -3318,7 +3318,7 @@ export const SAMPLE_TEMPLATES: CardTemplate[] = [
       {
         id: "md-venue",
         type: "text",
-        text: "Ragini Hall, Canaught Place, Bangalore",
+        text: "Ragini Hall, Indiranagar, Bengaluru",
         fontFamily: "'Outfit', sans-serif",
         fontSize: 16,
         fontWeight: "bold",
@@ -3466,7 +3466,7 @@ export const SAMPLE_TEMPLATES: CardTemplate[] = [
       {
         id: "rb-venue",
         type: "text",
-        text: "Ragini Hall, Canaught Place, Bangalore",
+        text: "Ragini Hall, Indiranagar, Bengaluru",
         fontFamily: "'Outfit', sans-serif",
         fontSize: 17,
         fontWeight: "bold",
@@ -3614,7 +3614,7 @@ export const SAMPLE_TEMPLATES: CardTemplate[] = [
       {
         id: "nsn-venue",
         type: "text",
-        text: "Ragini Hall, Cabaught Palace, Delhi",
+        text: "Ragini Hall, Connaught Place, New Delhi",
         fontFamily: "'Outfit', sans-serif",
         fontSize: 17,
         fontWeight: "bold",
@@ -3762,7 +3762,7 @@ export const SAMPLE_TEMPLATES: CardTemplate[] = [
       {
         id: "sc-venue",
         type: "text",
-        text: "Ragini Hall, Canaught Place, Delhi",
+        text: "Ragini Hall, Connaught Place, New Delhi",
         fontFamily: "'Outfit', sans-serif",
         fontSize: 17,
         fontWeight: "bold",
@@ -3910,7 +3910,7 @@ export const SAMPLE_TEMPLATES: CardTemplate[] = [
       {
         id: "gi-venue",
         type: "text",
-        text: "Ragini Hall, Connaught Palace, Delhi",
+        text: "Ragini Hall, Connaught Place, New Delhi",
         fontFamily: "'Outfit', sans-serif",
         fontSize: 17,
         fontWeight: "bold",
