@@ -347,7 +347,7 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
                     height: `${layer.height}px`,
                     transform: `rotate(${layer.rotation || 0}deg)`,
                     opacity: layer.opacity ?? 1,
-                    zIndex: layer.zIndex,
+                    zIndex: isSelected ? 50 : (layer.zIndex || 1),
                   }}
                 >
                   {/* Text Layer Rendering */}
@@ -487,7 +487,7 @@ export const CardCanvas: React.FC<CardCanvasProps> = ({
 
                       {/* Quick Action Floating Bar with Big, Touch-Friendly Buttons */}
                       <div
-                        className="absolute left-1/2 flex items-center gap-1.5 bg-neutral-950/95 dark:bg-neutral-900/95 backdrop-blur-md border border-neutral-700/80 text-white rounded-2xl shadow-2xl p-1.5 z-50 pointer-events-auto select-none ring-1 ring-black/40"
+                        className="absolute left-1/2 flex items-center gap-1.5 bg-neutral-950 dark:bg-neutral-900 border border-neutral-700 text-white rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.9)] p-1.5 z-[100] pointer-events-auto select-none ring-1 ring-white/15"
                         style={{
                           top: layer.y < 85 ? "calc(100% + 14px)" : "-16px",
                           transform: `translate(-50%, ${layer.y < 85 ? "0%" : "-100%"}) rotate(${-(layer.rotation || 0)}deg) scale(${invScale})`,
