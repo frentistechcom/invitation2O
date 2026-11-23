@@ -35,6 +35,15 @@
     "dimensions": "731x1024"
   },
   {
+    "id": "traditional-family-griha-pravesh",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/traditional-family-griha-pravesh-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/traditional-family-griha-pravesh-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Traditional Indian Family Griha Pravesh",
+    "category": "housewarming"
+  },
+  {
     "id": "baby-shower-05",
     "type": "archived-vault",
     "originalBgFile": "media_1795390808689_2a2a5d0d.jpg",
