@@ -1,5 +1,50 @@
 [
   {
+    "id": "royal-rajasthani-arch-wedding",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/royal-rajasthani-arch-wedding-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/royal-rajasthani-arch-wedding-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Royal Rajasthani Arch & Jasmine Wedding",
+    "category": "wedding"
+  },
+  {
+    "id": "traditional-gold-ganesha-wedding",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/traditional-gold-ganesha-wedding-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/traditional-gold-ganesha-wedding-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Sacred Golden Ganesha & Temple Bells Wedding",
+    "category": "wedding"
+  },
+  {
+    "id": "regal-peacock-palace-wedding",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/regal-peacock-palace-wedding-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/regal-peacock-palace-wedding-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Regal Peacock Palace & Emerald Archway Wedding",
+    "category": "wedding"
+  },
+  {
+    "id": "blush-floral-geometry-wedding",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/blush-floral-geometry-wedding-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/blush-floral-geometry-wedding-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Modern Blush Pink & Gold Geometric Arch Wedding",
+    "category": "wedding"
+  },
+  {
+    "id": "grand-marble-mandap-wedding",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/grand-marble-mandap-wedding-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/grand-marble-mandap-wedding-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Grand Carved Marble Mandap & Sunset Silk Wedding",
+    "category": "wedding"
+  },
+  {
     "id": "indian-mom-baby-shower",
     "type": "deployed",
     "masterBackground": "assets/raw-masters/backgrounds/indian-mom-baby-shower-bg.jpg",
