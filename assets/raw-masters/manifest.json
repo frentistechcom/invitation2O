@@ -107,6 +107,15 @@
     "category": "naming-ceremony"
   },
   {
+    "id": "royal-bronze-cradle-naming-ceremony",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/royal-bronze-cradle-naming-ceremony-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/royal-bronze-cradle-naming-ceremony-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Royal Bronze Cradle & Sleeping Baby Naming Ceremony",
+    "category": "naming-ceremony"
+  },
+  {
     "id": "baby-shower-05",
     "type": "archived-vault",
     "originalBgFile": "media_1795390808689_2a2a5d0d.jpg",
