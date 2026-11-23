@@ -72,6 +72,7 @@ export interface CardTemplate {
   categoryName: string;
   subCategory?: string;
   description: string;
+  language?: "en" | "hi" | "mr" | "gu" | "te" | "ta" | "kn" | "bn" | string;
   width: number; // e.g. 800
   height: number; // e.g. 1200
   backgroundImage: string;
