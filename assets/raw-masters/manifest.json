@@ -89,6 +89,15 @@
     "category": "naming-ceremony"
   },
   {
+    "id": "sleeping-baby-cradle-naming-ceremony",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/sleeping-baby-cradle-naming-ceremony-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/sleeping-baby-cradle-naming-ceremony-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Floral Mango Cradle & Sleeping Baby Naming Ceremony",
+    "category": "naming-ceremony"
+  },
+  {
     "id": "baby-shower-05",
     "type": "archived-vault",
     "originalBgFile": "media_1795390808689_2a2a5d0d.jpg",
