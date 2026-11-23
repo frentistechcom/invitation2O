@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { CardTemplate, CanvasLayer, ExportFormat } from "@/types/editor";
+import { CardTemplate, CanvasLayer } from "@/types/editor";
 import { exportCard } from "@/lib/export";
 import confetti from "canvas-confetti";
-import { X, Download, FileImage, FileText, CheckCircle2, Loader2, Sparkles, ShieldCheck } from "lucide-react";
+import { X, Download, FileImage, CheckCircle2, Loader2, Sparkles, ShieldCheck } from "lucide-react";
 
 interface DownloadModalProps {
   isOpen: boolean;
@@ -14,11 +14,9 @@ interface DownloadModalProps {
 }
 
 export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose, template, layers }) => {
-  const [format, setFormat] = useState<ExportFormat>("png");
-  const [scale, setScale] = useState<number>(2.5); // 2.5x ~ 2000x3000px ultra high-res
-  const [includeWatermark, setIncludeWatermark] = useState<boolean>(false);
   const [isExporting, setIsExporting] = useState<boolean>(false);
   const [exportComplete, setExportComplete] = useState<boolean>(false);
+  const [includeWatermark, setIncludeWatermark] = useState<boolean>(false);
 
   if (!isOpen) return null;
 
@@ -26,8 +24,8 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose, t
     try {
       setIsExporting(true);
       const result = await exportCard(template, layers, {
-        format,
-        scaleMultiplier: scale,
+        format: "png",
+        scaleMultiplier: 2.5, // 2000x3000px Ultra HD 300 DPI
         includeWatermark,
       });
 
@@ -81,102 +79,28 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose, t
           High-definition 300 DPI vector export ready for WhatsApp, social media, and digital printing.
         </p>
 
-        {/* Format Selector */}
+        {/* Dedicated PNG HD Image Option */}
         <div className="mb-5">
           <label className="text-xs font-semibold text-muted-foreground block mb-2 uppercase tracking-wider">
-            Select File Format
+            Export Format
           </label>
-          <div className="grid grid-cols-3 gap-2.5">
-            <button
-              type="button"
-              onClick={() => setFormat("png")}
-              className={`p-3.5 rounded-2xl border flex flex-col items-center gap-1.5 transition-all shadow-sm ${
-                format === "png"
-                  ? "bg-amber-500/15 border-amber-500 text-amber-500 font-semibold scale-102"
-                  : "bg-secondary/60 border-border text-foreground hover:border-amber-500/40"
-              }`}
-            >
-              <FileImage className="w-5 h-5" />
-              <span className="text-xs font-medium">PNG Image</span>
-              <span className="text-[10px] text-muted-foreground">Crisp Lossless</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setFormat("jpg")}
-              className={`p-3.5 rounded-2xl border flex flex-col items-center gap-1.5 transition-all shadow-sm ${
-                format === "jpg"
-                  ? "bg-amber-500/15 border-amber-500 text-amber-500 font-semibold scale-102"
-                  : "bg-secondary/60 border-border text-foreground hover:border-amber-500/40"
-              }`}
-            >
-              <FileImage className="w-5 h-5" />
-              <span className="text-xs font-medium">JPG / JPEG</span>
-              <span className="text-[10px] text-muted-foreground">WhatsApp Fast</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setFormat("pdf")}
-              className={`p-3.5 rounded-2xl border flex flex-col items-center gap-1.5 transition-all shadow-sm ${
-                format === "pdf"
-                  ? "bg-amber-500/15 border-amber-500 text-amber-500 font-semibold scale-102"
-                  : "bg-secondary/60 border-border text-foreground hover:border-amber-500/40"
-              }`}
-            >
-              <FileText className="w-5 h-5" />
-              <span className="text-xs font-medium">PDF Print</span>
-              <span className="text-[10px] text-muted-foreground">Print Ready</span>
-            </button>
+          <div className="p-4 rounded-2xl border bg-amber-500/10 border-amber-500 text-amber-600 dark:text-amber-400 flex items-center justify-between shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-500 shrink-0">
+                <FileImage className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-sm font-bold text-foreground block">PNG HD Image</span>
+                <span className="text-xs text-muted-foreground">Crisp Lossless • 300 DPI Ultra HD (2000 × 3000)</span>
+              </div>
+            </div>
+            <div className="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center shrink-0">
+              <CheckCircle2 className="w-4 h-4" />
+            </div>
           </div>
         </div>
 
-        {/* Resolution Quality */}
-        <div className="mb-5">
-          <label className="text-xs font-semibold text-muted-foreground block mb-2 uppercase tracking-wider">
-            Resolution &amp; Clarity
-          </label>
-          <div className="grid grid-cols-3 gap-2 text-xs">
-            <button
-              type="button"
-              onClick={() => setScale(1.5)}
-              className={`py-2 px-2.5 rounded-xl border text-center transition-all ${
-                scale === 1.5
-                  ? "bg-amber-500/15 border-amber-500 text-amber-500 font-semibold"
-                  : "bg-secondary/60 border-border text-muted-foreground"
-              }`}
-            >
-              Standard (HD)
-              <span className="block text-[10px] text-muted-foreground mt-0.5">1200 × 1800</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setScale(2.5)}
-              className={`py-2 px-2.5 rounded-xl border text-center transition-all ${
-                scale === 2.5
-                  ? "bg-amber-500/15 border-amber-500 text-amber-500 font-semibold"
-                  : "bg-secondary/60 border-border text-muted-foreground"
-              }`}
-            >
-              Ultra HD
-              <span className="block text-[10px] text-muted-foreground mt-0.5">2000 × 3000</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setScale(3.5)}
-              className={`py-2 px-2.5 rounded-xl border text-center transition-all ${
-                scale === 3.5
-                  ? "bg-amber-500/15 border-amber-500 text-amber-500 font-semibold"
-                  : "bg-secondary/60 border-border text-muted-foreground"
-              }`}
-            >
-              300 DPI Print
-              <span className="block text-[10px] text-muted-foreground mt-0.5">2800 × 4200</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Watermark Toggle */}
+        {/* Clean Print (No Watermark) */}
         <div className="flex items-center justify-between p-3.5 rounded-2xl bg-secondary/60 border border-border mb-6">
           <div className="flex items-center gap-2.5">
             <ShieldCheck className="w-5 h-5 text-emerald-500" />
@@ -210,7 +134,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose, t
           {isExporting ? (
             <>
               <Loader2 className="w-5 h-5 animate-spin" />
-              <span>Rendering 300 DPI Vector Canvas...</span>
+              <span>Rendering 300 DPI PNG HD...</span>
             </>
           ) : exportComplete ? (
             <>
@@ -220,7 +144,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose, t
           ) : (
             <>
               <Download className="w-5 h-5" />
-              <span>Download High-Resolution Card</span>
+              <span>Download PNG HD Card</span>
             </>
           )}
         </button>
