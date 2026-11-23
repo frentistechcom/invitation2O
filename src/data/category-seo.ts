@@ -348,7 +348,7 @@ export const CATEGORY_SEO_DATA: Record<string, CategorySeoData> = {
     keyFeatures: [
       {
         title: "Fun Kids & Adult Themes",
-        description: "Jungle safari, hot air balloons, princess castles, space rockets, and minimalist modern layouts.",
+        description: "Jungle safari, sunny meadow animals, royal prince crown, and winter wonderland themes.",
       },
       {
         title: "Photo Upload Support",
@@ -370,7 +370,7 @@ export const CATEGORY_SEO_DATA: Record<string, CategorySeoData> = {
       {
         title: "English Birthday Invitation Maker",
         href: "/english/birthday-invitation-card-maker-english",
-        description: "Kids jungle safari, space astronauts, and unicorn themes with venue QR code.",
+        description: "Kids jungle safari, sunny meadow animals, and royal prince crown themes with venue QR code.",
       },
     ],
     faqs: [
