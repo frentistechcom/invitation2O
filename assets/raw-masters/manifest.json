@@ -80,6 +80,15 @@
     "category": "housewarming"
   },
   {
+    "id": "garden-ivy-family-naming-ceremony",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/garden-ivy-family-naming-ceremony-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/garden-ivy-family-naming-ceremony-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Garden Ivy Indian Family Naming Ceremony",
+    "category": "naming-ceremony"
+  },
+  {
     "id": "baby-shower-05",
     "type": "archived-vault",
     "originalBgFile": "media_1795390808689_2a2a5d0d.jpg",
