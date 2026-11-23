@@ -197,6 +197,27 @@ export default function HomePage() {
             </span>
             <div className="flex flex-wrap gap-2 text-xs">
               <Link
+                href="/marathi/namkaran-invitation-card"
+                className="px-3 py-1.5 rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30 transition-colors font-medium flex items-center gap-1"
+              >
+                <Sparkles className="w-3 h-3" />
+                <span>नामकरण पत्रिका (Marathi)</span>
+              </Link>
+              <Link
+                href="/english/naming-ceremony"
+                className="px-3 py-1.5 rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30 transition-colors font-medium flex items-center gap-1"
+              >
+                <Sparkles className="w-3 h-3" />
+                <span>Naming Ceremony (English)</span>
+              </Link>
+              <Link
+                href="/hindi/namkaran-sanskar"
+                className="px-3 py-1.5 rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30 transition-colors font-medium flex items-center gap-1"
+              >
+                <Sparkles className="w-3 h-3" />
+                <span>नामकरण संस्कार (Hindi)</span>
+              </Link>
+              <Link
                 href="/templates/baby-shower/marathi"
                 className="px-3 py-1.5 rounded-lg bg-secondary hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 border border-border transition-colors font-medium"
               >
@@ -221,10 +242,10 @@ export default function HomePage() {
                 गृह प्रवेश (Griha Pravesh)
               </Link>
               <Link
-                href="/templates/naming-ceremony/marathi"
+                href="/templates/naming-ceremony"
                 className="px-3 py-1.5 rounded-lg bg-secondary hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 border border-border transition-colors font-medium"
               >
-                बारसे (Barse)
+                बारसे व पाळणा (Cradle)
               </Link>
               <Link
                 href="/templates/wedding/marathi"
@@ -233,7 +254,7 @@ export default function HomePage() {
                 लग्नपत्रिका (Lagna Patrika)
               </Link>
               <Link
-                href="/templates/birthday/first-birthday"
+                href="/templates/birthday"
                 className="px-3 py-1.5 rounded-lg bg-secondary hover:bg-amber-500/10 hover:text-amber-600 dark:hover:text-amber-400 border border-border transition-colors font-medium"
               >
                 1st Birthday

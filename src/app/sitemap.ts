@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { CATEGORIES, SAMPLE_TEMPLATES } from "@/data/templates";
 import { getAllSeoRoutes } from "@/data/seo-content";
+import { MULTILINGUAL_SEO_PAGES } from "@/data/multilingual-seo-pages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://invitationcardmaker.in";
@@ -30,7 +31,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  // 3. Regional Language Pages (e.g. baby-shower/marathi, housewarming/hindi, etc.)
+  // 3. Multilingual Landing Pages (/marathi/namkaran-invitation-card, /english/naming-ceremony, /hindi/namkaran-sanskar)
+  const multilingualRoutes: MetadataRoute.Sitemap = MULTILINGUAL_SEO_PAGES.map((page) => ({
+    url: `${baseUrl}/${page.lang}/${page.slug}`,
+    lastModified: currentDate,
+    changeFrequency: "daily",
+    priority: 0.92,
+  }));
+
+  // 4. Language Index Pages (/marathi, /english, /hindi)
+  const languageRootRoutes: MetadataRoute.Sitemap = ["marathi", "english", "hindi"].map((lang) => ({
+    url: `${baseUrl}/${lang}`,
+    lastModified: currentDate,
+    changeFrequency: "daily",
+    priority: 0.88,
+  }));
+
+  // 5. Regional Language Pages (e.g. baby-shower/marathi, housewarming/hindi, etc.)
   const regionalRoutes: MetadataRoute.Sitemap = getAllSeoRoutes().map((route) => ({
     url: `${baseUrl}/templates/${route.category}/${route.lang}`,
     lastModified: currentDate,
@@ -38,7 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  // 4. Editor Deeplinks for Individual Templates
+  // 6. Editor Deeplinks for Individual Templates
   const templateRoutes: MetadataRoute.Sitemap = SAMPLE_TEMPLATES.map((template) => ({
     url: `${baseUrl}/editor?template=${template.id}`,
     lastModified: currentDate,
@@ -46,5 +63,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...regionalRoutes, ...templateRoutes];
+  return [
+    ...staticRoutes,
+    ...categoryRoutes,
+    ...multilingualRoutes,
+    ...languageRootRoutes,
+    ...regionalRoutes,
+    ...templateRoutes,
+  ];
 }

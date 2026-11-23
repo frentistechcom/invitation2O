@@ -36,6 +36,7 @@ export const GOOGLE_FONTS_STYLESHEET =
   "family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&" +
   "family=Dancing+Script:wght@400;700&" +
   "family=Great+Vibes&" +
+  "family=Inter:wght@300;400;500;600;700;800&" +
   "family=Marcellus&" +
   "family=Marck+Script&" +
   "family=Montserrat:wght@300;400;500;600;700&" +
@@ -46,7 +47,7 @@ export const GOOGLE_FONTS_STYLESHEET =
   "family=Outfit:wght@300;400;500;600;700&" +
   "family=Pinyon+Script&" +
   "family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&" +
-  "family=Poppins:wght@300;400;500;600;700&" +
+  "family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&" +
   "family=Rozha+One&" +
   "family=Yatra+One&display=swap";
 
