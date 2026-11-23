@@ -116,6 +116,15 @@
     "category": "naming-ceremony"
   },
   {
+    "id": "mother-deer-cradle-naming-ceremony",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/mother-deer-cradle-naming-ceremony-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/mother-deer-cradle-naming-ceremony-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Mother Blessing & Gentle Deer Naming Ceremony",
+    "category": "naming-ceremony"
+  },
+  {
     "id": "baby-shower-05",
     "type": "archived-vault",
     "originalBgFile": "media_1795390808689_2a2a5d0d.jpg",
