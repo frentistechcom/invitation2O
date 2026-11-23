@@ -44,6 +44,15 @@
     "category": "housewarming"
   },
   {
+    "id": "ganesha-banana-tree-housewarming",
+    "type": "deployed",
+    "masterBackground": "assets/raw-masters/backgrounds/ganesha-banana-tree-housewarming-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/ganesha-banana-tree-housewarming-card.jpg",
+    "dimensions": "731x1024",
+    "title": "Sacred Ganesha & Kadali Tree Housewarming",
+    "category": "housewarming"
+  },
+  {
     "id": "baby-shower-05",
     "type": "archived-vault",
     "originalBgFile": "media_1795390808689_2a2a5d0d.jpg",
