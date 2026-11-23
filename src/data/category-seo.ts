@@ -68,25 +68,25 @@ export const CATEGORY_SEO_DATA: Record<string, CategorySeoData> = {
           "Pair English headers with sacred Sanskrit Shlokas or Marathi/Hindi text using Google Fonts like Inter and Poppins.",
       },
     ],
-    regionalEditionsTitle: "Special Regional & Marathi Naming Ceremony Editions",
+    regionalEditionsTitle: "Special Regional Editions in Marathi, Hindi & English",
     regionalLinks: [
       {
-        title: "Marathi Namkaran Invitation Card (नामकरण निमंत्रण पत्रिका)",
-        href: "/marathi/namkaran-invitation-card",
+        title: "Marathi Namkaran Card (नामकरण पत्रिका)",
+        href: "/marathi/namkaran-invitation-card-maker-marathi",
         description:
           "Authentic Marathi Barse & Namkaran invitation cards with traditional cradle themes, Palna geet, and bilingual Marathi-English wording.",
       },
       {
-        title: "Naming Ceremony in Marathi (नामकरण सोहळा)",
-        href: "/marathi/naming-ceremony",
+        title: "Hindi Namkaran Sanskar (नामकरण संस्कार)",
+        href: "/hindi/namkaran-sanskar-invitation-card-maker-hindi",
         description:
-          "Dedicated guide for Maharashtrian families with modern digital designs, baby boy/girl wording, and venue QR code.",
+          "Vedic Namkaran Sanskar invitation cards in Hindi with Bal Gopal art, Havan timings, and auspicious shlokas.",
       },
       {
-        title: "Namkaran Sanskar Invitation Card (नामकरण संस्कार)",
-        href: "/marathi/namkaran-sanskar",
+        title: "English Naming Ceremony Maker",
+        href: "/english/naming-ceremony-invitation-card-maker-english",
         description:
-          "Vedic Namkaran Sanskar invitation cards in Hindi & Marathi with Bal Gopal art, Havan timings, and auspicious shlokas.",
+          "Dedicated guide for naming day celebrations with modern digital designs, baby boy/girl wording, and venue QR code.",
       },
     ],
     faqs: [
@@ -165,17 +165,22 @@ export const CATEGORY_SEO_DATA: Record<string, CategorySeoData> = {
           "Download in vector-sharp resolution suitable for luxury wedding card printing presses or instant WhatsApp broadcasting.",
       },
     ],
-    regionalEditionsTitle: "Regional Wedding Invitations",
+    regionalEditionsTitle: "Regional Wedding Invitations in Marathi, Hindi & English",
     regionalLinks: [
       {
         title: "Marathi Lagna Patrika (लग्न पत्रिका)",
-        href: "/templates/wedding/marathi",
-        description: "Authentic Marathi wedding cards with traditional shlokas and fonts.",
+        href: "/marathi/lagna-patrika-maker-marathi",
+        description: "Authentic Marathi wedding cards with traditional shlokas, kalash, and fonts.",
       },
       {
         title: "Hindi Vivah Nimantran (विवाह निमंत्रण)",
-        href: "/templates/wedding/hindi",
+        href: "/hindi/vivah-nimantran-patrika-maker-hindi",
         description: "Traditional Hindi wedding card wording and sacred Vedic verses.",
+      },
+      {
+        title: "English Wedding Invitation Maker",
+        href: "/english/wedding-invitation-card-maker-english",
+        description: "Royal Indian wedding cards in English with Google Maps venue QR code.",
       },
     ],
     faqs: [
@@ -229,17 +234,22 @@ export const CATEGORY_SEO_DATA: Record<string, CategorySeoData> = {
         description: "Let your loved ones find your banquet hall or home address with one simple camera scan.",
       },
     ],
-    regionalEditionsTitle: "Regional Baby Shower Editions",
+    regionalEditionsTitle: "Regional Baby Shower Editions in Marathi, Hindi & English",
     regionalLinks: [
       {
         title: "Marathi Dohale Jevan (डोहळे जेवण व ओटी भरणे)",
-        href: "/templates/baby-shower/marathi",
-        description: "Authentic Marathi Dohale Jevan cards with traditional customs and wording.",
+        href: "/marathi/dohala-jewan-invitation-card-make-marathi",
+        description: "Authentic Marathi Dohale Jevan cards with traditional customs, green bangles, and wording.",
       },
       {
         title: "Hindi Godh Bharai (गोद भराई निमंत्रण)",
-        href: "/templates/baby-shower/hindi",
+        href: "/hindi/godh-bharai-invitation-card-maker-hindi",
         description: "Traditional Hindi baby shower wording with Bal Gopal art and blessings.",
+      },
+      {
+        title: "English Baby Shower Maker",
+        href: "/english/baby-shower-invitation-card-maker-english",
+        description: "Chic pastel florals and cute cradle themes with venue QR code.",
       },
     ],
     faqs: [
@@ -285,17 +295,22 @@ export const CATEGORY_SEO_DATA: Record<string, CategorySeoData> = {
         description: "Paste your new apartment or villa Google Maps pin for seamless navigation.",
       },
     ],
-    regionalEditionsTitle: "Regional Griha Pravesh Editions",
+    regionalEditionsTitle: "Regional Griha Pravesh Editions in Marathi, Hindi & English",
     regionalLinks: [
       {
         title: "Marathi Vastu Shanti (वास्तु शांत व गृहप्रवेश)",
-        href: "/templates/housewarming/marathi",
+        href: "/marathi/vastu-shanti-invitation-card-maker-marathi",
         description: "Traditional Marathi Vastu Shanti invitation cards and Satyanarayan pooja wording.",
       },
       {
         title: "Hindi Griha Pravesh (गृह प्रवेश एवं वास्तु पूजन)",
-        href: "/templates/housewarming/hindi",
+        href: "/hindi/griha-pravesh-invitation-card-maker-hindi",
         description: "Auspicious Hindi Griha Pravesh card templates with havan timings.",
+      },
+      {
+        title: "English Housewarming Maker",
+        href: "/english/housewarming-invitation-card-maker-english",
+        description: "Modern cottage and apartment housewarming invites with Google Maps QR code.",
       },
     ],
     faqs: [
@@ -340,12 +355,22 @@ export const CATEGORY_SEO_DATA: Record<string, CategorySeoData> = {
         description: "Upload a cute portrait of the birthday child with one click in our canvas editor.",
       },
     ],
-    regionalEditionsTitle: "Birthday Themes & Editions",
+    regionalEditionsTitle: "Birthday Editions in Marathi, Hindi & English",
     regionalLinks: [
       {
-        title: "1st Birthday Milestone Cards",
-        href: "/templates/birthday",
-        description: "Celebrate baby's first turning milestone with adorable themes.",
+        title: "Marathi Vadhdivas (वाढदिवस निमंत्रण)",
+        href: "/marathi/vadhdivas-invitation-card-maker-marathi",
+        description: "Traditional and modern Marathi birthday cards for 1st birthday and milestone celebrations.",
+      },
+      {
+        title: "Hindi Janmadin (जन्मदिन निमंत्रण)",
+        href: "/hindi/janmadin-invitation-card-maker-hindi",
+        description: "Colorful Hindi birthday invitation cards with cake cutting timings and photo upload.",
+      },
+      {
+        title: "English Birthday Invitation Maker",
+        href: "/english/birthday-invitation-card-maker-english",
+        description: "Kids jungle safari, space astronauts, and unicorn themes with venue QR code.",
       },
     ],
     faqs: [

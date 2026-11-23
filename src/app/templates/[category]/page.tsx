@@ -6,6 +6,7 @@ import { TemplateCard } from "@/components/catalog/TemplateCard";
 import { SAMPLE_TEMPLATES, CATEGORIES } from "@/data/templates";
 import { getLanguagesForCategory } from "@/data/seo-content";
 import { CATEGORY_SEO_DATA } from "@/data/category-seo";
+import { getSeoPageForCategoryAndLang } from "@/data/multilingual-seo-pages";
 import Link from "next/link";
 import {
   ChevronRight,
@@ -223,16 +224,20 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <span className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-amber-500 text-white shadow-sm shrink-0">
                 All Designs ({categoryTemplates.length})
               </span>
-              {regionalLanguages.map((l) => (
-                <Link
-                  key={l.lang}
-                  href={`/templates/${category}/${l.lang}`}
-                  className="px-3.5 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap bg-secondary hover:bg-secondary/80 text-foreground border border-border transition-all flex items-center gap-1.5 shrink-0"
-                >
-                  <span>{l.langName}</span>
-                  <span className="text-[10px] text-muted-foreground">({l.ceremonyName.split(" ")[0]})</span>
-                </Link>
-              ))}
+              {regionalLanguages.map((l) => {
+                const targetSeo = getSeoPageForCategoryAndLang(category, l.lang);
+                const targetHref = targetSeo ? `/${l.lang}/${targetSeo.slug}` : `/${l.lang}`;
+                return (
+                  <Link
+                    key={l.lang}
+                    href={targetHref}
+                    className="px-3.5 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap bg-secondary hover:bg-secondary/80 text-foreground border border-border transition-all flex items-center gap-1.5 shrink-0"
+                  >
+                    <span>{l.langName}</span>
+                    <span className="text-[10px] text-muted-foreground">({l.ceremonyName.split(" ")[0]})</span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         )}

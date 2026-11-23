@@ -47,15 +47,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.88,
   }));
 
-  // 5. Regional Language Pages (e.g. baby-shower/marathi, housewarming/hindi, etc.)
-  const regionalRoutes: MetadataRoute.Sitemap = getAllSeoRoutes().map((route) => ({
-    url: `${baseUrl}/templates/${route.category}/${route.lang}`,
-    lastModified: currentDate,
-    changeFrequency: "weekly",
-    priority: 0.85,
-  }));
-
-  // 6. Editor Deeplinks for Individual Templates
+  // 5. Editor Deeplinks for Individual Templates
   const templateRoutes: MetadataRoute.Sitemap = SAMPLE_TEMPLATES.map((template) => ({
     url: `${baseUrl}/editor?template=${template.id}`,
     lastModified: currentDate,
@@ -68,7 +60,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...categoryRoutes,
     ...multilingualRoutes,
     ...languageRootRoutes,
-    ...regionalRoutes,
     ...templateRoutes,
   ];
 }

@@ -72,8 +72,21 @@ export default async function MultilingualSeoLandingPage({ params }: PageProps) 
     notFound();
   }
 
-  // Filter naming ceremony templates
-  const namingTemplates = SAMPLE_TEMPLATES.filter((t) => t.category === "naming-ceremony");
+  // Filter templates for this specific category (baby-shower, naming-ceremony, wedding, housewarming, birthday)
+  const categoryTemplates = SAMPLE_TEMPLATES.filter((t) => t.category === page.category);
+  const categoryName =
+    page.category === "baby-shower"
+      ? "Baby Shower"
+      : page.category === "naming-ceremony"
+      ? "Naming Ceremony"
+      : page.category === "wedding"
+      ? "Wedding"
+      : page.category === "housewarming"
+      ? "Housewarming"
+      : "Birthday";
+
+  // Related language editions for this category (Marathi, English, Hindi)
+  const categoryEditions = MULTILINGUAL_SEO_PAGES.filter((p) => p.category === page.category);
 
   // Schema: BreadcrumbList
   const breadcrumbJsonLd = {
@@ -89,8 +102,8 @@ export default async function MultilingualSeoLandingPage({ params }: PageProps) 
       {
         "@type": "ListItem",
         position: 2,
-        name: "Naming Ceremony Templates",
-        item: "https://invitationcardmaker.in/templates/naming-ceremony",
+        name: `${categoryName} Templates`,
+        item: `https://invitationcardmaker.in/templates/${page.category}`,
       },
       {
         "@type": "ListItem",
@@ -147,10 +160,10 @@ export default async function MultilingualSeoLandingPage({ params }: PageProps) 
           </Link>
           <ChevronRight className="w-3.5 h-3.5" />
           <Link
-            href="/templates/naming-ceremony"
+            href={`/templates/${page.category}`}
             className="hover:text-amber-500 transition-colors font-medium text-foreground"
           >
-            Naming Ceremony (Main Category)
+            {categoryName} (Main Category)
           </Link>
           <ChevronRight className="w-3.5 h-3.5" />
           <Link href={`/${page.lang}`} className="hover:text-amber-500 transition-colors">
@@ -173,10 +186,12 @@ export default async function MultilingualSeoLandingPage({ params }: PageProps) 
             {page.subtitle}
           </p>
 
-          {/* Quick Language Edition Switcher (Marathi / English / Hindi) */}
+          {/* Quick Language Edition Switcher (Marathi / English / Hindi for this category) */}
           <div className="flex flex-wrap items-center gap-2 mt-5 pt-2">
-            <span className="text-xs text-muted-foreground font-medium mr-1">Other Editions:</span>
-            {MULTILINGUAL_SEO_PAGES.map((p) => {
+            <span className="text-xs text-muted-foreground font-medium mr-1">
+              {categoryName} in Other Languages:
+            </span>
+            {categoryEditions.map((p) => {
               const isActive = p.lang === page.lang;
               return (
                 <Link
@@ -189,7 +204,7 @@ export default async function MultilingualSeoLandingPage({ params }: PageProps) 
                   }`}
                 >
                   <span className="font-semibold">{p.langName}</span>
-                  <span className="text-[10px] opacity-80">({p.slug})</span>
+                  <span className="text-[10px] opacity-80">({p.nativeScriptName})</span>
                 </Link>
               );
             })}
@@ -212,7 +227,7 @@ export default async function MultilingualSeoLandingPage({ params }: PageProps) 
             </div>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
               <Link
-                href="/templates/naming-ceremony"
+                href={`/templates/${page.category}`}
                 className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold shadow-md shadow-amber-500/20 flex items-center justify-center gap-1.5 transition-all text-center"
               >
                 <span>{page.focusCallout.categoryLinkText}</span>
@@ -236,15 +251,15 @@ export default async function MultilingualSeoLandingPage({ params }: PageProps) 
               <div className="flex items-center gap-2">
                 <LayoutGrid className="w-4 h-4 text-amber-500" />
                 <h2 className="text-xl sm:text-2xl font-serif font-bold text-foreground">
-                  Ready-to-Edit Naming Ceremony Templates ({namingTemplates.length} Designs)
+                  Ready-to-Edit {categoryName} Templates ({categoryTemplates.length} Designs)
                 </h2>
               </div>
               <p className="text-xs text-muted-foreground mt-1">
-                Tap any card to open the live online editor. Change text to Marathi, Hindi, or English with custom fonts and venue QR.
+                Tap any card to open the live online editor. Change text to {page.langName} or English with custom fonts and venue QR.
               </p>
             </div>
             <Link
-              href="/templates/naming-ceremony"
+              href={`/templates/${page.category}`}
               className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline"
             >
               <span>View Main Category Page</span>
@@ -254,7 +269,7 @@ export default async function MultilingualSeoLandingPage({ params }: PageProps) 
 
           {/* Compact 2 cols mobile, 3-4 tablet, 5-6 desktop */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
-            {namingTemplates.map((template) => (
+            {categoryTemplates.map((template) => (
               <TemplateCard key={template.id} template={template} compact={true} />
             ))}
           </div>
