@@ -15,8 +15,12 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, compact = 
     return (
       <div className="group relative flex flex-col bg-card border border-border/80 hover:border-amber-500/70 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-200">
         {/* Compact Thumbnail Aspect Ratio 2:3 */}
-        <div className="relative w-full aspect-[2/3] bg-secondary overflow-hidden">
-          <picture className="absolute inset-0 w-full h-full">
+        <Link
+          href={`/editor?template=${template.id}`}
+          className="relative w-full aspect-[2/3] bg-secondary overflow-hidden block"
+          title={`Customize ${template.title}`}
+        >
+          <picture className="w-full h-full block">
             {(template.thumbnail || template.backgroundImage).match(/\.(jpg|jpeg|png)$/i) && (
               <source
                 srcSet={(template.thumbnail || template.backgroundImage).replace(/\.(jpg|jpeg|png)$/i, ".webp")}
@@ -33,16 +37,13 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, compact = 
             />
           </picture>
 
-          {/* Quick Edit Overlay */}
-          <Link
-            href={`/editor?template=${template.id}`}
-            className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center justify-center p-2"
-          >
-            <span className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-semibold text-xs flex items-center gap-1.5 shadow-lg shadow-black/40 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+          {/* Quick Edit Overlay (pointer-events-none so right-click and inspect target the actual image) */}
+          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center justify-center p-2 pointer-events-none">
+            <span className="px-3 py-1.5 rounded-lg bg-amber-500 text-white font-semibold text-xs flex items-center gap-1.5 shadow-lg shadow-black/40 transform translate-y-2 group-hover:translate-y-0 transition-transform">
               <Edit3 className="w-3.5 h-3.5" />
               <span>Customize</span>
             </span>
-          </Link>
+          </div>
 
           {/* Mini 300 DPI Badge */}
           <div className="absolute top-2 right-2 pointer-events-none">
@@ -50,7 +51,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, compact = 
               300 DPI
             </span>
           </div>
-        </div>
+        </Link>
 
         {/* Compact Bottom Caption */}
         <div className="p-2.5 flex flex-col gap-1 justify-between bg-card">
@@ -74,9 +75,13 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, compact = 
   return (
     <div className="group relative flex flex-col bg-card border border-border/80 hover:border-amber-500/60 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300">
       {/* Thumbnail Aspect Ratio 2:3 */}
-      <div className="relative w-full aspect-[2/3] bg-secondary overflow-hidden">
-        {/* Render Thumbnail (Demo with text for Google Images & Users, fallback to background) */}
-        <picture className="absolute inset-0 w-full h-full">
+      <Link
+        href={`/editor?template=${template.id}`}
+        className="relative w-full aspect-[2/3] bg-secondary overflow-hidden block"
+        title={`Customize ${template.title}`}
+      >
+        {/* Render Thumbnail (Static image with text for Google Images & Users) */}
+        <picture className="w-full h-full block">
           {(template.thumbnail || template.backgroundImage).match(/\.(jpg|jpeg|png)$/i) && (
             <source
               srcSet={(template.thumbnail || template.backgroundImage).replace(/\.(jpg|jpeg|png)$/i, ".webp")}
@@ -94,23 +99,20 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, compact = 
         </picture>
 
         {/* Category Pill */}
-        <div className="absolute top-3.5 left-3.5 z-10">
+        <div className="absolute top-3.5 left-3.5 z-10 pointer-events-none">
           <span className="px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-background/80 dark:bg-black/70 backdrop-blur-md text-amber-600 dark:text-amber-400 border border-amber-500/30 shadow-md">
             {template.categoryName}
           </span>
         </div>
 
-        {/* Hover Quick Action Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-5">
-          <Link
-            href={`/editor?template=${template.id}`}
-            className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-xl shadow-orange-500/30 transition-all transform translate-y-2 group-hover:translate-y-0"
-          >
+        {/* Hover Quick Action Overlay (pointer-events-none so right-click directly targets the image) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-5 pointer-events-none">
+          <span className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-xl shadow-orange-500/30 transition-all transform translate-y-2 group-hover:translate-y-0">
             <Edit3 className="w-4 h-4" />
             <span>Customize This Card</span>
-          </Link>
+          </span>
         </div>
-      </div>
+      </Link>
 
       {/* Card Info Below */}
       <div className="p-4 sm:p-5 flex flex-col gap-2 flex-1 justify-between bg-card">
