@@ -2,16 +2,14 @@ import React from "react";
 import { notFound } from "next/navigation";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { TemplateCard } from "@/components/catalog/TemplateCard";
+import { CategoryTemplateGrid } from "@/components/catalog/CategoryTemplateGrid";
 import { SAMPLE_TEMPLATES, CATEGORIES } from "@/data/templates";
-import { getLanguagesForCategory } from "@/data/seo-content";
 import { CATEGORY_SEO_DATA } from "@/data/category-seo";
 import { getSeoPageForCategoryAndLang } from "@/data/multilingual-seo-pages";
 import Link from "next/link";
 import {
   ChevronRight,
   Sparkles,
-  LayoutGrid,
   CheckCircle2,
   ArrowRight,
   QrCode,
@@ -77,7 +75,24 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   }
 
   const categoryTemplates = SAMPLE_TEMPLATES.filter((t) => t.category === category);
-  const regionalLanguages = getLanguagesForCategory(category);
+
+  const englishSeo = getSeoPageForCategoryAndLang(category, "english");
+  const marathiSeo = getSeoPageForCategoryAndLang(category, "marathi");
+  const hindiSeo = getSeoPageForCategoryAndLang(category, "hindi");
+
+  const regionalHrefs = {
+    english: englishSeo ? `/${englishSeo.lang}/${englishSeo.slug}` : "/english",
+    marathi: marathiSeo ? `/${marathiSeo.lang}/${marathiSeo.slug}` : "/marathi",
+    hindi: hindiSeo ? `/${hindiSeo.lang}/${hindiSeo.slug}` : "/hindi",
+  };
+
+  const CEREMONY_SUBTITLES: Record<string, { english: string; marathi: string; hindi: string }> = {
+    birthday: { english: "Birthday", marathi: "Vadhdivas", hindi: "Janmadin" },
+    "baby-shower": { english: "Baby Shower", marathi: "Dohale Jevan", hindi: "Godh Bharai" },
+    "naming-ceremony": { english: "Naming Ceremony", marathi: "Namkaran", hindi: "Naamkaran" },
+    wedding: { english: "Wedding", marathi: "Lagna Patrika", hindi: "Shubh Vivah" },
+    housewarming: { english: "Housewarming", marathi: "Vastushanti", hindi: "Griha Pravesh" },
+  };
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -212,55 +227,20 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
         )}
 
-        {/* Regional Language Bar from Database */}
-        {regionalLanguages.length > 0 && (
-          <div className="mb-8 p-3 sm:p-4 rounded-2xl bg-card border border-border shadow-sm">
-            <div className="flex items-center justify-between mb-2 px-1">
-              <span className="text-xs font-semibold text-muted-foreground">
-                Browse Regional Wording Variations:
-              </span>
-            </div>
-            <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-              <span className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-amber-500 text-white shadow-sm shrink-0">
-                All Designs ({categoryTemplates.length})
-              </span>
-              {regionalLanguages.map((l) => {
-                const targetSeo = getSeoPageForCategoryAndLang(category, l.lang);
-                const targetHref = targetSeo ? `/${l.lang}/${targetSeo.slug}` : `/${l.lang}`;
-                return (
-                  <Link
-                    key={l.lang}
-                    href={targetHref}
-                    className="px-3.5 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap bg-secondary hover:bg-secondary/80 text-foreground border border-border transition-all flex items-center gap-1.5 shrink-0"
-                  >
-                    <span>{l.langName}</span>
-                    <span className="text-[10px] text-muted-foreground">({l.ceremonyName.split(" ")[0]})</span>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Small Small Compact Template Grid Section */}
-        <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <LayoutGrid className="w-4 h-4 text-amber-500" />
-            <h2 className="text-base sm:text-lg font-serif font-bold text-foreground">
-              Select a Template to Customize ({categoryTemplates.length} Designs)
-            </h2>
-          </div>
-          <span className="text-xs text-muted-foreground hidden sm:inline">
-            Click any card to launch online editor
-          </span>
-        </div>
-
-        {/* Dense Small Small Grid: 2 cols mobile, 3-4 tablet, 5-6 desktop */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 mb-16">
-          {categoryTemplates.map((template) => (
-            <TemplateCard key={template.id} template={template} compact={true} />
-          ))}
-        </div>
+        {/* Template Catalog Grid organized by Language: English (Default) -> All Designs -> Marathi -> Hindi */}
+        <CategoryTemplateGrid
+          templates={categoryTemplates}
+          category={category}
+          categoryName={currentCategory.name}
+          subLabels={
+            CEREMONY_SUBTITLES[category] || {
+              english: "English",
+              marathi: "Marathi",
+              hindi: "Hindi",
+            }
+          }
+          regionalHrefs={regionalHrefs}
+        />
 
         {/* Comprehensive SEO Editorial & Guide Section (Fed with high intent keywords) */}
         {seo?.detailedGuide && (
