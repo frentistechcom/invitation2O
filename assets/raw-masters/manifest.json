@@ -339,5 +339,185 @@
     "masterBackground": "assets/raw-masters/backgrounds/baby-shower-20-raw-bg.jpg",
     "masterPreview": "assets/raw-masters/previews/baby-shower-20-preview-card.jpg",
     "dimensions": "731x1024"
+  },
+  {
+    "id": "royal-prince-crown-birthday",
+    "category": "birthday",
+    "title": "Royal Prince Crown & Gold Confetti 1st Birthday",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/royal-prince-crown-birthday-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/royal-prince-crown-birthday-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "whimsical-hot-air-balloon-birthday",
+    "category": "birthday",
+    "title": "Whimsical Hot Air Balloon & Clouds Birthday",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/whimsical-hot-air-balloon-birthday-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/whimsical-hot-air-balloon-birthday-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "enchanted-fairy-garden-birthday",
+    "category": "birthday",
+    "title": "Enchanted Fairy Garden & Peony Birthday",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/enchanted-fairy-garden-birthday-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/enchanted-fairy-garden-birthday-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "cosmic-astronaut-galaxy-birthday",
+    "category": "birthday",
+    "title": "Cosmic Space Astronaut & Galaxy Kids Birthday",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/cosmic-astronaut-galaxy-birthday-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/cosmic-astronaut-galaxy-birthday-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "boho-woodland-safari-birthday",
+    "category": "birthday",
+    "title": "Boho Woodland Safari & Party Cake Birthday",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/boho-woodland-safari-birthday-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/boho-woodland-safari-birthday-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "traditional-dohale-jevan-jhula-baby-shower",
+    "category": "baby-shower",
+    "title": "Traditional Dohale Jevan Floral Jhula Baby Shower",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/traditional-dohale-jevan-jhula-baby-shower-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/traditional-dohale-jevan-jhula-baby-shower-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "pastel-stork-clouds-baby-shower",
+    "category": "baby-shower",
+    "title": "Pastel Stork & Golden Moon Baby Shower",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/pastel-stork-clouds-baby-shower-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/pastel-stork-clouds-baby-shower-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "royal-peacock-oti-baby-shower",
+    "category": "baby-shower",
+    "title": "Royal Peacock & Traditional Oti Baby Shower",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/royal-peacock-oti-baby-shower-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/royal-peacock-oti-baby-shower-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "botanical-eucalyptus-gold-baby-shower",
+    "category": "baby-shower",
+    "title": "Botanical Eucalyptus & Rose Gold Baby Shower",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/botanical-eucalyptus-gold-baby-shower-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/botanical-eucalyptus-gold-baby-shower-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "twin-cradles-blessing-baby-shower",
+    "category": "baby-shower",
+    "title": "Sweet Twin Blessings Double Joy Baby Shower",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/twin-cradles-blessing-baby-shower-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/twin-cradles-blessing-baby-shower-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "sacred-kalash-swastik-griha-pravesh",
+    "category": "housewarming",
+    "title": "Auspicious Mangal Kalash & Swastik Griha Pravesh",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/sacred-kalash-swastik-griha-pravesh-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/sacred-kalash-swastik-griha-pravesh-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "kamadhenu-holy-cow-housewarming",
+    "category": "housewarming",
+    "title": "Sacred Kamadhenu & Lotus Vastu Housewarming",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/kamadhenu-holy-cow-housewarming-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/kamadhenu-holy-cow-housewarming-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "traditional-wooden-doors-toran-housewarming",
+    "category": "housewarming",
+    "title": "Traditional Carved Wooden Doors & Marigold Housewarming",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/traditional-wooden-doors-toran-housewarming-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/traditional-wooden-doors-toran-housewarming-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "modern-luxury-villa-twilight-housewarming",
+    "category": "housewarming",
+    "title": "Modern Architectural Villa & Fairylights Housewarming",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/modern-luxury-villa-twilight-housewarming-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/modern-luxury-villa-twilight-housewarming-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "tulsi-vrindavan-diya-griha-pravesh",
+    "category": "housewarming",
+    "title": "Sacred Tulsi Vrindavan & Diya Griha Pravesh",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/tulsi-vrindavan-diya-griha-pravesh-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/tulsi-vrindavan-diya-griha-pravesh-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "baby-in-golden-lotus-namkaran",
+    "category": "naming-ceremony",
+    "title": "Divine Baby in Golden Lotus Naming Ceremony",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/baby-in-golden-lotus-namkaran-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/baby-in-golden-lotus-namkaran-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "krishna-flute-peacock-cradle-namkaran",
+    "category": "naming-ceremony",
+    "title": "Sacred Krishna Flute & Peacock Palna Namkaran",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/krishna-flute-peacock-cradle-namkaran-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/krishna-flute-peacock-cradle-namkaran-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "celestial-moon-stars-slumber-naming",
+    "category": "naming-ceremony",
+    "title": "Celestial Moon & Starry Night Cradle Naming Ceremony",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/celestial-moon-stars-slumber-naming-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/celestial-moon-stars-slumber-naming-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "royal-rajasthani-jhula-namkaran",
+    "category": "naming-ceremony",
+    "title": "Royal Rajasthani Jharokha Jhula Namkaran",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/royal-rajasthani-jhula-namkaran-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/royal-rajasthani-jhula-namkaran-card.jpg",
+    "dimensions": "731x1024"
+  },
+  {
+    "id": "cute-woodland-safari-nursery-namkaran",
+    "category": "naming-ceremony",
+    "title": "Cute Woodland Safari Nursery Naming Ceremony",
+    "type": "handcrafted-vector-art",
+    "masterBackground": "assets/raw-masters/backgrounds/cute-woodland-safari-nursery-namkaran-bg.jpg",
+    "masterPreview": "assets/raw-masters/previews/cute-woodland-safari-nursery-namkaran-card.jpg",
+    "dimensions": "731x1024"
   }
 ]
