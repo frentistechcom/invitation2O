@@ -6235,7 +6235,7 @@ export const SAMPLE_TEMPLATES: CardTemplate[] = [
       {
         "id": "tcb-rsvp",
         "type": "text",
-        "text": "Warm Greetings: Rane & Sawant Families • +91 98200 99887",
+        "text": "With Best Wishes: Rane & Sawant Families • +91 98200 99887",
         "fontFamily": "'Outfit', sans-serif",
         "fontSize": 13,
         "fontWeight": "500",

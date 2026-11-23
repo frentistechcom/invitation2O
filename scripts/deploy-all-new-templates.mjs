@@ -15,109 +15,185 @@ function escapeXml(unsafe) {
 }
 
 // -------------------------------------------------------------
-// SVG DECORATIVE GENERATORS
+// REUSABLE RICH PAINTERLY SVG DECORATIONS
 // -------------------------------------------------------------
 
-function renderMarigoldToran() {
-  let s = `<g id="toran">`;
-  s += `<path d="M 0,35 Q 182,100 365,55 Q 548,100 731,35" fill="none" stroke="#15803D" stroke-width="4" stroke-linecap="round"/>`;
-  for (let x = 25; x <= 705; x += 36) {
+const COMMON_DEFS = `
+  <defs>
+    <!-- Rich Gold Gradients -->
+    <linearGradient id="gold-foil" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="25%" stop-color="#F59E0B" />
+      <stop offset="50%" stop-color="#FEF08A" />
+      <stop offset="75%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+    <radialGradient id="gold-sphere" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FEF08A" />
+      <stop offset="40%" stop-color="#F59E0B" />
+      <stop offset="85%" stop-color="#B45309" />
+      <stop offset="100%" stop-color="#78350F" />
+    </radialGradient>
+    <radialGradient id="ruby-gem" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FCA5A5" />
+      <stop offset="50%" stop-color="#DC2626" />
+      <stop offset="100%" stop-color="#7F1D1D" />
+    </radialGradient>
+    <radialGradient id="sapphire-gem" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#93C5FD" />
+      <stop offset="50%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#1E3A8A" />
+    </radialGradient>
+    <radialGradient id="emerald-gem" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#86EFAC" />
+      <stop offset="50%" stop-color="#16A34A" />
+      <stop offset="100%" stop-color="#14532D" />
+    </radialGradient>
+    <radialGradient id="flame-grad" cx="50%" cy="80%" r="70%">
+      <stop offset="0%" stop-color="#FEF08A" />
+      <stop offset="40%" stop-color="#F59E0B" />
+      <stop offset="80%" stop-color="#EA580C" />
+      <stop offset="100%" stop-color="#DC2626" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Drop Shadows and Filters -->
+    <filter id="art-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.25" />
+    </filter>
+    <filter id="soft-shadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3.5" flood-color="#000000" flood-opacity="0.18" />
+    </filter>
+    <filter id="gold-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+`;
+
+function renderRichMarigoldToran() {
+  let s = `<g id="rich-toran" filter="url(#soft-shadow)">`;
+  // Double swag lines
+  s += `<path d="M 0,35 Q 182,105 365,60 Q 548,105 731,35" fill="none" stroke="#15803D" stroke-width="4.5" stroke-linecap="round"/>`;
+  s += `<path d="M 0,55 Q 182,135 365,90 Q 548,135 731,55" fill="none" stroke="#166534" stroke-width="3" stroke-linecap="round"/>`;
+
+  // Lush Mango Leaves
+  for (let x = 20; x <= 710; x += 35) {
     const y = 35 + Math.sin((x / 731) * Math.PI) * 45;
-    s += `<path d="M ${x},${y} C ${x-10},${y+20} ${x-6},${y+40} ${x},${y+55} C ${x+6},${y+40} ${x+10},${y+20} ${x},${y} Z" fill="#166534" opacity="0.9"/>`;
-    s += `<line x1="${x}" y1="${y}" x2="${x}" y2="${y+50}" stroke="#4ADE80" stroke-width="1" opacity="0.6"/>`;
+    s += `<path d="M ${x},${y} C ${x-12},${y+22} ${x-8},${y+48} ${x},${y+65} C ${x+8},${y+48} ${x+12},${y+22} ${x},${y} Z" fill="#15803D" stroke="#14532D" stroke-width="0.8"/>`;
+    s += `<line x1="${x}" y1="${y}" x2="${x}" y2="${y+58}" stroke="#4ADE80" stroke-width="1.2" opacity="0.65"/>`;
   }
-  for (let x = 20; x <= 710; x += 28) {
+
+  // Realistic Marigold Balls (Multi-layered shaded petals)
+  for (let x = 16; x <= 715; x += 28) {
     const y = 35 + Math.sin((x / 731) * Math.PI) * 45;
-    const col = (Math.floor(x / 28) % 2 === 0) ? "#F59E0B" : "#EA580C";
-    s += `<circle cx="${x}" cy="${y}" r="12" fill="${col}" filter="drop-shadow(0 2px 3px rgba(0,0,0,0.15))"/>`;
-    s += `<circle cx="${x}" cy="${y}" r="8" fill="#FDE047" opacity="0.8"/>`;
-    s += `<circle cx="${x}" cy="${y}" r="4" fill="#B45309"/>`;
+    const isOrange = (Math.floor(x / 28) % 2 === 0);
+    const c1 = isOrange ? "#EA580C" : "#F59E0B";
+    const c2 = isOrange ? "#F97316" : "#FBBF24";
+    const c3 = isOrange ? "#FEF08A" : "#FFFBEB";
+
+    s += `<circle cx="${x}" cy="${y}" r="13" fill="${c1}"/>`;
+    s += `<circle cx="${x}" cy="${y}" r="10" fill="${c2}"/>`;
+    s += `<circle cx="${x}" cy="${y}" r="6" fill="${c3}" opacity="0.9"/>`;
+    s += `<circle cx="${x}" cy="${y}" r="3" fill="#B45309"/>`;
   }
-  [75, 190, 365, 540, 655].forEach((hx, i) => {
-    const len = i === 2 ? 110 : 85;
-    const sy = 55 + Math.sin((hx / 731) * Math.PI) * 35;
+
+  // Hanging Garlands with Brass Bells
+  [75, 190, 365, 540, 655].forEach((hx, idx) => {
+    const len = idx === 2 ? 115 : (idx % 2 === 1 ? 95 : 75);
+    const sy = 60 + Math.sin((hx / 731) * Math.PI) * 35;
     for (let y = sy; y < sy + len; y += 18) {
-      s += `<circle cx="${hx}" cy="${y}" r="7" fill="${y%36===0 ? '#EA580C':'#F59E0B'}"/>`;
-      s += `<circle cx="${hx}" cy="${y}" r="3.5" fill="#FEF08A"/>`;
+      const isO = (Math.floor(y / 18) % 2 === 0);
+      s += `<circle cx="${hx}" cy="${y}" r="8" fill="${isO ? '#EA580C' : '#F59E0B'}"/>`;
+      s += `<circle cx="${hx}" cy="${y}" r="5" fill="#FEF08A"/>`;
     }
     const by = sy + len + 8;
-    s += `<path d="M ${hx-9},${by+10} C ${hx-7},${by} ${hx-4},${by-2} ${hx},${by-2} C ${hx+4},${by-2} ${hx+7},${by} ${hx+9},${by+10} Z" fill="#D97706" stroke="#92400E" stroke-width="1.2"/>`;
-    s += `<ellipse cx="${hx}" cy="${by+10}" rx="9" ry="3" fill="#B45309"/>`;
-    s += `<circle cx="${hx}" cy="${by+13}" r="2.5" fill="#FDE047"/>`;
+    // 3D Brass Bell
+    s += `
+      <path d="M ${hx-10},${by+14} C ${hx-8},${by} ${hx-5},${by-4} ${hx},${by-4} C ${hx+5},${by-4} ${hx+8},${by} ${hx+10},${by+14} Z" fill="url(#gold-sphere)" stroke="#78350F" stroke-width="1.2"/>
+      <ellipse cx="${hx}" cy="${by+14}" rx="10" ry="3.5" fill="#B45309"/>
+      <circle cx="${hx}" cy="${by+17}" r="3" fill="#FDE047"/>
+    `;
   });
   s += `</g>`;
   return s;
 }
 
 function renderGlitterStars() {
-  let s = `<g id="stars">`;
+  let s = `<g id="glitter-stars" filter="url(#gold-glow)">`;
   const pts = [
-    {x: 45, y: 70, r: 10}, {x: 100, y: 110, r: 14}, {x: 170, y: 65, r: 12},
-    {x: 250, y: 105, r: 16}, {x: 365, y: 70, r: 22}, {x: 480, y: 105, r: 16},
-    {x: 560, y: 65, r: 12}, {x: 630, y: 110, r: 14}, {x: 685, y: 70, r: 10}
+    {x: 45, y: 70, r: 11}, {x: 105, y: 115, r: 15}, {x: 175, y: 65, r: 13},
+    {x: 255, y: 105, r: 17}, {x: 365, y: 70, r: 24}, {x: 475, y: 105, r: 17},
+    {x: 555, y: 65, r: 13}, {x: 625, y: 115, r: 15}, {x: 685, y: 70, r: 11}
   ];
   pts.forEach(p => {
-    s += `<line x1="${p.x}" y1="0" x2="${p.x}" y2="${p.y-p.r}" stroke="#FBBF24" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.6"/>`;
-    s += `<polygon points="${p.x},${p.y-p.r} ${p.x+p.r*0.3},${p.y-p.r*0.3} ${p.x+p.r},${p.y} ${p.x+p.r*0.3},${p.y+p.r*0.3} ${p.x},${p.y+p.r} ${p.x-p.r*0.3},${p.y+p.r*0.3} ${p.x-p.r},${p.y} ${p.x-p.r*0.3},${p.y-p.r*0.3}" fill="#F59E0B" stroke="#FEF08A" stroke-width="0.8"/>`;
+    s += `<line x1="${p.x}" y1="0" x2="${p.x}" y2="${p.y-p.r}" stroke="#FBBF24" stroke-width="1" stroke-dasharray="2,3" opacity="0.7"/>`;
+    s += `<polygon points="${p.x},${p.y-p.r} ${p.x+p.r*0.28},${p.y-p.r*0.28} ${p.x+p.r},${p.y} ${p.x+p.r*0.28},${p.y+p.r*0.28} ${p.x},${p.y+p.r} ${p.x-p.r*0.28},${p.y+p.r*0.28} ${p.x-p.r},${p.y} ${p.x-p.r*0.28},${p.y-p.r*0.28}" fill="url(#gold-foil)" stroke="#FFF" stroke-width="0.8"/>`;
     s += `<circle cx="${p.x}" cy="${p.y}" r="${p.r*0.25}" fill="#FFF"/>`;
   });
   s += `</g>`;
   return s;
 }
 
-function renderPartyBunting(colors) {
-  let s = `<g id="bunting">`;
-  s += `<path d="M 0,45 Q 365,95 731,45" fill="none" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="4,2"/>`;
+function renderLushBunting(colors) {
+  let s = `<g id="lush-bunting" filter="url(#soft-shadow)">`;
+  s += `<path d="M 0,45 Q 365,100 731,45" fill="none" stroke="#6B7280" stroke-width="2" stroke-dasharray="5,2"/>`;
   let ci = 0;
   for (let x = 40; x <= 690; x += 36) {
     const y = 45 + Math.sin((x / 731) * Math.PI) * 45;
     const c = colors[ci % colors.length];
     ci++;
-    s += `<polygon points="${x-15},${y} ${x+15},${y} ${x},${y+28}" fill="${c}" stroke="#FFF" stroke-width="0.8" opacity="0.95"/>`;
-    s += `<circle cx="${x-14}" cy="${y}" r="2" fill="#FDE047"/>`;
+    s += `<polygon points="${x-16},${y} ${x+16},${y} ${x},${y+32}" fill="${c}" stroke="#FFFFFF" stroke-width="1.2" opacity="0.95"/>`;
+    s += `<circle cx="${x-15}" cy="${y}" r="2.5" fill="#FDE047"/>`;
+    s += `<circle cx="${x}" cy="${y+31}" r="1.5" fill="#FFFFFF"/>`;
   }
   s += `</g>`;
   return s;
 }
 
-function renderEucalyptusGarland() {
-  let s = `<g id="eucalyptus">`;
-  s += `<path d="M 30,35 Q 365,85 701,35" fill="none" stroke="#65A30D" stroke-width="2" opacity="0.6"/>`;
-  for (let x = 40; x <= 690; x += 40) {
+function renderLushPeoniesTop() {
+  let s = `<g id="peonies-top" filter="url(#soft-shadow)">`;
+  s += `<path d="M 30,35 Q 365,90 701,35" fill="none" stroke="#65A30D" stroke-width="2.5" opacity="0.7"/>`;
+  for (let x = 45; x <= 685; x += 40) {
     const y = 35 + Math.sin((x / 731) * Math.PI) * 45;
-    s += `<ellipse cx="${x}" cy="${y+8}" rx="14" ry="7" fill="#84CC16" opacity="0.5" transform="rotate(-15 ${x} ${y+8})"/>`;
-    s += `<ellipse cx="${x+10}" cy="${y+14}" rx="12" ry="6" fill="#15803D" opacity="0.6" transform="rotate(20 ${x+10} ${y+14})"/>`;
-    s += `<circle cx="${x+5}" cy="${y+22}" r="7" fill="#F472B6" opacity="0.9"/>`;
-    s += `<circle cx="${x+5}" cy="${y+22}" r="4" fill="#FDA4AF"/>`;
-    s += `<circle cx="${x+5}" cy="${y+22}" r="2" fill="#FFF"/>`;
+    s += `<ellipse cx="${x}" cy="${y+10}" rx="16" ry="8" fill="#15803D" opacity="0.8" transform="rotate(-15 ${x} ${y+10})"/>`;
+    s += `<ellipse cx="${x+12}" cy="${y+16}" rx="14" ry="7" fill="#16A34A" opacity="0.8" transform="rotate(25 ${x+12} ${y+16})"/>`;
+    // Layered Peony Blossom
+    s += `<circle cx="${x+6}" cy="${y+24}" r="12" fill="#BE185D" opacity="0.9"/>`;
+    s += `<circle cx="${x+6}" cy="${y+24}" r="8" fill="#EC4899"/>`;
+    s += `<circle cx="${x+6}" cy="${y+24}" r="5" fill="#F472B6"/>`;
+    s += `<circle cx="${x+6}" cy="${y+24}" r="2" fill="#FDE047"/>`;
   }
   s += `</g>`;
   return s;
 }
 
-function renderOrnateBorder(color = "#D97706", inset = 24) {
+function renderOrnateFoilBorder(color = "url(#gold-foil)", inset = 24) {
   const w = 731 - inset * 2;
   const h = 1024 - inset * 2;
   const x = inset;
   const y = inset;
   return `
-    <rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="${color}" stroke-width="1.8" stroke-opacity="0.65" rx="4"/>
-    <rect x="${x+6}" y="${y+6}" width="${w-12}" height="${h-12}" fill="none" stroke="${color}" stroke-width="0.8" stroke-dasharray="4,4" stroke-opacity="0.45" rx="2"/>
-    <path d="M${x+2},${y+45} L${x+2},${y+2} L${x+45},${y+2}" fill="none" stroke="${color}" stroke-width="2.5"/>
-    <path d="M${x+w-2},${y+45} L${x+w-2},${y+2} L${x+w-45},${y+2}" fill="none" stroke="${color}" stroke-width="2.5"/>
-    <path d="M${x+2},${y+h-45} L${x+2},${y+h-2} L${x+45},${y+h-2}" fill="none" stroke="${color}" stroke-width="2.5"/>
-    <path d="M${x+w-2},${y+h-45} L${x+w-2},${y+h-2} L${x+w-45},${y+h-2}" fill="none" stroke="${color}" stroke-width="2.5"/>
-    <circle cx="${x+12}" cy="${y+12}" r="3" fill="${color}" opacity="0.8"/>
-    <circle cx="${x+w-12}" cy="${y+12}" r="3" fill="${color}" opacity="0.8"/>
-    <circle cx="${x+12}" cy="${y+h-12}" r="3" fill="${color}" opacity="0.8"/>
-    <circle cx="${x+w-12}" cy="${y+h-12}" r="3" fill="${color}" opacity="0.8"/>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="${color}" stroke-width="2.2" rx="6" filter="url(#art-shadow)" />
+    <rect x="${x+6}" y="${y+6}" width="${w-12}" height="${h-12}" fill="none" stroke="${color}" stroke-width="0.9" stroke-dasharray="5,4" opacity="0.6" rx="3"/>
+    <!-- Ornate Corner Filigree -->
+    <path d="M${x+2},${y+48} L${x+2},${y+2} L${x+48},${y+2}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round"/>
+    <path d="M${x+w-2},${y+48} L${x+w-2},${y+2} L${x+w-48},${y+2}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round"/>
+    <path d="M${x+2},${y+h-48} L${x+2},${y+h-2} L${x+48},${y+h-2}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round"/>
+    <path d="M${x+w-2},${y+h-48} L${x+w-2},${y+h-2} L${x+w-48},${y+h-2}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="${x+14}" cy="${y+14}" r="4" fill="${color}" filter="url(#gold-glow)"/>
+    <circle cx="${x+w-14}" cy="${y+14}" r="4" fill="${color}" filter="url(#gold-glow)"/>
+    <circle cx="${x+14}" cy="${y+h-14}" r="4" fill="${color}" filter="url(#gold-glow)"/>
+    <circle cx="${x+w-14}" cy="${y+h-14}" r="4" fill="${color}" filter="url(#gold-glow)"/>
   `;
 }
 
 // -------------------------------------------------------------
-// TEMPLATES SPECIFICATION (20 TEMPLATES)
+// COMPLETE SPECIFICATIONS FOR THE 20 NEW TEMPLATES
 // -------------------------------------------------------------
-export const NEW_TEMPLATES = [
+export const NEW_RICH_TEMPLATES = [
   // ==================== BIRTHDAY (5) ====================
   {
     id: "royal-prince-crown-birthday",
@@ -131,40 +207,59 @@ export const NEW_TEMPLATES = [
     bgSvg: `
       <defs>
         <linearGradient id="bg-rpc" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#EBF4FF"/>
-          <stop offset="50%" stop-color="#F8FAFC"/>
+          <stop offset="0%" stop-color="#EFF6FF"/>
+          <stop offset="35%" stop-color="#F8FAFC"/>
+          <stop offset="70%" stop-color="#FFFDF7"/>
           <stop offset="100%" stop-color="#EFF6FF"/>
         </linearGradient>
+        <radialGradient id="balloon-blue" cx="35%" cy="35%" r="65%">
+          <stop offset="0%" stop-color="#93C5FD"/>
+          <stop offset="50%" stop-color="#3B82F6"/>
+          <stop offset="100%" stop-color="#1E3A8A"/>
+        </radialGradient>
+        <radialGradient id="balloon-gold" cx="35%" cy="35%" r="65%">
+          <stop offset="0%" stop-color="#FEF08A"/>
+          <stop offset="50%" stop-color="#F59E0B"/>
+          <stop offset="100%" stop-color="#B45309"/>
+        </radialGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-rpc)"/>
-      ${renderOrnateBorder("#2563EB", 24)}
+      ${renderOrnateFoilBorder("url(#gold-foil)", 24)}
       ${renderGlitterStars()}
-      <!-- Royal Crown Motif at top -->
-      <g transform="translate(365, 140)">
-        <path d="M -45,15 L -55,-15 L -25,-2 L 0,-30 L 25,-2 L 55,-15 L 45,15 Z" fill="#F59E0B" stroke="#B45309" stroke-width="2"/>
-        <rect x="-42" y="15" width="84" height="10" rx="3" fill="#D97706"/>
-        <circle cx="0" cy="-30" r="5" fill="#EF4444"/>
-        <circle cx="-55" cy="-15" r="4" fill="#3B82F6"/>
-        <circle cx="55" cy="-15" r="4" fill="#3B82F6"/>
-        <circle cx="-25" cy="-2" r="3.5" fill="#10B981"/>
-        <circle cx="25" cy="-2" r="3.5" fill="#10B981"/>
+      <!-- 3D Shaded Royal Crown at Top -->
+      <g transform="translate(365, 125)" filter="url(#art-shadow)">
+        <path d="M -70,25 C -40,32 40,32 70,25 L 85,-20 L 40,0 L 0,-45 L -40,0 L -85,-20 Z" fill="url(#gold-foil)" stroke="#92400E" stroke-width="2"/>
+        <path d="M -65,15 C -45,-30 45,-30 65,15 Z" fill="#991B1B" opacity="0.85"/>
+        <circle cx="0" cy="-45" r="9" fill="url(#ruby-gem)"/>
+        <circle cx="-85" cy="-20" r="7" fill="url(#gold-sphere)"/>
+        <circle cx="85" cy="-20" r="7" fill="url(#gold-sphere)"/>
+        <circle cx="-40" cy="0" r="6" fill="url(#ruby-gem)"/>
+        <circle cx="40" cy="0" r="6" fill="url(#ruby-gem)"/>
+        <circle cx="-45" cy="23" r="4.5" fill="url(#sapphire-gem)"/>
+        <circle cx="-15" cy="25" r="4.5" fill="url(#ruby-gem)"/>
+        <circle cx="15" cy="25" r="4.5" fill="url(#ruby-gem)"/>
+        <circle cx="45" cy="23" r="4.5" fill="url(#sapphire-gem)"/>
       </g>
-      <!-- Bottom Royal Balloons & Confetti -->
-      <g transform="translate(365, 870)">
-        <!-- Left Balloons -->
-        <ellipse cx="-160" cy="0" rx="42" ry="52" fill="#3B82F6" opacity="0.85"/>
-        <ellipse cx="-200" cy="-30" rx="38" ry="48" fill="#F59E0B" opacity="0.85"/>
-        <ellipse cx="-130" cy="-45" rx="36" ry="46" fill="#60A5FA" opacity="0.85"/>
-        <!-- Right Balloons -->
-        <ellipse cx="160" cy="0" rx="42" ry="52" fill="#3B82F6" opacity="0.85"/>
-        <ellipse cx="200" cy="-30" rx="38" ry="48" fill="#F59E0B" opacity="0.85"/>
-        <ellipse cx="130" cy="-45" rx="36" ry="46" fill="#60A5FA" opacity="0.85"/>
-        <!-- Confetti -->
-        <circle cx="-60" cy="20" r="4" fill="#F59E0B"/>
-        <circle cx="60" cy="20" r="4" fill="#3B82F6"/>
-        <circle cx="0" cy="35" r="5" fill="#EF4444"/>
-        <rect x="-20" y="10" width="8" height="8" rx="2" fill="#10B981" transform="rotate(45 -20 10)"/>
-        <rect x="25" y="15" width="8" height="8" rx="2" fill="#F59E0B" transform="rotate(30 25 15)"/>
+      <!-- Bottom Royal Balloon Clusters and Ribbons -->
+      <g transform="translate(365, 870)" filter="url(#art-shadow)">
+        <g transform="translate(-160, 0)">
+          <ellipse cx="-40" cy="15" rx="36" ry="46" fill="url(#balloon-blue)" transform="rotate(-15 -40 15)"/>
+          <ellipse cx="10" cy="5" rx="38" ry="50" fill="url(#balloon-gold)" transform="rotate(10 10 5)"/>
+          <ellipse cx="-15" cy="-35" rx="40" ry="52" fill="url(#balloon-blue)"/>
+          <path d="M -40,55 Q -25,90 0,110" fill="none" stroke="#94A3B8" stroke-width="1.2"/>
+          <path d="M 10,50 Q 5,85 0,110" fill="none" stroke="#94A3B8" stroke-width="1.2"/>
+          <path d="M -15,12 Q -10,70 0,110" fill="none" stroke="#94A3B8" stroke-width="1.2"/>
+        </g>
+        <g transform="translate(160, 0)">
+          <ellipse cx="40" cy="15" rx="36" ry="46" fill="url(#balloon-blue)" transform="rotate(15 40 15)"/>
+          <ellipse cx="-10" cy="5" rx="38" ry="50" fill="url(#balloon-gold)" transform="rotate(-10 -10 5)"/>
+          <ellipse cx="15" cy="-35" rx="40" ry="52" fill="url(#balloon-blue)"/>
+          <path d="M 40,55 Q 25,90 0,110" fill="none" stroke="#94A3B8" stroke-width="1.2"/>
+          <path d="M -10,50 Q -5,85 0,110" fill="none" stroke="#94A3B8" stroke-width="1.2"/>
+          <path d="M 15,12 Q 10,70 0,110" fill="none" stroke="#94A3B8" stroke-width="1.2"/>
+        </g>
+        <circle cx="0" cy="30" r="28" fill="url(#gold-sphere)" filter="url(#gold-glow)"/>
+        <polygon points="0,-18 5,-5 18,-5 8,4 12,16 0,8 -12,16 -8,4 -18,-5 -5,-5" fill="#FFF"/>
       </g>
     `,
     layers: [
@@ -190,27 +285,26 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-hab" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#FFF7ED"/>
-          <stop offset="50%" stop-color="#FFFBEB"/>
+          <stop offset="45%" stop-color="#FFFBEB"/>
           <stop offset="100%" stop-color="#FEF3C7"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-hab)"/>
-      ${renderOrnateBorder("#F59E0B", 24)}
-      ${renderPartyBunting(["#38BDF8", "#F472B6", "#FBBF24", "#34D399", "#A78BFA"])}
+      ${renderOrnateFoilBorder("#F59E0B", 24)}
+      ${renderLushBunting(["#38BDF8", "#F472B6", "#FBBF24", "#34D399", "#A78BFA"])}
       <!-- Bottom Hot Air Balloon & Clouds -->
-      <g transform="translate(365, 875)">
-        <!-- Clouds -->
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="-140" cy="30" rx="90" ry="40" fill="#FFFFFF" opacity="0.95"/>
         <ellipse cx="140" cy="30" rx="90" ry="40" fill="#FFFFFF" opacity="0.95"/>
-        <ellipse cx="0" cy="50" rx="120" ry="45" fill="#FFFFFF" opacity="0.95"/>
+        <ellipse cx="0" cy="50" rx="130" ry="48" fill="#FFFFFF" opacity="0.98"/>
         <!-- Hot Air Balloon -->
         <g transform="translate(0, -50)">
-          <path d="M 0,-70 C -48,-70 -60,-20 -25,25 L -15,40 L 15,40 L 25,25 C 60,-20 48,-70 0,-70 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1.5"/>
+          <path d="M 0,-70 C -48,-70 -60,-20 -25,25 L -15,40 L 15,40 L 25,25 C 60,-20 48,-70 0,-70 Z" fill="#F472B6" stroke="#DB2777" stroke-width="1.8"/>
           <path d="M 0,-70 C -20,-70 -25,-20 -10,40 L 10,40 C 25,-20 20,-70 0,-70 Z" fill="#38BDF8"/>
-          <!-- Basket -->
-          <line x1="-10" y1="40" x2="-8" y2="52" stroke="#92400E" stroke-width="1.2"/>
-          <line x1="10" y1="40" x2="8" y2="52" stroke="#92400E" stroke-width="1.2"/>
-          <rect x="-12" y="52" width="24" height="18" rx="3" fill="#D97706" stroke="#92400E" stroke-width="1"/>
+          <!-- Ropes & Basket -->
+          <line x1="-10" y1="40" x2="-8" y2="52" stroke="#92400E" stroke-width="1.5"/>
+          <line x1="10" y1="40" x2="8" y2="52" stroke="#92400E" stroke-width="1.5"/>
+          <rect x="-14" y="52" width="28" height="20" rx="4" fill="#D97706" stroke="#92400E" stroke-width="1.2"/>
         </g>
       </g>
     `,
@@ -237,17 +331,16 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-efg" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#FFF1F2"/>
-          <stop offset="50%" stop-color="#FDF2F8"/>
+          <stop offset="45%" stop-color="#FDF2F8"/>
           <stop offset="100%" stop-color="#FCE7F3"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-efg)"/>
-      ${renderOrnateBorder("#DB2777", 24)}
-      ${renderEucalyptusGarland()}
+      ${renderOrnateFoilBorder("#DB2777", 24)}
+      ${renderLushPeoniesTop()}
       <!-- Bottom Fairy Garden Floral & Butterfly -->
-      <g transform="translate(365, 880)">
+      <g transform="translate(365, 880)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="50" rx="200" ry="35" fill="#FBCFE8" opacity="0.6"/>
-        <!-- Peonies -->
         <circle cx="-100" cy="0" r="32" fill="#F472B6" opacity="0.9"/>
         <circle cx="-100" cy="0" r="22" fill="#FB7185"/>
         <circle cx="-100" cy="0" r="10" fill="#FFF"/>
@@ -257,16 +350,16 @@ export const NEW_TEMPLATES = [
         <circle cx="0" cy="-10" r="38" fill="#EC4899"/>
         <circle cx="0" cy="-10" r="26" fill="#F43F5E"/>
         <circle cx="0" cy="-10" r="12" fill="#FDE047"/>
-        <!-- Butterflies -->
+        <!-- Shaded Butterflies -->
         <g transform="translate(-160, -60) rotate(-20)">
-          <ellipse cx="-10" cy="-8" rx="14" ry="9" fill="#F59E0B" opacity="0.85"/>
-          <ellipse cx="10" cy="-8" rx="14" ry="9" fill="#F59E0B" opacity="0.85"/>
-          <line x1="0" y1="-15" x2="0" y2="15" stroke="#78350F" stroke-width="2"/>
+          <ellipse cx="-12" cy="-8" rx="16" ry="10" fill="url(#gold-sphere)"/>
+          <ellipse cx="12" cy="-8" rx="16" ry="10" fill="url(#gold-sphere)"/>
+          <line x1="0" y1="-18" x2="0" y2="18" stroke="#78350F" stroke-width="2.5"/>
         </g>
         <g transform="translate(160, -60) rotate(20)">
-          <ellipse cx="-10" cy="-8" rx="14" ry="9" fill="#F59E0B" opacity="0.85"/>
-          <ellipse cx="10" cy="-8" rx="14" ry="9" fill="#F59E0B" opacity="0.85"/>
-          <line x1="0" y1="-15" x2="0" y2="15" stroke="#78350F" stroke-width="2"/>
+          <ellipse cx="-12" cy="-8" rx="16" ry="10" fill="url(#gold-sphere)"/>
+          <ellipse cx="12" cy="-8" rx="16" ry="10" fill="url(#gold-sphere)"/>
+          <line x1="0" y1="-18" x2="0" y2="18" stroke="#78350F" stroke-width="2.5"/>
         </g>
       </g>
     `,
@@ -293,37 +386,32 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-cag" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#0F172A"/>
-          <stop offset="50%" stop-color="#1E1B4B"/>
+          <stop offset="45%" stop-color="#1E1B4B"/>
           <stop offset="100%" stop-color="#020617"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-cag)"/>
-      ${renderOrnateBorder("#38BDF8", 24)}
+      ${renderOrnateFoilBorder("#38BDF8", 24)}
       ${renderGlitterStars()}
-      <!-- Planet Saturn at top left -->
-      <g transform="translate(100, 140)">
+      <!-- Saturn -->
+      <g transform="translate(100, 140)" filter="url(#art-shadow)">
         <circle cx="0" cy="0" r="24" fill="#F59E0B"/>
-        <ellipse cx="0" cy="0" rx="42" ry="10" fill="none" stroke="#FDE047" stroke-width="4" transform="rotate(-25)"/>
+        <ellipse cx="0" cy="0" rx="42" ry="10" fill="none" stroke="#FDE047" stroke-width="4.5" transform="rotate(-25)"/>
       </g>
-      <!-- Crescent Moon at top right -->
-      <g transform="translate(630, 140)">
+      <!-- Moon -->
+      <g transform="translate(630, 140)" filter="url(#gold-glow)">
         <path d="M 0,-25 A 25 25 0 0 0 20,20 A 20 20 0 1 1 0,-25 Z" fill="#FDE047"/>
       </g>
-      <!-- Bottom Rocket and Space Elements -->
-      <g transform="translate(365, 875)">
-        <!-- Planet surface -->
+      <!-- Bottom Rocket -->
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <path d="M -300,60 Q 0,0 300,60 L 300,120 L -300,120 Z" fill="#1E293B"/>
-        <!-- Rocket -->
         <g transform="translate(0, -35) rotate(-15)">
-          <path d="M 0,-50 C -20,-30 -20,20 -15,40 L 15,40 C 20,20 20,-30 0,-50 Z" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+          <path d="M 0,-50 C -20,-30 -20,20 -15,40 L 15,40 C 20,20 20,-30 0,-50 Z" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
           <path d="M 0,-50 C -15,-35 -15,-20 0,-20 C 15,-20 15,-35 0,-50 Z" fill="#EF4444"/>
-          <!-- Window -->
-          <circle cx="0" cy="-5" r="10" fill="#38BDF8" stroke="#0284C7" stroke-width="2"/>
-          <!-- Fins -->
-          <path d="M -15,20 L -32,45 L -15,40 Z" fill="#EF4444"/>
-          <path d="M 15,20 L 32,45 L 15,40 Z" fill="#EF4444"/>
-          <!-- Flames -->
-          <polygon points="-8,42 0,65 8,42" fill="#F59E0B"/>
+          <circle cx="0" cy="-5" r="11" fill="#38BDF8" stroke="#0284C7" stroke-width="2.5"/>
+          <path d="M -15,20 L -34,45 L -15,40 Z" fill="#EF4444"/>
+          <path d="M 15,20 L 34,45 L 15,40 Z" fill="#EF4444"/>
+          <polygon points="-8,42 0,68 8,42" fill="#F59E0B"/>
           <polygon points="-4,42 0,55 4,42" fill="#FDE047"/>
         </g>
       </g>
@@ -351,32 +439,32 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-bws" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#FEFCE8"/>
-          <stop offset="50%" stop-color="#FDFBF7"/>
+          <stop offset="45%" stop-color="#FDFBF7"/>
           <stop offset="100%" stop-color="#FEF9C3"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-bws)"/>
-      ${renderOrnateBorder("#CA8A04", 24)}
-      ${renderPartyBunting(["#EAB308", "#84CC16", "#F97316", "#14B8A6", "#EC4899"])}
+      ${renderOrnateFoilBorder("#CA8A04", 24)}
+      ${renderLushBunting(["#EAB308", "#84CC16", "#F97316", "#14B8A6", "#EC4899"])}
       <!-- Bottom Woodland Safari Animals & Cake -->
-      <g transform="translate(365, 875)">
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="50" rx="220" ry="35" fill="#FEF08A" opacity="0.6"/>
-        <!-- Lion Cub -->
+        <!-- Lion Cub with Mane -->
         <g transform="translate(-110, 0)">
-          <circle cx="0" cy="0" r="32" fill="#FBBF24"/>
-          <circle cx="-28" cy="-24" r="10" fill="#D97706"/>
-          <circle cx="28" cy="-24" r="10" fill="#D97706"/>
-          <circle cx="-10" cy="-4" r="3.5" fill="#1E293B"/>
-          <circle cx="10" cy="-4" r="3.5" fill="#1E293B"/>
+          <circle cx="0" cy="0" r="34" fill="#D97706"/>
+          <circle cx="0" cy="0" r="26" fill="#FBBF24"/>
+          <circle cx="-18" cy="-18" r="8" fill="#F59E0B"/>
+          <circle cx="18" cy="-18" r="8" fill="#F59E0B"/>
+          <circle cx="-9" cy="-3" r="3.5" fill="#1E293B"/>
+          <circle cx="9" cy="-3" r="3.5" fill="#1E293B"/>
           <polygon points="-5,5 5,5 0,10" fill="#92400E"/>
         </g>
         <!-- Birthday Cake in center -->
         <g transform="translate(0, 10)">
           <rect x="-35" y="-10" width="70" height="35" rx="5" fill="#F472B6"/>
           <rect x="-25" y="-30" width="50" height="22" rx="4" fill="#FDE047"/>
-          <!-- Candle -->
           <rect x="-3" y="-45" width="6" height="16" fill="#38BDF8"/>
-          <ellipse cx="0" cy="-50" rx="3.5" ry="6" fill="#F97316"/>
+          <ellipse cx="0" cy="-50" rx="4" ry="7" fill="url(#flame-grad)"/>
         </g>
         <!-- Cute Deer -->
         <g transform="translate(110, 0)">
@@ -414,36 +502,33 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-tdj" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#FFFBEB"/>
-          <stop offset="50%" stop-color="#FEF9C3"/>
+          <stop offset="45%" stop-color="#FEF9C3"/>
           <stop offset="100%" stop-color="#FEF08A"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-tdj)"/>
-      ${renderOrnateBorder("#B45309", 24)}
-      ${renderMarigoldToran()}
+      ${renderOrnateFoilBorder("url(#gold-foil)", 24)}
+      ${renderRichMarigoldToran()}
       <!-- Bottom Decorated Floral Jhula Swing -->
-      <g transform="translate(365, 875)">
-        <!-- Swing Support Ropes -->
-        <line x1="-130" y1="-80" x2="-100" y2="15" stroke="#92400E" stroke-width="4"/>
-        <line x1="130" y1="-80" x2="100" y2="15" stroke="#92400E" stroke-width="4"/>
-        <!-- Floral Garlands on ropes -->
-        <circle cx="-115" cy="-30" r="9" fill="#EA580C"/>
-        <circle cx="-108" cy="0" r="9" fill="#F59E0B"/>
-        <circle cx="115" cy="-30" r="9" fill="#EA580C"/>
-        <circle cx="108" cy="0" r="9" fill="#F59E0B"/>
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
+        <line x1="-130" y1="-80" x2="-100" y2="15" stroke="#92400E" stroke-width="4.5"/>
+        <line x1="130" y1="-80" x2="100" y2="15" stroke="#92400E" stroke-width="4.5"/>
+        <circle cx="-115" cy="-30" r="10" fill="#EA580C"/>
+        <circle cx="-108" cy="0" r="10" fill="#F59E0B"/>
+        <circle cx="115" cy="-30" r="10" fill="#EA580C"/>
+        <circle cx="108" cy="0" r="10" fill="#F59E0B"/>
         <!-- Wooden Plank -->
-        <rect x="-120" y="15" width="240" height="20" rx="5" fill="#78350F" stroke="#451A03" stroke-width="2"/>
-        <!-- Cushions & Flowers on Plank -->
-        <ellipse cx="0" cy="12" rx="80" ry="14" fill="#DC2626"/>
-        <ellipse cx="0" cy="10" rx="60" ry="10" fill="#FEF08A"/>
-        <!-- Diyas on both sides -->
+        <rect x="-120" y="15" width="240" height="22" rx="6" fill="#78350F" stroke="#451A03" stroke-width="2.5"/>
+        <ellipse cx="0" cy="12" rx="85" ry="15" fill="#DC2626"/>
+        <ellipse cx="0" cy="10" rx="65" ry="11" fill="#FEF08A"/>
+        <!-- Lit Diyas -->
         <g transform="translate(-180, 25)">
-          <path d="M -15,5 Q 0,15 15,5 Q 0,-3 -15,5 Z" fill="#D97706"/>
-          <ellipse cx="0" cy="-6" rx="4" ry="8" fill="#F97316"/>
+          <path d="M -16,6 Q 0,18 16,6 Q 0,-4 -16,6 Z" fill="url(#gold-sphere)"/>
+          <ellipse cx="0" cy="-6" rx="4.5" ry="10" fill="url(#flame-grad)"/>
         </g>
         <g transform="translate(180, 25)">
-          <path d="M -15,5 Q 0,15 15,5 Q 0,-3 -15,5 Z" fill="#D97706"/>
-          <ellipse cx="0" cy="-6" rx="4" ry="8" fill="#F97316"/>
+          <path d="M -16,6 Q 0,18 16,6 Q 0,-4 -16,6 Z" fill="url(#gold-sphere)"/>
+          <ellipse cx="0" cy="-6" rx="4.5" ry="10" fill="url(#flame-grad)"/>
         </g>
       </g>
     `,
@@ -470,31 +555,27 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-psc" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#EFF6FF"/>
-          <stop offset="50%" stop-color="#F5F3FF"/>
+          <stop offset="45%" stop-color="#F5F3FF"/>
           <stop offset="100%" stop-color="#EDE9FE"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-psc)"/>
-      ${renderOrnateBorder("#8B5CF6", 24)}
+      ${renderOrnateFoilBorder("#8B5CF6", 24)}
       ${renderGlitterStars()}
       <!-- Bottom Stork and Cloud Nest -->
-      <g transform="translate(365, 875)">
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="40" rx="220" ry="40" fill="#FFFFFF" opacity="0.95"/>
         <ellipse cx="-120" cy="20" rx="80" ry="35" fill="#FFFFFF" opacity="0.95"/>
         <ellipse cx="120" cy="20" rx="80" ry="35" fill="#FFFFFF" opacity="0.95"/>
         <!-- Flying Stork -->
         <g transform="translate(0, -35)">
-          <!-- Wings -->
-          <path d="M 0,-10 C -50,-40 -80,-20 -90,0 C -50,-5 -20,-5 0,-10 Z" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
-          <path d="M 0,-10 C 50,-40 80,-20 90,0 C 50,-5 20,-5 0,-10 Z" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
-          <!-- Body -->
-          <ellipse cx="0" cy="5" rx="30" ry="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
-          <!-- Neck & Head -->
-          <path d="M 15,5 Q 35,-15 45,-25" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
-          <circle cx="45" cy="-25" r="7" fill="#FFFFFF"/>
-          <polygon points="48,-28 72,-25 48,-22" fill="#F97316"/>
-          <!-- Hanging Bundle -->
-          <path d="M 55,-25 Q 50,15 25,25 Q 0,15 55,-25 Z" fill="#F472B6" opacity="0.85"/>
+          <path d="M 0,-10 C -50,-40 -80,-20 -90,0 C -50,-5 -20,-5 0,-10 Z" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.8"/>
+          <path d="M 0,-10 C 50,-40 80,-20 90,0 C 50,-5 20,-5 0,-10 Z" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.8"/>
+          <ellipse cx="0" cy="5" rx="32" ry="18" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.8"/>
+          <path d="M 15,5 Q 35,-15 45,-25" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="45" cy="-25" r="8" fill="#FFFFFF"/>
+          <polygon points="48,-28 75,-25 48,-22" fill="#F97316"/>
+          <path d="M 55,-25 Q 50,15 25,25 Q 0,15 55,-25 Z" fill="#F472B6" opacity="0.9"/>
         </g>
       </g>
     `,
@@ -521,48 +602,43 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-rpo" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#FCFAF2"/>
-          <stop offset="50%" stop-color="#FFFDF5"/>
+          <stop offset="45%" stop-color="#FFFDF5"/>
           <stop offset="100%" stop-color="#F5EFE0"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-rpo)"/>
-      ${renderOrnateBorder("#B45309", 24)}
-      ${renderMarigoldToran()}
+      ${renderOrnateFoilBorder("url(#gold-foil)", 24)}
+      ${renderRichMarigoldToran()}
       <!-- Bottom Royal Peacocks & Traditional Oti Thali -->
-      <g transform="translate(365, 875)">
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="50" rx="220" ry="35" fill="#FEF3C7" opacity="0.7"/>
         <!-- Left Peacock -->
         <g transform="translate(-140, 0)">
           <path d="M 0,20 C -20,-10 -30,-40 -10,-55 C 5,-45 5,-20 0,20 Z" fill="#0284C7"/>
-          <circle cx="-10" cy="-55" r="9" fill="#0369A1"/>
-          <!-- Crest -->
-          <circle cx="-14" cy="-66" r="2.5" fill="#F59E0B"/>
-          <circle cx="-10" cy="-68" r="2.5" fill="#F59E0B"/>
-          <circle cx="-6" cy="-66" r="2.5" fill="#F59E0B"/>
-          <!-- Beak -->
-          <polygon points="-16,-56 -24,-53 -16,-50" fill="#F59E0B"/>
-          <!-- Plumage -->
-          <path d="M 0,20 C 20,40 40,30 60,40 C 30,10 10,15 0,20 Z" fill="#059669"/>
+          <circle cx="-10" cy="-55" r="10" fill="#0369A1"/>
+          <circle cx="-14" cy="-68" r="3" fill="#F59E0B"/>
+          <circle cx="-10" cy="-70" r="3" fill="#F59E0B"/>
+          <circle cx="-6" cy="-68" r="3" fill="#F59E0B"/>
+          <polygon points="-16,-56 -25,-53 -16,-50" fill="#F59E0B"/>
+          <path d="M 0,20 C 20,40 40,30 65,40 C 30,10 10,15 0,20 Z" fill="#059669"/>
         </g>
-        <!-- Center Oti Thali with Green Bangles & Coconut -->
+        <!-- Center Oti Thali -->
         <g transform="translate(0, 15)">
-          <ellipse cx="0" cy="0" rx="45" ry="16" fill="#D97706" stroke="#B45309" stroke-width="2"/>
-          <!-- Green Glass Bangles -->
-          <circle cx="-12" cy="-2" r="14" fill="none" stroke="#16A34A" stroke-width="3"/>
-          <circle cx="12" cy="-2" r="14" fill="none" stroke="#16A34A" stroke-width="3"/>
-          <!-- Coconut with Tilak -->
-          <ellipse cx="0" cy="-8" rx="14" ry="18" fill="#78350F"/>
-          <line x1="-8" y1="-8" x2="8" y2="-8" stroke="#DC2626" stroke-width="3"/>
+          <ellipse cx="0" cy="0" rx="50" ry="18" fill="url(#gold-sphere)" stroke="#78350F" stroke-width="2"/>
+          <circle cx="-14" cy="-2" r="15" fill="none" stroke="#16A34A" stroke-width="3.5"/>
+          <circle cx="14" cy="-2" r="15" fill="none" stroke="#16A34A" stroke-width="3.5"/>
+          <ellipse cx="0" cy="-8" rx="15" ry="20" fill="#78350F"/>
+          <line x1="-9" y1="-8" x2="9" y2="-8" stroke="#DC2626" stroke-width="3.5"/>
         </g>
         <!-- Right Peacock -->
         <g transform="translate(140, 0) scale(-1, 1)">
           <path d="M 0,20 C -20,-10 -30,-40 -10,-55 C 5,-45 5,-20 0,20 Z" fill="#0284C7"/>
-          <circle cx="-10" cy="-55" r="9" fill="#0369A1"/>
-          <circle cx="-14" cy="-66" r="2.5" fill="#F59E0B"/>
-          <circle cx="-10" cy="-68" r="2.5" fill="#F59E0B"/>
-          <circle cx="-6" cy="-66" r="2.5" fill="#F59E0B"/>
-          <polygon points="-16,-56 -24,-53 -16,-50" fill="#F59E0B"/>
-          <path d="M 0,20 C 20,40 40,30 60,40 C 30,10 10,15 0,20 Z" fill="#059669"/>
+          <circle cx="-10" cy="-55" r="10" fill="#0369A1"/>
+          <circle cx="-14" cy="-68" r="3" fill="#F59E0B"/>
+          <circle cx="-10" cy="-70" r="3" fill="#F59E0B"/>
+          <circle cx="-6" cy="-68" r="3" fill="#F59E0B"/>
+          <polygon points="-16,-56 -25,-53 -16,-50" fill="#F59E0B"/>
+          <path d="M 0,20 C 20,40 40,30 65,40 C 30,10 10,15 0,20 Z" fill="#059669"/>
         </g>
       </g>
     `,
@@ -589,34 +665,29 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-beg" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#F9FAF7"/>
-          <stop offset="50%" stop-color="#FFFFFF"/>
+          <stop offset="45%" stop-color="#FFFFFF"/>
           <stop offset="100%" stop-color="#F0F4EC"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-beg)"/>
-      ${renderOrnateBorder("#15803D", 24)}
-      ${renderEucalyptusGarland()}
-      <!-- Bottom Botanical Foliage & Baby Footprint Emblem -->
-      <g transform="translate(365, 875)">
+      ${renderOrnateFoilBorder("#15803D", 24)}
+      ${renderLushPeoniesTop()}
+      <!-- Bottom Botanical Foliage & Baby Footprints -->
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="45" rx="180" ry="30" fill="#DCFCE7" opacity="0.6"/>
-        <!-- Golden Hexagon Ring -->
-        <polygon points="0,-40 35,-20 35,20 0,40 -35,20 -35,-20" fill="none" stroke="#D97706" stroke-width="2"/>
-        <!-- Baby Footprint inside -->
+        <polygon points="0,-42 38,-20 38,20 0,42 -38,20 -38,-20" fill="none" stroke="url(#gold-foil)" stroke-width="2.5"/>
         <g transform="translate(0, 0)">
-          <!-- Left foot -->
-          <ellipse cx="-6" cy="4" rx="4" ry="7" fill="#D97706" transform="rotate(-10 -6 4)"/>
-          <circle cx="-10" cy="-7" r="1.8" fill="#D97706"/>
-          <circle cx="-6" cy="-8" r="1.8" fill="#D97706"/>
-          <circle cx="-2" cy="-7" r="1.8" fill="#D97706"/>
-          <!-- Right foot -->
-          <ellipse cx="6" cy="4" rx="4" ry="7" fill="#D97706" transform="rotate(10 6 4)"/>
-          <circle cx="2" cy="-7" r="1.8" fill="#D97706"/>
-          <circle cx="6" cy="-8" r="1.8" fill="#D97706"/>
-          <circle cx="10" cy="-7" r="1.8" fill="#D97706"/>
+          <ellipse cx="-7" cy="4" rx="4.5" ry="8" fill="url(#gold-sphere)" transform="rotate(-10 -7 4)"/>
+          <circle cx="-11" cy="-8" r="2" fill="url(#gold-sphere)"/>
+          <circle cx="-7" cy="-9" r="2" fill="url(#gold-sphere)"/>
+          <circle cx="-3" cy="-8" r="2" fill="url(#gold-sphere)"/>
+          <ellipse cx="7" cy="4" rx="4.5" ry="8" fill="url(#gold-sphere)" transform="rotate(10 7 4)"/>
+          <circle cx="3" cy="-8" r="2" fill="url(#gold-sphere)"/>
+          <circle cx="7" cy="-9" r="2" fill="url(#gold-sphere)"/>
+          <circle cx="11" cy="-8" r="2" fill="url(#gold-sphere)"/>
         </g>
-        <!-- Flanking Eucalyptus Leaves -->
-        <ellipse cx="-80" cy="10" rx="22" ry="10" fill="#15803D" opacity="0.7" transform="rotate(-25 -80 10)"/>
-        <ellipse cx="80" cy="10" rx="22" ry="10" fill="#15803D" opacity="0.7" transform="rotate(25 80 10)"/>
+        <ellipse cx="-80" cy="10" rx="24" ry="11" fill="#15803D" opacity="0.8" transform="rotate(-25 -80 10)"/>
+        <ellipse cx="80" cy="10" rx="24" ry="11" fill="#15803D" opacity="0.8" transform="rotate(25 80 10)"/>
       </g>
     `,
     layers: [
@@ -642,35 +713,31 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-tcb" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#FEFCE8"/>
-          <stop offset="50%" stop-color="#FDF4FF"/>
+          <stop offset="45%" stop-color="#FDF4FF"/>
           <stop offset="100%" stop-color="#F5F3FF"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-tcb)"/>
-      ${renderOrnateBorder("#EAB308", 24)}
-      ${renderPartyBunting(["#38BDF8", "#F472B6", "#FBBF24", "#34D399"])}
+      ${renderOrnateFoilBorder("#EAB308", 24)}
+      ${renderLushBunting(["#38BDF8", "#F472B6", "#FBBF24", "#34D399"])}
       <!-- Bottom Twin Cradles with Teddy Bears -->
-      <g transform="translate(365, 875)">
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="50" rx="220" ry="35" fill="#FEF9C3" opacity="0.6"/>
-        <!-- Left Cradle (Blue Ribbon) -->
         <g transform="translate(-85, 0)">
-          <rect x="-45" y="-15" width="90" height="45" rx="10" fill="#E0F2FE" stroke="#38BDF8" stroke-width="2"/>
-          <ellipse cx="0" cy="-15" rx="40" ry="12" fill="#BAE6FD"/>
-          <circle cx="0" cy="-18" r="14" fill="#F59E0B"/>
-          <circle cx="-12" cy="-28" r="5" fill="#D97706"/>
-          <circle cx="12" cy="-28" r="5" fill="#D97706"/>
-          <!-- Bow -->
-          <circle cx="0" cy="18" r="4" fill="#0284C7"/>
+          <rect x="-48" y="-16" width="96" height="48" rx="12" fill="#E0F2FE" stroke="#38BDF8" stroke-width="2.5"/>
+          <ellipse cx="0" cy="-16" rx="42" ry="13" fill="#BAE6FD"/>
+          <circle cx="0" cy="-20" r="15" fill="#F59E0B"/>
+          <circle cx="-13" cy="-30" r="5.5" fill="#D97706"/>
+          <circle cx="13" cy="-30" r="5.5" fill="#D97706"/>
+          <circle cx="0" cy="18" r="4.5" fill="#0284C7"/>
         </g>
-        <!-- Right Cradle (Pink Ribbon) -->
         <g transform="translate(85, 0)">
-          <rect x="-45" y="-15" width="90" height="45" rx="10" fill="#FCE7F3" stroke="#F472B6" stroke-width="2"/>
-          <ellipse cx="0" cy="-15" rx="40" ry="12" fill="#FBCFE8"/>
-          <circle cx="0" cy="-18" r="14" fill="#F59E0B"/>
-          <circle cx="-12" cy="-28" r="5" fill="#D97706"/>
-          <circle cx="12" cy="-28" r="5" fill="#D97706"/>
-          <!-- Bow -->
-          <circle cx="0" cy="18" r="4" fill="#DB2777"/>
+          <rect x="-48" y="-16" width="96" height="48" rx="12" fill="#FCE7F3" stroke="#F472B6" stroke-width="2.5"/>
+          <ellipse cx="0" cy="-16" rx="42" ry="13" fill="#FBCFE8"/>
+          <circle cx="0" cy="-20" r="15" fill="#F59E0B"/>
+          <circle cx="-13" cy="-30" r="5.5" fill="#D97706"/>
+          <circle cx="13" cy="-30" r="5.5" fill="#D97706"/>
+          <circle cx="0" cy="18" r="4.5" fill="#DB2777"/>
         </g>
       </g>
     `,
@@ -681,7 +748,7 @@ export const NEW_TEMPLATES = [
       { id: "tcb-msg", type: "text", text: "Two sweet miracles are on their way to double the happiness in our home! Come shower the parents-to-be with your love and blessings.", fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: "500", color: "#374151", y: 355, height: 44 },
       { id: "tcb-dt", type: "text", text: "Sunday, 20 September 2026 • 11:00 AM", fontFamily: "'Cinzel', serif", fontSize: 17, fontWeight: "bold", color: "#BE185D", y: 415, height: 28, letterSpacing: 1 },
       { id: "tcb-venue", type: "text", text: "Emerald Banquet Hall, Bandra West, Mumbai - 400050", fontFamily: "'Outfit', sans-serif", fontSize: 16, fontWeight: "600", color: "#1F2937", y: 465, height: 28 },
-      { id: "tcb-rsvp", type: "text", text: "Warm Greetings: Rane & Sawant Families • +91 98200 99887", fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: "500", color: "#6B7280", y: 520, height: 24 }
+      { id: "tcb-rsvp", type: "text", text: "With Best Wishes: Rane & Sawant Families • +91 98200 99887", fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: "500", color: "#6B7280", y: 520, height: 24 }
     ]
   },
 
@@ -699,38 +766,36 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-sks" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#FFFBEB"/>
-          <stop offset="50%" stop-color="#FEF3C7"/>
+          <stop offset="45%" stop-color="#FEF3C7"/>
           <stop offset="100%" stop-color="#FDE68A"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-sks)"/>
-      ${renderOrnateBorder("#B45309", 24)}
-      ${renderMarigoldToran()}
+      ${renderOrnateFoilBorder("url(#gold-foil)", 24)}
+      ${renderRichMarigoldToran()}
       <!-- Bottom Auspicious Kalash, Coconut, and Diyas on Rangoli -->
-      <g transform="translate(365, 875)">
-        <!-- Floral Rangoli -->
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <circle cx="0" cy="30" r="140" fill="#FEF08A" opacity="0.6"/>
         <circle cx="0" cy="30" r="100" fill="#FED7AA" opacity="0.8"/>
         <!-- Sacred Kalash Pot -->
-        <path d="M -40,30 C -45,10 -35,-15 0,-15 C 35,-15 45,10 40,30 Z" fill="#D97706" stroke="#92400E" stroke-width="2"/>
-        <rect x="-30" y="30" width="60" height="12" rx="3" fill="#B45309"/>
+        <path d="M -42,30 C -48,10 -36,-15 0,-15 C 36,-15 48,10 42,30 Z" fill="url(#gold-sphere)" stroke="#78350F" stroke-width="2.2"/>
+        <rect x="-32" y="30" width="64" height="13" rx="4" fill="#B45309"/>
         <!-- Swastik on Kalash -->
-        <path d="M 0,-5 L 0,15 M -10,5 L 10,5 M 0,-5 L 8,-5 M 10,5 L 10,13 M 0,15 L -8,15 M -10,5 L -10,-3" stroke="#DC2626" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 0,-5 L 0,15 M -10,5 L 10,5 M 0,-5 L 8,-5 M 10,5 L 10,13 M 0,15 L -8,15 M -10,5 L -10,-3" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round"/>
         <!-- Mango Leaves -->
-        <path d="M -25,-15 C -45,-35 -30,-50 -15,-30 Z" fill="#15803D"/>
-        <path d="M 25,-15 C 45,-35 30,-50 15,-30 Z" fill="#15803D"/>
-        <path d="M 0,-15 C 0,-45 10,-45 0,-15 Z" fill="#16A34A"/>
+        <path d="M -26,-15 C -48,-38 -32,-52 -16,-30 Z" fill="#15803D" stroke="#14532D" stroke-width="1"/>
+        <path d="M 26,-15 C 48,-38 32,-52 16,-30 Z" fill="#15803D" stroke="#14532D" stroke-width="1"/>
+        <path d="M 0,-15 C 0,-48 12,-48 0,-15 Z" fill="#16A34A" stroke="#14532D" stroke-width="1"/>
         <!-- Coconut -->
-        <ellipse cx="0" cy="-28" rx="18" ry="24" fill="#78350F"/>
-        <!-- Diya on Left -->
+        <ellipse cx="0" cy="-30" rx="20" ry="26" fill="#78350F"/>
+        <!-- Diyas with Glowing Flame -->
         <g transform="translate(-140, 25)">
-          <path d="M -16,6 Q 0,18 16,6 Q 0,-4 -16,6 Z" fill="#D97706"/>
-          <ellipse cx="0" cy="-6" rx="4" ry="9" fill="#F97316"/>
+          <path d="M -16,6 Q 0,18 16,6 Q 0,-4 -16,6 Z" fill="url(#gold-sphere)"/>
+          <ellipse cx="0" cy="-6" rx="4.5" ry="10" fill="url(#flame-grad)"/>
         </g>
-        <!-- Diya on Right -->
         <g transform="translate(140, 25)">
-          <path d="M -16,6 Q 0,18 16,6 Q 0,-4 -16,6 Z" fill="#D97706"/>
-          <ellipse cx="0" cy="-6" rx="4" ry="9" fill="#F97316"/>
+          <path d="M -16,6 Q 0,18 16,6 Q 0,-4 -16,6 Z" fill="url(#gold-sphere)"/>
+          <ellipse cx="0" cy="-6" rx="4.5" ry="10" fill="url(#flame-grad)"/>
         </g>
       </g>
     `,
@@ -757,34 +822,27 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-khc" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#FCFAF2"/>
-          <stop offset="50%" stop-color="#FEF9E7"/>
+          <stop offset="45%" stop-color="#FEF9E7"/>
           <stop offset="100%" stop-color="#F5EFE0"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-khc)"/>
-      ${renderOrnateBorder("#D97706", 24)}
-      ${renderMarigoldToran()}
+      ${renderOrnateFoilBorder("url(#gold-foil)", 24)}
+      ${renderRichMarigoldToran()}
       <!-- Bottom Holy Cow & Calf Motif -->
-      <g transform="translate(365, 875)">
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="50" rx="220" ry="35" fill="#FEF3C7" opacity="0.7"/>
-        <!-- Mother Cow -->
         <g transform="translate(-40, 0)">
-          <!-- Body -->
-          <ellipse cx="0" cy="10" rx="65" ry="38" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
-          <!-- Ornate Cloth on Back -->
-          <path d="M -30,0 Q 0,15 30,0 L 25,25 Q 0,35 -25,25 Z" fill="#DC2626"/>
-          <!-- Neck & Head -->
-          <ellipse cx="60" cy="-10" rx="20" ry="26" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
-          <!-- Horns -->
-          <path d="M 55,-30 Q 50,-48 42,-50" fill="none" stroke="#F59E0B" stroke-width="3"/>
-          <path d="M 65,-30 Q 70,-48 78,-50" fill="none" stroke="#F59E0B" stroke-width="3"/>
-          <!-- Bell around neck -->
-          <circle cx="50" cy="8" r="5" fill="#F59E0B"/>
+          <ellipse cx="0" cy="10" rx="68" ry="40" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2.2"/>
+          <path d="M -30,0 Q 0,16 30,0 L 25,26 Q 0,36 -25,26 Z" fill="#DC2626"/>
+          <ellipse cx="62" cy="-10" rx="22" ry="28" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.8"/>
+          <path d="M 56,-32 Q 52,-52 42,-54" fill="none" stroke="url(#gold-foil)" stroke-width="3.5"/>
+          <path d="M 68,-32 Q 72,-52 82,-54" fill="none" stroke="url(#gold-foil)" stroke-width="3.5"/>
+          <circle cx="52" cy="8" r="6" fill="url(#gold-sphere)"/>
         </g>
-        <!-- Little Calf -->
-        <g transform="translate(70, 15)">
-          <ellipse cx="0" cy="5" rx="32" ry="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
-          <ellipse cx="-25" cy="-8" rx="12" ry="15" fill="#FFFFFF"/>
+        <g transform="translate(75, 15)">
+          <ellipse cx="0" cy="5" rx="34" ry="22" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.8"/>
+          <ellipse cx="-26" cy="-8" rx="13" ry="16" fill="#FFFFFF"/>
         </g>
       </g>
     `,
@@ -811,27 +869,24 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-twd" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#FCFAF5"/>
-          <stop offset="50%" stop-color="#FFFDF8"/>
+          <stop offset="45%" stop-color="#FFFDF8"/>
           <stop offset="100%" stop-color="#F4EADB"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-twd)"/>
-      ${renderOrnateBorder("#92400E", 24)}
-      ${renderMarigoldToran()}
+      ${renderOrnateFoilBorder("#92400E", 24)}
+      ${renderRichMarigoldToran()}
       <!-- Bottom Heritage Carved Wooden Doors & Urli -->
-      <g transform="translate(365, 875)">
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="50" rx="220" ry="35" fill="#E5E7EB" opacity="0.6"/>
-        <!-- Carved Door Frame -->
-        <rect x="-90" y="-70" width="180" height="120" fill="#78350F" stroke="#451A03" stroke-width="3"/>
-        <line x1="0" y1="-70" x2="0" y2="50" stroke="#451A03" stroke-width="2"/>
-        <!-- Brass Door Knobs -->
-        <circle cx="-12" cy="-5" r="5" fill="#F59E0B"/>
-        <circle cx="12" cy="-5" r="5" fill="#F59E0B"/>
-        <!-- Brass Urli with Floating Petals in Center -->
-        <ellipse cx="0" cy="45" rx="35" ry="12" fill="#D97706" stroke="#92400E" stroke-width="1.5"/>
-        <circle cx="-12" cy="43" r="3" fill="#DC2626"/>
-        <circle cx="0" cy="44" r="3.5" fill="#F472B6"/>
-        <circle cx="12" cy="43" r="3" fill="#DC2626"/>
+        <rect x="-95" y="-75" width="190" height="125" fill="#78350F" stroke="#451A03" stroke-width="3.5"/>
+        <line x1="0" y1="-75" x2="0" y2="50" stroke="#451A03" stroke-width="2.5"/>
+        <circle cx="-14" cy="-5" r="5.5" fill="url(#gold-sphere)"/>
+        <circle cx="14" cy="-5" r="5.5" fill="url(#gold-sphere)"/>
+        <ellipse cx="0" cy="45" rx="38" ry="13" fill="url(#gold-sphere)" stroke="#92400E" stroke-width="1.8"/>
+        <circle cx="-13" cy="43" r="3.5" fill="#DC2626"/>
+        <circle cx="0" cy="44" r="4" fill="#F472B6"/>
+        <circle cx="13" cy="43" r="3.5" fill="#DC2626"/>
       </g>
     `,
     layers: [
@@ -862,22 +917,19 @@ export const NEW_TEMPLATES = [
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-mlv)"/>
-      ${renderOrnateBorder("#F59E0B", 24)}
+      ${renderOrnateFoilBorder("url(#gold-foil)", 24)}
       ${renderGlitterStars()}
       <!-- Bottom Modern Villa Silhouette with Glowing Glass Windows -->
-      <g transform="translate(365, 875)">
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="50" rx="220" ry="35" fill="#020617"/>
-        <!-- Villa Structure -->
-        <rect x="-120" y="-55" width="140" height="85" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
-        <rect x="20" y="-35" width="100" height="65" fill="#1E293B" stroke="#334155" stroke-width="1.5"/>
-        <!-- Glowing Windows -->
-        <rect x="-105" y="-45" width="50" height="35" rx="3" fill="#FEF08A" opacity="0.9"/>
-        <rect x="-45" y="-45" width="50" height="35" rx="3" fill="#FEF08A" opacity="0.9"/>
-        <rect x="35" y="-25" width="70" height="40" rx="3" fill="#FDE047" opacity="0.9"/>
-        <!-- Garden pathway lights -->
-        <circle cx="-60" cy="40" r="3" fill="#FEF08A"/>
-        <circle cx="0" cy="40" r="3" fill="#FEF08A"/>
-        <circle cx="60" cy="40" r="3" fill="#FEF08A"/>
+        <rect x="-120" y="-55" width="140" height="85" fill="#0F172A" stroke="#334155" stroke-width="1.8"/>
+        <rect x="20" y="-35" width="100" height="65" fill="#1E293B" stroke="#334155" stroke-width="1.8"/>
+        <rect x="-105" y="-45" width="50" height="35" rx="3" fill="#FEF08A" opacity="0.95" filter="url(#gold-glow)"/>
+        <rect x="-45" y="-45" width="50" height="35" rx="3" fill="#FEF08A" opacity="0.95" filter="url(#gold-glow)"/>
+        <rect x="35" y="-25" width="70" height="40" rx="3" fill="#FDE047" opacity="0.95" filter="url(#gold-glow)"/>
+        <circle cx="-60" cy="40" r="3.5" fill="#FEF08A"/>
+        <circle cx="0" cy="40" r="3.5" fill="#FEF08A"/>
+        <circle cx="60" cy="40" r="3.5" fill="#FEF08A"/>
       </g>
     `,
     layers: [
@@ -903,32 +955,31 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-tvd" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#FFFDF7"/>
-          <stop offset="50%" stop-color="#FEF9EE"/>
+          <stop offset="45%" stop-color="#FEF9EE"/>
           <stop offset="100%" stop-color="#FCE7D0"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-tvd)"/>
-      ${renderOrnateBorder("#C2410C", 24)}
-      ${renderMarigoldToran()}
+      ${renderOrnateFoilBorder("#C2410C", 24)}
+      ${renderRichMarigoldToran()}
       <!-- Bottom Tulsi Vrindavan & Diyas -->
-      <g transform="translate(365, 875)">
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="50" rx="220" ry="35" fill="#FED7AA" opacity="0.6"/>
-        <!-- Tulsi Vrindavan Base -->
-        <rect x="-35" y="10" width="70" height="30" rx="3" fill="#C2410C"/>
-        <rect x="-25" y="-20" width="50" height="30" rx="3" fill="#EA580C"/>
+        <rect x="-35" y="10" width="70" height="30" rx="4" fill="#C2410C"/>
+        <rect x="-25" y="-20" width="50" height="30" rx="4" fill="#EA580C"/>
         <!-- Tulsi Plant Foliage -->
         <circle cx="0" cy="-35" r="24" fill="#15803D"/>
-        <circle cx="-14" cy="-30" r="16" fill="#16A34A"/>
-        <circle cx="14" cy="-30" r="16" fill="#16A34A"/>
-        <circle cx="0" cy="-45" r="14" fill="#22C55E"/>
-        <!-- Flanking Diyas -->
+        <circle cx="-15" cy="-30" r="17" fill="#16A34A"/>
+        <circle cx="15" cy="-30" r="17" fill="#16A34A"/>
+        <circle cx="0" cy="-46" r="15" fill="#22C55E"/>
+        <!-- Glowing Diyas -->
         <g transform="translate(-110, 30)">
-          <path d="M -15,5 Q 0,16 15,5 Q 0,-3 -15,5 Z" fill="#D97706"/>
-          <ellipse cx="0" cy="-6" rx="4" ry="8" fill="#F97316"/>
+          <path d="M -16,6 Q 0,18 16,6 Q 0,-4 -16,6 Z" fill="url(#gold-sphere)"/>
+          <ellipse cx="0" cy="-6" rx="4.5" ry="10" fill="url(#flame-grad)"/>
         </g>
         <g transform="translate(110, 30)">
-          <path d="M -15,5 Q 0,16 15,5 Q 0,-3 -15,5 Z" fill="#D97706"/>
-          <ellipse cx="0" cy="-6" rx="4" ry="8" fill="#F97316"/>
+          <path d="M -16,6 Q 0,18 16,6 Q 0,-4 -16,6 Z" fill="url(#gold-sphere)"/>
+          <ellipse cx="0" cy="-6" rx="4.5" ry="10" fill="url(#flame-grad)"/>
         </g>
       </g>
     `,
@@ -957,25 +1008,24 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-bgl" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#FFFDF7"/>
-          <stop offset="50%" stop-color="#FEF9EE"/>
+          <stop offset="45%" stop-color="#FEF9EE"/>
           <stop offset="100%" stop-color="#FEF08A"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-bgl)"/>
-      ${renderOrnateBorder("#D97706", 24)}
-      ${renderMarigoldToran()}
+      ${renderOrnateFoilBorder("url(#gold-foil)", 24)}
+      ${renderRichMarigoldToran()}
       <!-- Bottom Blooming Lotus with Sleeping Baby -->
-      <g transform="translate(365, 875)">
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="50" rx="220" ry="35" fill="#FEF08A" opacity="0.6"/>
-        <!-- Lotus Petals Outer -->
         <path d="M -80,10 C -120,-30 -80,-60 -50,-10 Z" fill="#F472B6"/>
         <path d="M 80,10 C 120,-30 80,-60 50,-10 Z" fill="#F472B6"/>
         <path d="M -50,15 C -70,-45 -30,-65 0,-15 Z" fill="#FB7185"/>
         <path d="M 50,15 C 70,-45 30,-65 0,-15 Z" fill="#FB7185"/>
         <path d="M 0,20 C 0,-60 40,-60 0,20 Z" fill="#F43F5E"/>
-        <!-- Baby in Swaddle in Lotus center -->
+        <!-- Baby in Swaddle -->
         <g transform="translate(0, -5)">
-          <ellipse cx="0" cy="0" rx="35" ry="22" fill="#FDE047"/>
+          <ellipse cx="0" cy="0" rx="36" ry="24" fill="#FDE047"/>
           <circle cx="18" cy="-8" r="14" fill="#FED7AA"/>
           <circle cx="16" cy="-8" r="3" fill="#F472B6" opacity="0.6"/>
         </g>
@@ -1004,33 +1054,29 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-kfp" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#F0FDF4"/>
-          <stop offset="50%" stop-color="#FDFBF7"/>
+          <stop offset="45%" stop-color="#FDFBF7"/>
           <stop offset="100%" stop-color="#DCFCE7"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-kfp)"/>
-      ${renderOrnateBorder("#0D9488", 24)}
-      ${renderMarigoldToran()}
+      ${renderOrnateFoilBorder("#0D9488", 24)}
+      ${renderRichMarigoldToran()}
       <!-- Bottom Krishna Flute, Peacock Feather & Cradle -->
-      <g transform="translate(365, 875)">
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="50" rx="220" ry="35" fill="#CCFBF1" opacity="0.6"/>
-        <!-- Peacock Feather -->
         <g transform="translate(30, -20) rotate(40)">
           <path d="M 0,-40 C -25,-25 -25,25 0,40 C 25,25 25,-25 0,-40 Z" fill="#0284C7"/>
-          <ellipse cx="0" cy="0" rx="14" ry="20" fill="#059669"/>
-          <circle cx="0" cy="2" r="7" fill="#1E3A8A"/>
+          <ellipse cx="0" cy="0" rx="15" ry="22" fill="#059669"/>
+          <circle cx="0" cy="2" r="8" fill="#1E3A8A"/>
         </g>
-        <!-- Golden Flute -->
-        <rect x="-120" y="5" width="240" height="12" rx="4" fill="#F59E0B" stroke="#B45309" stroke-width="1.5" transform="rotate(-15)"/>
-        <!-- Flute Holes -->
-        <circle cx="-60" cy="18" r="3" fill="#78350F"/>
-        <circle cx="-30" cy="10" r="3" fill="#78350F"/>
-        <circle cx="0" cy="2" r="3" fill="#78350F"/>
-        <circle cx="30" cy="-6" r="3" fill="#78350F"/>
-        <!-- Makhan Handi -->
+        <rect x="-120" y="5" width="240" height="13" rx="5" fill="url(#gold-sphere)" stroke="#B45309" stroke-width="1.8" transform="rotate(-15)"/>
+        <circle cx="-60" cy="18" r="3.5" fill="#78350F"/>
+        <circle cx="-30" cy="10" r="3.5" fill="#78350F"/>
+        <circle cx="0" cy="2" r="3.5" fill="#78350F"/>
+        <circle cx="30" cy="-6" r="3.5" fill="#78350F"/>
         <g transform="translate(-100, 20)">
-          <ellipse cx="0" cy="5" rx="20" ry="24" fill="#D97706"/>
-          <ellipse cx="0" cy="-14" rx="14" ry="6" fill="#FFFFFF"/>
+          <ellipse cx="0" cy="5" rx="22" ry="26" fill="#D97706"/>
+          <ellipse cx="0" cy="-14" rx="15" ry="7" fill="#FFFFFF"/>
         </g>
       </g>
     `,
@@ -1057,27 +1103,24 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-cms" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#0F172A"/>
-          <stop offset="50%" stop-color="#1E293B"/>
+          <stop offset="45%" stop-color="#1E293B"/>
           <stop offset="100%" stop-color="#020617"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-cms)"/>
-      ${renderOrnateBorder("#F59E0B", 24)}
+      ${renderOrnateFoilBorder("url(#gold-foil)", 24)}
       ${renderGlitterStars()}
       <!-- Bottom Moon with Sleeping Baby on Cloud -->
-      <g transform="translate(365, 875)">
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="50" rx="220" ry="35" fill="#020617"/>
-        <!-- Cloud Pillow -->
         <ellipse cx="0" cy="25" rx="140" ry="40" fill="#FFFFFF" opacity="0.95"/>
         <ellipse cx="-80" cy="15" rx="60" ry="30" fill="#FFFFFF" opacity="0.95"/>
         <ellipse cx="80" cy="15" rx="60" ry="30" fill="#FFFFFF" opacity="0.95"/>
-        <!-- Golden Crescent Moon -->
         <g transform="translate(0, -25)">
-          <path d="M -45,-55 A 55 55 0 0 0 45,45 A 45 45 0 1 1 -45,-55 Z" fill="#FDE047"/>
-          <!-- Sleeping Baby in Moon cradle -->
-          <ellipse cx="5" cy="5" rx="28" ry="16" fill="#38BDF8"/>
-          <circle cx="20" cy="-2" r="10" fill="#FED7AA"/>
-          <circle cx="18" cy="-2" r="2.5" fill="#F472B6" opacity="0.6"/>
+          <path d="M -45,-55 A 55 55 0 0 0 45,45 A 45 45 0 1 1 -45,-55 Z" fill="url(#gold-foil)" filter="url(#gold-glow)"/>
+          <ellipse cx="5" cy="5" rx="30" ry="17" fill="#38BDF8"/>
+          <circle cx="20" cy="-2" r="11" fill="#FED7AA"/>
+          <circle cx="18" cy="-2" r="3" fill="#F472B6" opacity="0.6"/>
         </g>
       </g>
     `,
@@ -1104,26 +1147,23 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-rrj" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#FFFDF5"/>
-          <stop offset="50%" stop-color="#FEF3C7"/>
+          <stop offset="45%" stop-color="#FEF3C7"/>
           <stop offset="100%" stop-color="#FDE68A"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-rrj)"/>
-      ${renderOrnateBorder("#B45309", 24)}
-      ${renderMarigoldToran()}
+      ${renderOrnateFoilBorder("url(#gold-foil)", 24)}
+      ${renderRichMarigoldToran()}
       <!-- Bottom Royal Jharokha Arch & Silver Jhula -->
-      <g transform="translate(365, 875)">
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="50" rx="220" ry="35" fill="#FDE68A" opacity="0.6"/>
-        <!-- Ornate Cusped Arch Pillars -->
-        <rect x="-140" y="-80" width="20" height="130" fill="#D97706" rx="3"/>
-        <rect x="120" y="-80" width="20" height="130" fill="#D97706" rx="3"/>
-        <!-- Cusped Arch Header -->
-        <path d="M -140,-80 Q -70,-115 0,-85 Q 70,-115 140,-80" fill="none" stroke="#B45309" stroke-width="4"/>
-        <!-- Hanging Silver Cradle -->
-        <line x1="-80" y1="-75" x2="-60" y2="10" stroke="#CBD5E1" stroke-width="3"/>
-        <line x1="80" y1="-75" x2="60" y2="10" stroke="#CBD5E1" stroke-width="3"/>
-        <rect x="-70" y="10" width="140" height="25" rx="6" fill="#F1F5F9" stroke="#94A3B8" stroke-width="2"/>
-        <ellipse cx="0" cy="10" rx="55" ry="10" fill="#DC2626"/>
+        <rect x="-140" y="-80" width="22" height="130" fill="url(#gold-sphere)" rx="4"/>
+        <rect x="118" y="-80" width="22" height="130" fill="url(#gold-sphere)" rx="4"/>
+        <path d="M -140,-80 Q -70,-118 0,-88 Q 70,-118 140,-80" fill="none" stroke="#B45309" stroke-width="4.5"/>
+        <line x1="-80" y1="-75" x2="-60" y2="10" stroke="#94A3B8" stroke-width="3.5"/>
+        <line x1="80" y1="-75" x2="60" y2="10" stroke="#94A3B8" stroke-width="3.5"/>
+        <rect x="-70" y="10" width="140" height="26" rx="6" fill="#F1F5F9" stroke="#64748B" stroke-width="2.5"/>
+        <ellipse cx="0" cy="10" rx="55" ry="11" fill="#DC2626"/>
       </g>
     `,
     layers: [
@@ -1149,39 +1189,34 @@ export const NEW_TEMPLATES = [
       <defs>
         <linearGradient id="bg-cws" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#FEFCE8"/>
-          <stop offset="50%" stop-color="#FFFDF7"/>
+          <stop offset="45%" stop-color="#FFFDF7"/>
           <stop offset="100%" stop-color="#F4EADB"/>
         </linearGradient>
       </defs>
       <rect width="731" height="1024" fill="url(#bg-cws)"/>
-      ${renderOrnateBorder("#CA8A04", 24)}
-      ${renderPartyBunting(["#38BDF8", "#34D399", "#FBBF24", "#F472B6"])}
+      ${renderOrnateFoilBorder("#CA8A04", 24)}
+      ${renderLushBunting(["#38BDF8", "#34D399", "#FBBF24", "#F472B6"])}
       <!-- Bottom Safari Friends around Wicker Cradle -->
-      <g transform="translate(365, 875)">
+      <g transform="translate(365, 875)" filter="url(#art-shadow)">
         <ellipse cx="0" cy="50" rx="220" ry="35" fill="#FEF08A" opacity="0.6"/>
-        <!-- Baby Elephant on left -->
         <g transform="translate(-120, 0)">
-          <circle cx="0" cy="0" r="28" fill="#94A3B8"/>
-          <ellipse cx="-20" cy="-5" rx="16" ry="22" fill="#64748B"/>
-          <!-- Trunk -->
-          <path d="M 10,5 Q 25,25 35,15" fill="none" stroke="#94A3B8" stroke-width="6" stroke-linecap="round"/>
-          <circle cx="0" cy="-6" r="3" fill="#1E293B"/>
+          <circle cx="0" cy="0" r="30" fill="#94A3B8"/>
+          <ellipse cx="-20" cy="-5" rx="18" ry="24" fill="#64748B"/>
+          <path d="M 10,5 Q 26,26 38,15" fill="none" stroke="#94A3B8" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="0" cy="-6" r="3.5" fill="#1E293B"/>
         </g>
-        <!-- Wicker Bassinet in Center -->
         <g transform="translate(0, 10)">
-          <rect x="-45" y="-15" width="90" height="45" rx="10" fill="#D97706" stroke="#92400E" stroke-width="2"/>
-          <ellipse cx="0" cy="-15" rx="40" ry="12" fill="#FEF3C7"/>
-          <!-- Sleeping Baby -->
-          <circle cx="0" cy="-18" r="12" fill="#FED7AA"/>
-          <circle cx="-8" cy="-24" r="3" fill="#F472B6" opacity="0.6"/>
+          <rect x="-48" y="-16" width="96" height="48" rx="12" fill="#D97706" stroke="#92400E" stroke-width="2.5"/>
+          <ellipse cx="0" cy="-16" rx="42" ry="13" fill="#FEF3C7"/>
+          <circle cx="0" cy="-18" r="14" fill="#FED7AA"/>
+          <circle cx="-8" cy="-24" r="3.5" fill="#F472B6" opacity="0.6"/>
         </g>
-        <!-- Baby Lion Cub on right -->
         <g transform="translate(120, 0)">
-          <circle cx="0" cy="0" r="26" fill="#FBBF24"/>
-          <circle cx="-20" cy="-18" r="8" fill="#D97706"/>
-          <circle cx="20" cy="-18" r="8" fill="#D97706"/>
-          <circle cx="-8" cy="-4" r="3" fill="#1E293B"/>
-          <circle cx="8" cy="-4" r="3" fill="#1E293B"/>
+          <circle cx="0" cy="0" r="28" fill="#FBBF24"/>
+          <circle cx="-20" cy="-18" r="9" fill="#D97706"/>
+          <circle cx="20" cy="-18" r="9" fill="#D97706"/>
+          <circle cx="-8" cy="-4" r="3.5" fill="#1E293B"/>
+          <circle cx="8" cy="-4" r="3.5" fill="#1E293B"/>
           <polygon points="-4,4 4,4 0,8" fill="#92400E"/>
         </g>
       </g>
@@ -1202,20 +1237,20 @@ export const NEW_TEMPLATES = [
 // EXECUTION PIPELINE
 // -------------------------------------------------------------
 async function main() {
-  console.log(`=== Deploying ${NEW_TEMPLATES.length} Brand New Templates Across 4 Categories ===`);
+  console.log("=== Upgrading 20 Templates with Rich 3D Shaded Art & Cultural Cartoons ===");
 
-  for (const t of NEW_TEMPLATES) {
-    console.log(`\nProcessing: [${t.category}] ${t.id} - "${t.title}"`);
-    
-    // 1. Build Background SVG
-    const bgSvg = `
+  for (const t of NEW_RICH_TEMPLATES) {
+    console.log(`\nRendering Rich Art: [${t.category}] ${t.id} - "${t.title}"`);
+
+    const fullSvg = `
 <svg width="731" height="1024" viewBox="0 0 731 1024" xmlns="http://www.w3.org/2000/svg">
+  ${COMMON_DEFS}
   ${t.bgSvg}
 </svg>
 `;
-    const bgBuffer = await sharp(Buffer.from(bgSvg)).jpeg({ quality: 92 }).toBuffer();
 
-    // Save backgrounds
+    const bgBuffer = await sharp(Buffer.from(fullSvg)).jpeg({ quality: 92 }).toBuffer();
+
     const bgJpgPath = `public/templates/backgrounds/${t.id}-bg.jpg`;
     const bgWebpPath = `public/templates/backgrounds/${t.id}-bg.webp`;
     const rawBgPath = `assets/raw-masters/backgrounds/${t.id}-bg.jpg`;
@@ -1223,9 +1258,9 @@ async function main() {
     fs.writeFileSync(bgJpgPath, bgBuffer);
     fs.writeFileSync(rawBgPath, bgBuffer);
     await sharp(bgBuffer).webp({ quality: 90, effort: 6 }).toFile(bgWebpPath);
-    console.log(`  ✓ Backgrounds generated: JPEG & WebP`);
+    console.log("  ✓ Rich Art Background saved (JPEG & WebP)");
 
-    // 2. Build Text Overlay SVG for Preview
+    // Text Overlay
     let textOverlaySvg = `<svg width="731" height="1024" viewBox="0 0 731 1024" xmlns="http://www.w3.org/2000/svg">`;
     textOverlaySvg += `<style><![CDATA[
       @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:wght@700;800;900&family=Rozha+One&family=Outfit:wght@400;500;600;700&display=swap');
@@ -1237,11 +1272,10 @@ async function main() {
       const cy = l.y + Math.round(l.height * 0.72);
       const ff = l.fontFamily.replace(/'/g, "");
       const ls = l.letterSpacing ? `letter-spacing="${l.letterSpacing}px"` : "";
-      textOverlaySvg += `<text x="${cx}" y="${cy}" class="txt" font-family="${escapeXml(ff)}" font-size="${l.fontSize}" font-weight="${l.fontWeight}" fill="${escapeXml(l.color)}" ${ls} filter="drop-shadow(0 1px 2px rgba(255,255,255,0.7))">${escapeXml(l.text)}</text>`;
+      textOverlaySvg += `<text x="${cx}" y="${cy}" class="txt" font-family="${escapeXml(ff)}" font-size="${l.fontSize}" font-weight="${l.fontWeight}" fill="${escapeXml(l.color)}" ${ls} filter="drop-shadow(0 1px 2px rgba(255,255,255,0.75))">${escapeXml(l.text)}</text>`;
     }
     textOverlaySvg += `</svg>`;
 
-    // Composite Preview Card
     const previewBuffer = await sharp(bgBuffer)
       .composite([{ input: Buffer.from(textOverlaySvg), top: 0, left: 0 }])
       .jpeg({ quality: 92 })
@@ -1254,71 +1288,33 @@ async function main() {
     fs.writeFileSync(cardJpgPath, previewBuffer);
     fs.writeFileSync(rawCardPath, previewBuffer);
     await sharp(previewBuffer).webp({ quality: 90, effort: 6 }).toFile(cardWebpPath);
-    console.log(`  ✓ Preview Card generated: JPEG & WebP`);
+    console.log("  ✓ Preview Card rendered (JPEG & WebP)");
   }
 
-  // 3. Update assets/raw-masters/manifest.json
-  const manifestPath = "assets/raw-masters/manifest.json";
-  let manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
-  for (const t of NEW_TEMPLATES) {
-    const existingIdx = manifest.findIndex(m => m.id === t.id);
-    const item = {
-      id: t.id,
-      category: t.category,
-      title: t.title,
-      type: "handcrafted-vector-art",
-      masterBackground: `assets/raw-masters/backgrounds/${t.id}-bg.jpg`,
-      masterPreview: `assets/raw-masters/previews/${t.id}-card.jpg`,
-      dimensions: "731x1024"
-    };
-    if (existingIdx >= 0) {
-      manifest[existingIdx] = item;
-    } else {
-      manifest.push(item);
-    }
-  }
-  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2), "utf8");
-  console.log(`\n✓ Updated manifest.json with all ${NEW_TEMPLATES.length} templates (Total: ${manifest.length})`);
-
-  // 4. Update src/data/templates.ts
-  console.log("\nUpdating src/data/templates.ts...");
+  console.log("\nUpdating src/data/templates.ts with rich template objects...");
   const templatesTsPath = "src/data/templates.ts";
   const origContent = fs.readFileSync(templatesTsPath, "utf8");
 
-  // Read existing templates by parsing
-  // Keep ALL existing templates (including the 7 wedding templates!)
   const splitMarker = "export const CATEGORIES = [";
-  const [samplesPart, catPart] = origContent.split(splitMarker);
-
-  // Parse existing SAMPLE_TEMPLATES
+  const [samplesPart] = origContent.split(splitMarker);
   const cleanSamplesJson = samplesPart
     .replace("import { CardTemplate } from \"@/types/editor\";\n\nexport const SAMPLE_TEMPLATES: CardTemplate[] =", "")
     .trim()
     .replace(/;$/, "");
 
   let existingTemplates = eval(cleanSamplesJson);
-  console.log(`Existing templates in file: ${existingTemplates.length}`);
 
-  // Filter out any duplicates if they exist, then append new ones
-  const newIds = new Set(NEW_TEMPLATES.map(t => t.id));
-  existingTemplates = existingTemplates.filter(t => !newIds.has(t.id));
-
-  // Transform new templates to CardTemplate objects
-  for (const t of NEW_TEMPLATES) {
-    const cardTemplate = {
-      id: t.id,
-      slug: t.slug,
-      title: t.title,
-      category: t.category,
-      categoryName: t.categoryName,
-      description: t.description,
-      width: 731,
-      height: 1024,
-      backgroundImage: `/templates/backgrounds/${t.id}-bg.jpg`,
-      thumbnail: `/templates/previews/${t.id}-card.jpg`,
-      tags: t.tags,
-      featured: t.featured,
-      layers: t.layers.map((l, idx) => ({
+  // Replace definitions of these 20 templates
+  const richMap = new Map(NEW_RICH_TEMPLATES.map(t => [t.id, t]));
+  existingTemplates = existingTemplates.map(t => {
+    if (!richMap.has(t.id)) return t;
+    const r = richMap.get(t.id);
+    return {
+      ...t,
+      title: r.title,
+      description: r.description,
+      tags: r.tags,
+      layers: r.layers.map((l, idx) => ({
         id: l.id,
         type: l.type,
         text: l.text,
@@ -1341,16 +1337,12 @@ async function main() {
         zIndex: idx + 1
       }))
     };
-    existingTemplates.push(cardTemplate);
-  }
+  });
 
-  // Count by category
+  // Re-write templates.ts
   const counts = {};
   existingTemplates.forEach(t => counts[t.category] = (counts[t.category] || 0) + 1);
-  console.log("New category counts:", counts);
-  console.log(`Total templates now: ${existingTemplates.length}`);
 
-  // Write new templates.ts
   const newCategories = [
     { id: "all", name: "All Templates", slug: "all", count: existingTemplates.length },
     { id: "wedding", name: "Wedding & Reception", slug: "wedding", count: counts["wedding"] || 7, description: "Traditional Indian, Royal Palace & Modern Floral wedding invitation cards" },
@@ -1368,10 +1360,10 @@ export const CATEGORIES = ${JSON.stringify(newCategories, null, 2)};
 `;
 
   fs.writeFileSync(templatesTsPath, updatedFileContent, "utf8");
-  console.log("✓ src/data/templates.ts written successfully!");
+  console.log("✓ src/data/templates.ts successfully updated with rich artwork templates!");
 }
 
 main().catch(err => {
-  console.error("FATAL ERROR in deploy script:", err);
+  console.error("Error in main:", err);
   process.exit(1);
 });
