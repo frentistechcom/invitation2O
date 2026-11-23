@@ -50,8 +50,10 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
+        sans: ["'Inter'", "'Poppins'", "-apple-system", "sans-serif"],
+        inter: ["'Inter'", "sans-serif"],
+        devanagari: ["'Poppins'", "'Noto Serif Devanagari'", "sans-serif"],
         serif: ["'Playfair Display'", "Georgia", "serif"],
-        sans: ["'Montserrat'", "'Outfit'", "-apple-system", "sans-serif"],
         calligraphy: ["'Great Vibes'", "'Alex Brush'", "cursive"],
       },
     },
